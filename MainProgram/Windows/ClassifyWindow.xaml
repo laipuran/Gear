@@ -1,0 +1,126 @@
+﻿<Window x:Class="MainProgram.Windows.PPTClassifier"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainProgram.Windows"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        mc:Ignorable="d" Width="400" Height="600"
+        AllowsTransparency="True" Background="#88FFFFFF"
+        WindowStyle="None" Opacity="0.8"
+        MouseEnter="Window_MouseEnter"
+        Title="课件窗口" ShowInTaskbar="False">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ui:ProgressRing
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="3"
+            Grid.Column="0"
+            Grid.Row="0"
+            Width="200"
+            Height="200"
+            x:Name="WaitProgressRing"
+            Visibility="Collapsed"
+            IsActive="False"/>
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="0"
+            x:Name="Chinese"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="语文"
+            FontSize="48"
+            FontFamily="得意黑"
+            MouseRightButtonDown="DropButton_MouseRightButtonDown"
+            Drop="DropButton_Drop"
+            Click="DropButton_Click"
+            MouseDoubleClick="DropButton_MouseDoubleClick"
+            AllowDrop="True"/>
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="0"
+            x:Name="Math"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="数学"
+            FontSize="48"
+            FontFamily="得意黑"
+            MouseRightButtonDown="DropButton_MouseRightButtonDown"
+            Drop="DropButton_Drop"
+            Click="DropButton_Click"
+            MouseDoubleClick="DropButton_MouseDoubleClick"
+            AllowDrop="True"/>
+
+        <Button
+            Grid.Column="0"
+            Grid.Row="1"
+            x:Name="English"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="英语"
+            FontSize="48"
+            FontFamily="得意黑"
+            MouseRightButtonDown="DropButton_MouseRightButtonDown"
+            Drop="DropButton_Drop"
+            Click="DropButton_Click"
+            MouseDoubleClick="DropButton_MouseDoubleClick"
+            AllowDrop="True"/>
+
+        <Button
+            Grid.Column="1"
+            Grid.Row="1"
+            x:Name="Physics"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="物理"
+            FontSize="48"
+            FontFamily="得意黑"
+            MouseRightButtonDown="DropButton_MouseRightButtonDown"
+            Drop="DropButton_Drop"
+            Click="DropButton_Click"
+            MouseDoubleClick="DropButton_MouseDoubleClick"
+            AllowDrop="True"/>
+        
+        <Button
+            Grid.Column="0"
+            Grid.Row="2"
+            x:Name="Chemistry"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="化学"
+            FontSize="48"
+            FontFamily="得意黑"
+            MouseRightButtonDown="DropButton_MouseRightButtonDown"
+            Drop="DropButton_Drop"
+            Click="DropButton_Click"
+            MouseDoubleClick="DropButton_MouseDoubleClick"
+            AllowDrop="True"/>
+        
+        <Button
+            Grid.Column="1"
+            Grid.Row="2"
+            x:Name="Biology"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Content="生物"
+            FontSize="48"
+            FontFamily="得意黑"
+            MouseRightButtonDown="DropButton_MouseRightButtonDown"
+            Drop="DropButton_Drop"
+            Click="DropButton_Click"
+            MouseDoubleClick="DropButton_MouseDoubleClick"
+            AllowDrop="True"/>
+    </Grid>
+</Window>
