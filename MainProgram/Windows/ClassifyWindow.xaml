@@ -11,6 +11,11 @@
         WindowStyle="None" Opacity="0.8"
         MouseEnter="Window_MouseEnter"
         Title="课件窗口" ShowInTaskbar="False">
+    <Window.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
