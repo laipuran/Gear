@@ -130,5 +130,10 @@ namespace MainProgram.Windows
             WaitProgressRing.Visibility = Visibility.Collapsed;
             SelectFiles(((Button)sender).Content.ToString());
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

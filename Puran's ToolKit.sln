@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Classifier", "MainProgram\Classifier.csproj", "{C63D1BF4-BF6F-4503-A83E-D0DCB1341488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "赖朴然的工具箱", "MainProgram\赖朴然的工具箱.csproj", "{C63D1BF4-BF6F-4503-A83E-D0DCB1341488}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OverTop", "D:\Code\OverTop\OverTop\OverTop.csproj", "{F9E1ACFA-DD63-465F-81FE-A3D360078B8B}"
 EndProject

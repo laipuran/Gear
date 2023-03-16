@@ -10,12 +10,29 @@
         AllowsTransparency="True" Background="#88FFFFFF"
         WindowStyle="None" Opacity="0.8"
         MouseEnter="Window_MouseEnter"
+        Closing="Window_Closing"
         Title="课件窗口" ShowInTaskbar="False">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="5"/>
         </Style>
+
+        <Style x:Key="DefaultButtonStyle" TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="FontSize" Value="64"/>
+            <Setter Property="FontFamily" Value="得意黑"/>
+            <Setter Property="AllowDrop" Value="True"/>
+            <!--
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑"
+            AllowDrop="True"
+            -->
+        </Style>
     </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -42,90 +59,90 @@
             Grid.Column="0"
             Grid.Row="0"
             x:Name="Chinese"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Content="语文"
-            FontSize="48"
-            FontFamily="得意黑"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑"
             AllowDrop="True"/>
 
         <Button
             Grid.Column="1"
             Grid.Row="0"
             x:Name="Math"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Content="数学"
-            FontSize="48"
-            FontFamily="得意黑"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑"
             AllowDrop="True"/>
 
         <Button
             Grid.Column="0"
             Grid.Row="1"
             x:Name="English"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Content="英语"
-            FontSize="48"
-            FontFamily="得意黑"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑"
             AllowDrop="True"/>
 
         <Button
             Grid.Column="1"
             Grid.Row="1"
             x:Name="Physics"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Content="物理"
-            FontSize="48"
-            FontFamily="得意黑"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑"
             AllowDrop="True"/>
         
         <Button
             Grid.Column="0"
             Grid.Row="2"
             x:Name="Chemistry"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Content="化学"
-            FontSize="48"
-            FontFamily="得意黑"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑"
             AllowDrop="True"/>
         
         <Button
             Grid.Column="1"
             Grid.Row="2"
             x:Name="Biology"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
             Content="生物"
-            FontSize="48"
-            FontFamily="得意黑"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑"
             AllowDrop="True"/>
     </Grid>
 </Window>
