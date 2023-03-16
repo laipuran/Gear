@@ -9,7 +9,7 @@ using System.Windows.Interop;
 using Microsoft.VisualBasic.FileIO;
 using System.Threading.Tasks;
 
-namespace MainProgram.Windows
+namespace Toolkit.Windows
 {
     /// <summary>
     /// ClassifyWindow.xaml 的交互逻辑
@@ -25,15 +25,17 @@ namespace MainProgram.Windows
             Top = SystemParameters.PrimaryScreenHeight * 0.05;
         }
 
-        private void SelectFiles(string subject)
+        private static void SelectFiles(string subject)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "选择课件";
-            openFileDialog.Filter = "课件|*.*";
-            openFileDialog.FileName = string.Empty;
-            openFileDialog.FilterIndex = 1;
-            openFileDialog.Multiselect = true;
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            OpenFileDialog openFileDialog = new()
+            {
+                Title = "选择课件",
+                Filter = "课件|*.*",
+                FileName = string.Empty,
+                FilterIndex = 1,
+                Multiselect = true,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            };
             if (Directory.Exists("E:\\"))
             {
                 openFileDialog.InitialDirectory = "E:\\";
@@ -46,17 +48,22 @@ namespace MainProgram.Windows
             CopyFiles(subject, files);
         }
 
-        private void GetDroppedFiles(string subject, DragEventArgs e)
+        private static void GetDroppedFiles(string subject, DragEventArgs e)
         {
             try
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Contains("Close"))
+                {
+                    App.Current.Shutdown();
+                    return;
+                }
                 CopyFiles(subject, files);
             }
             catch { }
         }
 
-        private void CopyFiles(string subject, string[] files)
+        private static void CopyFiles(string subject, string[] files)
         {
             string folder = $"D:/{subject}/";
             if (!Directory.Exists(folder))

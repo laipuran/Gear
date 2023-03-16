@@ -1,4 +1,4 @@
-﻿using MainProgram.Windows;
+﻿using Toolkit.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MainProgram
+namespace Toolkit
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
