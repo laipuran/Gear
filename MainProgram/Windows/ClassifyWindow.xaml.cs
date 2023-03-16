@@ -21,8 +21,8 @@ namespace MainProgram.Windows
         public PPTClassifier()
         {
             InitializeComponent();
-            Left = SystemParameters.PrimaryScreenWidth - Width;
-            Top = (SystemParameters.PrimaryScreenHeight - Height) / 5 * 2;
+            Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
+            Top = SystemParameters.PrimaryScreenHeight * 0.05;
         }
 
         private void SelectFiles(string subject)
@@ -134,6 +134,13 @@ namespace MainProgram.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        private void Note_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start("explorer.exe",
+                Environment.GetFolderPath
+                (Environment.SpecialFolder.MyPictures) + "\\Ink Canvas Screenshots");
         }
     }
 }

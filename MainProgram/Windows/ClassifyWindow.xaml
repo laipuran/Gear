@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:MainProgram.Windows"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
-        mc:Ignorable="d" Width="400" Height="600"
+        mc:Ignorable="d" Width="600" Height="300"
         AllowsTransparency="True" Background="#88FFFFFF"
-        WindowStyle="None" Opacity="0.8"
+        WindowStyle="None" Opacity="0.5"
         MouseEnter="Window_MouseEnter"
         Closing="Window_Closing"
         Title="课件窗口" ShowInTaskbar="False">
@@ -37,16 +37,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <ui:ProgressRing
-            Grid.ColumnSpan="2"
-            Grid.RowSpan="3"
+            Grid.ColumnSpan="3"
+            Grid.RowSpan="2"
             Grid.Column="0"
             Grid.Row="0"
             Width="200"
@@ -86,8 +87,8 @@
             AllowDrop="True"/>
 
         <Button
-            Grid.Column="0"
-            Grid.Row="1"
+            Grid.Column="2"
+            Grid.Row="0"
             x:Name="English"
             Content="英语"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
@@ -101,7 +102,7 @@
             AllowDrop="True"/>
 
         <Button
-            Grid.Column="1"
+            Grid.Column="0"
             Grid.Row="1"
             x:Name="Physics"
             Content="物理"
@@ -116,8 +117,8 @@
             AllowDrop="True"/>
         
         <Button
-            Grid.Column="0"
-            Grid.Row="2"
+            Grid.Column="1"
+            Grid.Row="1"
             x:Name="Chemistry"
             Content="化学"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
@@ -131,8 +132,8 @@
             AllowDrop="True"/>
         
         <Button
-            Grid.Column="1"
-            Grid.Row="2"
+            Grid.Column="2"
+            Grid.Row="1"
             x:Name="Biology"
             Content="生物"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
@@ -144,5 +145,20 @@
             FontSize="64"
             FontFamily="得意黑"
             AllowDrop="True"/>
+
+        <Button
+            Grid.Column="3"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            x:Name="Note"
+            Click="Note_Click"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            FontSize="64"
+            FontFamily="得意黑">
+            <TextBlock
+                Text="笔记截图"
+                TextWrapping="Wrap"/>
+        </Button>
     </Grid>
 </Window>
