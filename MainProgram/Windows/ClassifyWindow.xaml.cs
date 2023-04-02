@@ -18,9 +18,11 @@ namespace Toolkit.Windows
     {
         DateTime LastOpen;
         bool DoubleClicked = false;
+        NotifyWindow NotifyWindow = new();
         public PPTClassifier()
         {
             InitializeComponent();
+            NotifyWindow.Show();
             Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
             Top = SystemParameters.PrimaryScreenHeight * 0.05;
         }
@@ -95,18 +97,26 @@ namespace Toolkit.Windows
             SelectFiles(((Button)sender).Content.ToString());
         }
 
-        private void DropButton_Drop(object sender, DragEventArgs e)
+        private async void DropButton_Drop(object sender, DragEventArgs e)
         {
+            ((Button)sender).Dispatcher.Invoke(() =>
+            {
+                NotifyWindow.SetText("事件：移动文件到" + ((Button)sender).Content.ToString() + "文件夹");
+            });
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effects = DragDropEffects.Copy;
                 GetDroppedFiles(((Button)sender).Content.ToString(), e);
             }
+            await Task.Delay(1000);
+            NotifyWindow.SetText("事件：移动完成");
+
         }
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             OverTop.ExtentedWindowOps.ToBottom(this);
+            // NotifyWindow.SetText("事件：鼠标进入");
         }
 
         private async void DropButton_Click(object sender, RoutedEventArgs e)
@@ -128,10 +138,19 @@ namespace Toolkit.Windows
             }
             Process.Start("explorer.exe", $"D:\\{((Button)sender).Content}");
             LastOpen = DateTime.Now;
+
+            ((Button)sender).Dispatcher.Invoke(() =>
+            {
+                NotifyWindow.SetText("事件：打开" + ((Button)sender).Content.ToString() + "文件夹");
+            });
         }
 
         private void DropButton_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            Task.Run(() =>
+            {
+                NotifyWindow.SetText("事件：选择文件");
+            });
             DoubleClicked = true;
             WaitProgressRing.IsActive = false;
             WaitProgressRing.Visibility = Visibility.Collapsed;
@@ -141,10 +160,15 @@ namespace Toolkit.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
+            NotifyWindow.SetText("嘲讽：想关掉我？没门");
         }
 
         private void Note_Click(object sender, RoutedEventArgs e)
         {
+            Task.Run(() =>
+            {
+                NotifyWindow.SetText("事件：打开笔记文件夹");
+            });
             Process.Start("explorer.exe",
                 Environment.GetFolderPath
                 (Environment.SpecialFolder.MyPictures) + "\\Ink Canvas Screenshots");

@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Toolkit.Windows"
-        mc:Ignorable="d"
-        Title="NotifyWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d" AllowsTransparency="True"
+        Title="NotifyWindow" WindowStyle="None"
+        Background="#00FFFFFF"
+        Height="60" Left="0" Top="0" ShowInTaskbar="False"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}">
+    <StackPanel>
+        <TextBlock
+            x:Name="ContentTextBlock"
+            FontFamily="得意黑"
+            FontSize="48"
+            Foreground="White"
+            HorizontalAlignment="Center"
+            Text="Hello"/>
+    </StackPanel>
 </Window>
