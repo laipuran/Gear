@@ -43,10 +43,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Icon.ico" />
+    <EmbeddedResource Include="Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
   </ItemGroup>
 
@@ -55,7 +59,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icon.png" />
+    <Resource Include="Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
