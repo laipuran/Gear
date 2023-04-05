@@ -1,14 +1,8 @@
-﻿using ModernWpf.Controls;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.Input;
+using Hardcodet.Wpf.TaskbarNotification;
+using ModernWpf.Controls;
 using System.Windows;
 using System.Windows.Controls;
-using CommunityToolkit.Mvvm.Input;
-using Hardcodet.Wpf.TaskbarNotification;
 using Toolkit.Windows;
 
 namespace Toolkit
@@ -38,11 +32,11 @@ namespace Toolkit
             {
                 Header = "设置",
                 ToolTip = "对程序进行设置",
-                Icon = new FontIcon() { Glyph = "\uE713"},
+                Icon = new FontIcon() { Glyph = "\uE713" },
                 Command = new RelayCommand(() => { SettingsItem.ContextMenu.IsOpen = !SettingsItem.ContextMenu.IsOpen; })
             };
 
-            var classifierVisibilityOption= new ToggleSwitch()
+            var classifierVisibilityOption = new ToggleSwitch()
             {
                 Header = "是否显示课件分类",
                 IsOn = Classifier.Visibility == Visibility.Visible,
