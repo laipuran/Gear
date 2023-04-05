@@ -22,37 +22,17 @@ namespace Toolkit
     /// </summary>
     public partial class MainWindow : Window
     {
-        PPTClassifier Classifier = new();
         public MainWindow()
         {
             InitializeComponent();
-            Classifier.Show();
-            ClassifyToggleButton.IsOn = true;
-            if (ClassifyToggleButton.IsOn)
-            {
-                Classifier.Visibility = Visibility.Visible;
-                Dispatcher.BeginInvoke(() =>
-                {
-                    this.Visibility = Visibility.Collapsed;
-                });
-            }
-            else
-                Classifier.Visibility = Visibility.Collapsed;
+            Opacity = 0;
         }
 
-        private void ClassifyToggleButton_Toggled(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (ClassifyToggleButton.IsOn)
-            {
-                Classifier.Visibility = Visibility.Visible;
-            }
-            else
-                Classifier.Visibility = Visibility.Collapsed;
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            App.Current.Shutdown();
+            e.Cancel = true;
+            Opacity = 0;
+            App.Notifier.SetText($"事件：修改主窗口[透明度]为[{Opacity}]");
         }
     }
 }

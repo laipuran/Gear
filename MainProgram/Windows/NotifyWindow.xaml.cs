@@ -28,14 +28,17 @@ namespace Toolkit.Windows
         {
             InitializeComponent();
             SetText("事件：启动");
-            timer.Interval = 60000;//1800000;
+            timer.Interval = 3000;//1800000;
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
         }
 
         private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
         {
-            SetText("花老师永远滴神！");
+            if (App.ShowTimer)
+            {
+                SetText("花老师永远滴神！");
+            }
             timer.Start();
         }
 
