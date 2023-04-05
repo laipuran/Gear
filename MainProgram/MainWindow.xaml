@@ -3,18 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Toolkit"
         mc:Ignorable="d" xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:local="clr-namespace:Toolkit"
         ui:WindowHelper.UseModernWindowStyle="True"
         Title="主页" Height="450" Width="800"
         AllowsTransparency="True" WindowStyle="None"
-        Closed="Window_Closed" Icon="Icon.png"
-        ShowInTaskbar="False">
+        Closing="Window_Closing" Icon="Icon.png"
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        Opacity="0">
     <ui:SimpleStackPanel Margin="20">
-        <ui:ToggleSwitch
-            x:Name="ClassifyToggleButton"
-            Header="启用课件分类"
-            Toggled="ClassifyToggleButton_Toggled"
-            />
     </ui:SimpleStackPanel>
+
 </Window>

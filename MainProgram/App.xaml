@@ -4,7 +4,9 @@
              xmlns:local="clr-namespace:Toolkit"
              StartupUri="MainWindow.xaml"
              ShutdownMode="OnExplicitShutdown"
-            xmlns:ui="http://schemas.modernwpf.com/2019">
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             Startup="Application_Startup"
+             Exit="Application_Exit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
