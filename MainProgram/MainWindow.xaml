@@ -3,15 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:modern="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d"
         xmlns:local="clr-namespace:Toolkit"
-        ui:WindowHelper.UseModernWindowStyle="True"
+        modern:WindowHelper.UseModernWindowStyle="True"
         Title="主页" Height="450" Width="800"
         AllowsTransparency="True" WindowStyle="None"
         Closing="Window_Closing" Icon="Icon.png"
-        ShowInTaskbar="False" ResizeMode="NoResize"
-        Opacity="0">
-    <ui:SimpleStackPanel Margin="20">
-    </ui:SimpleStackPanel>
+        ShowInTaskbar="False">
+    <ScrollViewer>
+        <StackPanel Margin="20">
+            <TextBlock
+                Text="设置"
+                FontSize="28"/>
+            <StackPanel
+                Margin="0,10,0,0"
+                Orientation="Horizontal">
+                <wpfui:ToggleSwitch
+                    Content="显示为公式"/>
+                <wpfui:SplitButton/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
 
 </Window>

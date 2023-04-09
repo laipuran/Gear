@@ -10,7 +10,6 @@ namespace Toolkit
         public MainWindow()
         {
             InitializeComponent();
-            Opacity = 0;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

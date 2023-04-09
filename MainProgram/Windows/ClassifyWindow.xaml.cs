@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using ToolKit.Classes;
 
 namespace Toolkit.Windows
 {
@@ -112,7 +113,7 @@ namespace Toolkit.Windows
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            OverTop.ExtentedWindowOps.ToBottom(this);
+            Operations.ToBottom(this);
             // NotifyWindow.SetText("事件：鼠标进入");
         }
 

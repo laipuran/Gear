@@ -1,17 +1,21 @@
 ﻿<Application x:Class="Toolkit.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:modern="http://schemas.modernwpf.com/2019"
              xmlns:local="clr-namespace:Toolkit"
              StartupUri="MainWindow.xaml"
              ShutdownMode="OnExplicitShutdown"
-             xmlns:ui="http://schemas.modernwpf.com/2019"
              Startup="Application_Startup"
              Exit="Application_Exit">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ui:ThemeResources />
-                <ui:XamlControlsResources />
+                <modern:ThemeResources />
+                <modern:XamlControlsResources />
+                
+                <wpfui:ThemesDictionary Theme="Light" />
+                <wpfui:ControlsDictionary />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
