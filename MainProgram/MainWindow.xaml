@@ -8,22 +8,61 @@
         mc:Ignorable="d"
         xmlns:local="clr-namespace:Toolkit"
         modern:WindowHelper.UseModernWindowStyle="True"
-        Title="主页" Height="450" Width="800"
+        Title="设置" Height="450" Width="800"
         AllowsTransparency="True" WindowStyle="None"
-        Closing="Window_Closing" Icon="Icon.png"
-        ShowInTaskbar="False">
-    <ScrollViewer>
-        <StackPanel Margin="20">
+        Closing="Window_Closing" Icon="Icon.png">
+    <Window.Resources>
+        <Style TargetType="ContentControl">
+            <Setter Property="FontFamily" Value="微软雅黑"/>
+        </Style>
+    </Window.Resources>
+
+	<ScrollViewer>
+        <StackPanel Margin="20">    
             <TextBlock
                 Text="设置"
                 FontSize="28"/>
-            <StackPanel
-                Margin="0,10,0,0"
-                Orientation="Horizontal">
-                <wpfui:ToggleSwitch
-                    Content="显示为公式"/>
-                <wpfui:SplitButton/>
-            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+	                Grid.Column="0"
+	                Margin="10">
+                    <TextBlock
+	                    Text="轮换的文字（用回车分开）："/>
+	                <wpfui:TextBox
+                        Margin="0,10,0,0"
+	                    x:Name="ContentTextBox"
+                        AcceptsReturn="True"/>
+                    <wpfui:Button
+	                    Margin="0,10,0,0"
+                        x:Name="ApplyButton"
+                        Click="ApplyButton_Click"
+	                    Content="确认"/>
+                </StackPanel>
+
+	            <StackPanel
+                    Grid.Column="1"
+                    Margin="10"
+		            Orientation="Vertical">
+		            <modern:ToggleSwitch
+			            Header="显示为公式"/>
+		            <modern:RadioButtons
+			            Header="切换模式">
+			            <RadioButton
+                            x:Name="NormalRadioButton"
+				            Content="顺序"
+				            IsChecked="True"/>
+			            <RadioButton
+                            x:Name="ShuffleRadioButton"
+				            Content="随机"/>
+		            </modern:RadioButtons>
+	            </StackPanel>
+
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 

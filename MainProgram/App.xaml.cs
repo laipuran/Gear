@@ -18,7 +18,7 @@ namespace Toolkit
         public static ContextMenu TaskbarIconContextMenu { get; private set; }
         public static ToolTip TaskbarIconToolTip { get; private set; }
         public static MenuItem SettingsItem { get; private set; }
-        public static bool ShowTimer = false;
+        public static bool ShowAutoScroll = false;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             SetupTrayIcon();
@@ -46,7 +46,7 @@ namespace Toolkit
             var timerVisibilityOption = new ToggleSwitch()
             {
                 Header = "是否定时显示",
-                IsOn = ShowTimer,
+                IsOn = ShowAutoScroll,
             };
             timerVisibilityOption.Toggled += TimerVisibilityToggleSwitch_Toggled;
 
@@ -106,8 +106,8 @@ namespace Toolkit
 
         private void TimerVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            ShowTimer = !ShowTimer;
-            string flag = ShowTimer ? "是" : "否";
+            ShowAutoScroll = !ShowAutoScroll;
+            string flag = ShowAutoScroll ? "是" : "否";
             Notifier.SetText($"事件：修改计时器事件[活动性]为[{flag}]");
         }
 

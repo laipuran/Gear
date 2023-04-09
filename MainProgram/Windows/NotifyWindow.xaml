@@ -10,7 +10,9 @@
         Background="#00FFFFFF" Topmost="True"
         Height="60" Left="0" Top="0" ShowInTaskbar="False"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}">
-    <StackPanel>
+    <Window.Resources>
+    </Window.Resources>
+	<StackPanel>
         <TextBlock
             x:Name="ContentTextBlock"
             FontFamily="得意黑"
