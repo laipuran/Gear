@@ -19,6 +19,7 @@ namespace Toolkit
         public static ToolTip TaskbarIconToolTip { get; private set; }
         public static MenuItem SettingsItem { get; private set; }
         public static bool ShowAutoScroll = false;
+        public static LoopMode Loop = LoopMode.Normal;
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             SetupTrayIcon();

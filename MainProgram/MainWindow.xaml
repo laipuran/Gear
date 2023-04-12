@@ -55,10 +55,12 @@
 			            <RadioButton
                             x:Name="NormalRadioButton"
 				            Content="顺序"
-				            IsChecked="True"/>
+				            IsChecked="True"
+                            Checked="NormalRadioButton_Checked"/>
 			            <RadioButton
                             x:Name="ShuffleRadioButton"
-				            Content="随机"/>
+				            Content="随机"
+                            Checked="ShuffleRadioButton_Checked"/>
 		            </modern:RadioButtons>
 	            </StackPanel>
 

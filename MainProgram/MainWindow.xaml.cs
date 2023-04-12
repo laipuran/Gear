@@ -19,13 +19,24 @@ namespace Toolkit
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            Opacity = 0;
-            App.Notifier.SetText($"事件：修改主窗口[透明度]为[{Opacity}]");
+            WindowState = WindowState.Minimized;
+            Opacity= 1;
+            App.Notifier.SetText($"事件：修改主窗口[状态]为[{WindowState}]");
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
-            App.Notifier.SetScroller(ContentTextBox.Text.Trim().Split().ToList(), NormalRadioButton.IsChecked is true ? LoopMode.Normal : LoopMode.Shuffle);
+            App.Notifier.SetScroller(ContentTextBox.Text.Trim().Split('\n').ToList());
+        }
+
+        private void NormalRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            App.Loop = LoopMode.Normal;
+        }
+
+        private void ShuffleRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            App.Loop = LoopMode.Shuffle;
         }
     }
 }
