@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using WpfMath.Controls;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Toolkit.Windows
 {
@@ -17,16 +19,24 @@ namespace Toolkit.Windows
         Normal
     }
 
+    public enum DisplayMode
+    {
+        Text,
+        Formula
+    }
     /// <summary>
     /// NotifyWindow.xaml 的交互逻辑
     /// </summary>
     public partial class NotifyWindow : Window
     {
         Storyboard BoardOpen = new(), BoardClose = new();
-        DoubleAnimation Open = new(), Close = new();
+        DoubleAnimation Open = new();
+        new DoubleAnimation Close = new();
+        DisplayMode Mode = DisplayMode.Text;
         Timer timer = new();
         List<string> AutoScrollText = new();
         int count = 0;
+
         public NotifyWindow()
         {
             InitializeComponent();
@@ -50,7 +60,6 @@ namespace Toolkit.Windows
                 Springiness = 5
             };
             Open.EasingFunction = ElasticEase;
-            Storyboard.SetTargetName(Open, "ContentTextBlock");
             Storyboard.SetTargetProperty(Open, new(WidthProperty));
             BoardOpen.Children.Add(Open);
 
@@ -64,8 +73,16 @@ namespace Toolkit.Windows
             Close.EasingFunction = BackEase;
             BoardClose.Children.Add(Close);
 
-            Storyboard.SetTargetName(Close, "ContentTextBlock");
             Storyboard.SetTargetProperty(Close, new(WidthProperty));
+        }
+
+        private void SetAnimationTarget(FrameworkElement element)
+        {
+            element.Dispatcher.Invoke(() =>
+            {
+                Storyboard.SetTargetName(Open, element.Name);
+                Storyboard.SetTargetName(Close, element.Name);
+            });
         }
 
         private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
@@ -88,15 +105,24 @@ namespace Toolkit.Windows
                     showText = AutoScrollText[rand.Next(0, AutoScrollText.Count - 1)];
                 }
                 timer.Interval = showText.Length * 300 + 10000;
-                SetText(showText);
+
+                if (Mode == DisplayMode.Text)
+                {
+                    SetText(showText);
+                }
+                else if (Mode == DisplayMode.Formula)
+                {
+                    SetFormula(showText);
+                }
             }
             timer.Start();
         }
 
-        public void SetScroller(List<string> strings)
+        public void SetScroller(List<string> strings, DisplayMode mode)
         {
             timer.Stop();
 
+            Mode = mode;
             AutoScrollText = strings;
 
             if (App.Loop == LoopMode.Normal)
@@ -107,8 +133,49 @@ namespace Toolkit.Windows
             timer.Start();
         }
 
-        public async void SetText(string? text)
+        private async void SetFormula(string formula)
         {
+            SetAnimationTarget(FormulaViewBox);
+            try
+            {
+                BoardOpen.Stop(FormulaViewBox);
+                BoardOpen.Stop(FormulaViewBox);
+            }
+            catch { }
+            if (string.IsNullOrEmpty(formula)) return;
+
+            await ContentFormulaControl.Dispatcher.Invoke(async () =>
+            {
+                FormattedText formattedText = new FormattedText(
+                formula,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(ContentFormulaControl.FontFamily, ContentFormulaControl.FontStyle, ContentFormulaControl.FontWeight, ContentFormulaControl.FontStretch),
+                ContentFormulaControl.FontSize,
+                System.Windows.Media.Brushes.Black,
+                VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
+                ContentFormulaControl.Formula = formula;
+                Open.To = formattedText.Width;
+                BoardOpen.Begin(FormulaViewBox);
+
+                int delay = 3000;
+                if (formula.Length >= 10)
+                {
+                    delay = formula.Length * 100 + 5000;
+                }
+                await Task.Delay(delay);
+
+                Close.From = formattedText.Width;
+                BoardClose.Begin(FormulaViewBox);
+                await Task.Delay(2000);
+                ContentFormulaControl.Formula = "";
+            });
+        }
+
+        public async void SetText(string text)
+        {
+            SetAnimationTarget(ContentTextBlock);
             try
             {
                 BoardOpen.Stop(ContentTextBlock);
@@ -132,7 +199,7 @@ namespace Toolkit.Windows
                 Open.To = formattedText.Width;
                 BoardOpen.Begin(ContentTextBlock);
 
-                int delay = 0;
+                int delay = 3000;
                 if (text.Length >= 10)
                 {
                     delay = text.Length * 100 + 5000;

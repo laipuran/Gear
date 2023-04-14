@@ -26,7 +26,8 @@ namespace Toolkit
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
-            App.Notifier.SetScroller(ContentTextBox.Text.Trim().Split('\n').ToList());
+            App.Notifier.SetScroller(ContentTextBox.Text.Trim().Split('\n').ToList()
+                , FormulaToggleSwitch.IsOn ? DisplayMode.Formula : DisplayMode.Text);
         }
 
         private void NormalRadioButton_Checked(object sender, RoutedEventArgs e)

@@ -49,6 +49,7 @@
                     Margin="10"
 		            Orientation="Vertical">
 		            <modern:ToggleSwitch
+                        x:Name="FormulaToggleSwitch"
 			            Header="显示为公式"/>
 		            <modern:RadioButtons
 			            Header="切换模式">
