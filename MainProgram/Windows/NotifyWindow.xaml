@@ -13,14 +13,16 @@
         Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <Window.Resources>
     </Window.Resources>
-	<Grid
+	<StackPanel
+        Orientation="Horizontal"
         HorizontalAlignment="Center">
         <TextBlock
             x:Name="ContentTextBlock"
             FontFamily="得意黑"
             FontSize="48"
             Foreground="White"
-            Text=""/>
+            Text=""
+            Margin="0,0,20,0"/>
         <Viewbox
             Height="60"
             x:Name="FormulaViewBox">
@@ -29,5 +31,5 @@
                 FontSize="32"
                 Foreground="White"/>
         </Viewbox>
-    </Grid>
+    </StackPanel>
 </Window>

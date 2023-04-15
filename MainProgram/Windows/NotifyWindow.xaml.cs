@@ -24,14 +24,17 @@ namespace Toolkit.Windows
         Text,
         Formula
     }
+
+    public enum AnimationMode
+    {
+        Open,
+        Close
+    }
     /// <summary>
     /// NotifyWindow.xaml 的交互逻辑
     /// </summary>
     public partial class NotifyWindow : Window
     {
-        Storyboard BoardOpen = new(), BoardClose = new();
-        DoubleAnimation Open = new();
-        new DoubleAnimation Close = new();
         DisplayMode Mode = DisplayMode.Text;
         Timer timer = new();
         List<string> AutoScrollText = new();
@@ -40,49 +43,88 @@ namespace Toolkit.Windows
         public NotifyWindow()
         {
             InitializeComponent();
-            SetupAnimations();
             SetText("事件：启动");
             timer.Interval = 3000;//1800000;
             timer.Elapsed += Timer_Elapsed;
         }
 
-        private void SetupAnimations()
+        private Storyboard GetStoryBoard(AnimationMode mode, string text)
         {
-            Open = new()
+            Storyboard storyboard = new();
+            DoubleAnimation animation = new();
+
+            FormattedText? formattedText = new(
+                text,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(ContentTextBlock.FontFamily, ContentTextBlock.FontStyle, ContentTextBlock.FontWeight, ContentTextBlock.FontStretch),
+                ContentTextBlock.FontSize,
+                System.Windows.Media.Brushes.Black,
+                VisualTreeHelper.GetDpi(this).PixelsPerDip);
+
+            if (Mode == DisplayMode.Text)
             {
-                From = 0,
-                Duration = new Duration(TimeSpan.FromSeconds(3))
-            };
+                Storyboard.SetTargetName(ContentTextBlock, ContentTextBlock.Name);
 
-            ElasticEase ElasticEase = new()
+                formattedText = new FormattedText(
+                text,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(ContentTextBlock.FontFamily, ContentTextBlock.FontStyle, ContentTextBlock.FontWeight, ContentTextBlock.FontStretch),
+                ContentTextBlock.FontSize,
+                System.Windows.Media.Brushes.Black,
+                VisualTreeHelper.GetDpi(this).PixelsPerDip);
+            }
+            else if (Mode == DisplayMode.Formula)
             {
-                Oscillations = 2,
-                Springiness = 5
-            };
-            Open.EasingFunction = ElasticEase;
-            Storyboard.SetTargetProperty(Open, new(WidthProperty));
-            BoardOpen.Children.Add(Open);
+                Storyboard.SetTargetName(FormulaViewBox, FormulaViewBox.Name);
 
-            Close = new()
+                formattedText = new FormattedText(
+                text,
+                CultureInfo.CurrentUICulture,
+                FlowDirection.LeftToRight,
+                new Typeface(ContentFormulaControl.FontFamily, ContentFormulaControl.FontStyle, ContentFormulaControl.FontWeight, ContentFormulaControl.FontStretch),
+                ContentFormulaControl.FontSize,
+                System.Windows.Media.Brushes.Black,
+                VisualTreeHelper.GetDpi(this).PixelsPerDip);
+            }
+
+            if (mode == AnimationMode.Open)
             {
-                To = 0,
-                Duration = new Duration(TimeSpan.FromSeconds(2))
-            };
+                animation = new()
+                {
+                    From = 0,
+                    To = formattedText.Width,
+                    Duration = new Duration(TimeSpan.FromSeconds(3))
+                };
 
-            BackEase BackEase = new() { EasingMode = EasingMode.EaseIn };
-            Close.EasingFunction = BackEase;
-            BoardClose.Children.Add(Close);
+                animation.EasingFunction = new ElasticEase()
+                {
+                    Oscillations = 2,
+                    Springiness = 5
+                };
 
-            Storyboard.SetTargetProperty(Close, new(WidthProperty));
-        }
-
-        private void SetAnimationTarget(FrameworkElement element)
-        {
-            element.Dispatcher.Invoke(() =>
+                Storyboard.SetTargetProperty(animation, new(WidthProperty));
+                storyboard.Children.Add(animation);
+            }
+            else if (mode == AnimationMode.Close)
             {
-                Storyboard.SetTargetName(Open, element.Name);
-                Storyboard.SetTargetName(Close, element.Name);
-            });
+                animation = new()
+                {
+                    To = 0,
+                    Duration = new Duration(TimeSpan.FromSeconds(2))
+                };
+
+                animation.EasingFunction = new BackEase()
+                {
+                    EasingMode = EasingMode.EaseIn
+                };
+                storyboard.Children.Add(animation);
+
+                Storyboard.SetTargetProperty(animation, new(WidthProperty));
+            }
+            
+            return storyboard;
         }
 
         private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
@@ -135,28 +177,13 @@ namespace Toolkit.Windows
 
         private async void SetFormula(string formula)
         {
-            SetAnimationTarget(FormulaViewBox);
-            try
-            {
-                BoardOpen.Stop(FormulaViewBox);
-                BoardOpen.Stop(FormulaViewBox);
-            }
-            catch { }
             if (string.IsNullOrEmpty(formula)) return;
 
             await ContentFormulaControl.Dispatcher.Invoke(async () =>
             {
-                FormattedText formattedText = new FormattedText(
-                formula,
-                CultureInfo.CurrentUICulture,
-                FlowDirection.LeftToRight,
-                new Typeface(ContentFormulaControl.FontFamily, ContentFormulaControl.FontStyle, ContentFormulaControl.FontWeight, ContentFormulaControl.FontStretch),
-                ContentFormulaControl.FontSize,
-                System.Windows.Media.Brushes.Black,
-                VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
+                Storyboard BoardOpen = GetStoryBoard(AnimationMode.Open, formula);
                 ContentFormulaControl.Formula = formula;
-                Open.To = formattedText.Width;
                 BoardOpen.Begin(FormulaViewBox);
 
                 int delay = 3000;
@@ -166,22 +193,16 @@ namespace Toolkit.Windows
                 }
                 await Task.Delay(delay);
 
-                Close.From = formattedText.Width;
+                Storyboard BoardClose = GetStoryBoard(AnimationMode.Close, formula);
                 BoardClose.Begin(FormulaViewBox);
                 await Task.Delay(2000);
                 ContentFormulaControl.Formula = "";
+                FormulaViewBox.Width = 0;
             });
         }
 
         public async void SetText(string text)
         {
-            SetAnimationTarget(ContentTextBlock);
-            try
-            {
-                BoardOpen.Stop(ContentTextBlock);
-                BoardOpen.Stop(ContentTextBlock);
-            }
-            catch { }
             if (string.IsNullOrEmpty(text)) return;
             
             await ContentTextBlock.Dispatcher.Invoke(async () =>
@@ -195,8 +216,8 @@ namespace Toolkit.Windows
                 System.Windows.Media.Brushes.Black,
                 VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
+                Storyboard BoardOpen = GetStoryBoard(AnimationMode.Open, text);
                 ContentTextBlock.Text = text;
-                Open.To = formattedText.Width;
                 BoardOpen.Begin(ContentTextBlock);
 
                 int delay = 3000;
@@ -206,10 +227,11 @@ namespace Toolkit.Windows
                 }
                 await Task.Delay(delay);
 
-                Close.From = formattedText.Width;
+                Storyboard BoardClose = GetStoryBoard(AnimationMode.Open, text);
                 BoardClose.Begin(ContentTextBlock);
                 await Task.Delay(2000);
                 ContentTextBlock.Text = "";
+                ContentTextBlock.Width = 0;
             });
         }
 
