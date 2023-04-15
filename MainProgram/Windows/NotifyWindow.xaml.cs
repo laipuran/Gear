@@ -227,7 +227,7 @@ namespace Toolkit.Windows
                 }
                 await Task.Delay(delay);
 
-                Storyboard BoardClose = GetStoryBoard(AnimationMode.Open, text);
+                Storyboard BoardClose = GetStoryBoard(AnimationMode.Close, text);
                 BoardClose.Begin(ContentTextBlock);
                 await Task.Delay(2000);
                 ContentTextBlock.Text = "";
