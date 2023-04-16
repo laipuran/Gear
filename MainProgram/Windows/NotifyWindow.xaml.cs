@@ -48,7 +48,7 @@ namespace Toolkit.Windows
             timer.Elapsed += Timer_Elapsed;
         }
 
-        private Storyboard GetStoryBoard(AnimationMode mode, string text)
+        private Storyboard GetStoryBoard(AnimationMode mode, DisplayMode dmode, string text)
         {
             Storyboard storyboard = new();
             DoubleAnimation animation = new();
@@ -62,7 +62,7 @@ namespace Toolkit.Windows
                 System.Windows.Media.Brushes.Black,
                 VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
-            if (Mode == DisplayMode.Text)
+            if (dmode == DisplayMode.Text)
             {
                 Storyboard.SetTargetName(ContentTextBlock, ContentTextBlock.Name);
 
@@ -75,7 +75,7 @@ namespace Toolkit.Windows
                 System.Windows.Media.Brushes.Black,
                 VisualTreeHelper.GetDpi(this).PixelsPerDip);
             }
-            else if (Mode == DisplayMode.Formula)
+            else if (dmode == DisplayMode.Formula)
             {
                 Storyboard.SetTargetName(FormulaViewBox, FormulaViewBox.Name);
 
@@ -84,7 +84,7 @@ namespace Toolkit.Windows
                 CultureInfo.CurrentUICulture,
                 FlowDirection.LeftToRight,
                 new Typeface(ContentFormulaControl.FontFamily, ContentFormulaControl.FontStyle, ContentFormulaControl.FontWeight, ContentFormulaControl.FontStretch),
-                ContentFormulaControl.FontSize,
+                18,
                 System.Windows.Media.Brushes.Black,
                 VisualTreeHelper.GetDpi(this).PixelsPerDip);
             }
@@ -111,6 +111,7 @@ namespace Toolkit.Windows
             {
                 animation = new()
                 {
+                    From = formattedText.Width,
                     To = 0,
                     Duration = new Duration(TimeSpan.FromSeconds(2))
                 };
@@ -123,7 +124,7 @@ namespace Toolkit.Windows
 
                 Storyboard.SetTargetProperty(animation, new(WidthProperty));
             }
-            
+
             return storyboard;
         }
 
@@ -146,7 +147,7 @@ namespace Toolkit.Windows
                     Random rand = new();
                     showText = AutoScrollText[rand.Next(0, AutoScrollText.Count - 1)];
                 }
-                timer.Interval = showText.Length * 300 + 10000;
+                timer.Interval = showText.Length * 100 + 50000;
 
                 if (Mode == DisplayMode.Text)
                 {
@@ -182,21 +183,16 @@ namespace Toolkit.Windows
             await ContentFormulaControl.Dispatcher.Invoke(async () =>
             {
 
-                Storyboard BoardOpen = GetStoryBoard(AnimationMode.Open, formula);
+                Storyboard BoardOpen = GetStoryBoard(AnimationMode.Open, DisplayMode.Formula, formula);
                 ContentFormulaControl.Formula = formula;
                 BoardOpen.Begin(FormulaViewBox);
 
-                int delay = 3000;
-                if (formula.Length >= 10)
-                {
-                    delay = formula.Length * 100 + 5000;
-                }
+                int delay = 5000;
                 await Task.Delay(delay);
 
-                Storyboard BoardClose = GetStoryBoard(AnimationMode.Close, formula);
+                Storyboard BoardClose = GetStoryBoard(AnimationMode.Close, DisplayMode.Formula, formula);
                 BoardClose.Begin(FormulaViewBox);
                 await Task.Delay(2000);
-                ContentFormulaControl.Formula = "";
                 FormulaViewBox.Width = 0;
             });
         }
@@ -204,7 +200,7 @@ namespace Toolkit.Windows
         public async void SetText(string text)
         {
             if (string.IsNullOrEmpty(text)) return;
-            
+
             await ContentTextBlock.Dispatcher.Invoke(async () =>
             {
                 FormattedText formattedText = new FormattedText(
@@ -216,7 +212,7 @@ namespace Toolkit.Windows
                 System.Windows.Media.Brushes.Black,
                 VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
-                Storyboard BoardOpen = GetStoryBoard(AnimationMode.Open, text);
+                Storyboard BoardOpen = GetStoryBoard(AnimationMode.Open, DisplayMode.Text, text);
                 ContentTextBlock.Text = text;
                 BoardOpen.Begin(ContentTextBlock);
 
@@ -227,10 +223,9 @@ namespace Toolkit.Windows
                 }
                 await Task.Delay(delay);
 
-                Storyboard BoardClose = GetStoryBoard(AnimationMode.Close, text);
+                Storyboard BoardClose = GetStoryBoard(AnimationMode.Close, DisplayMode.Text, text);
                 BoardClose.Begin(ContentTextBlock);
                 await Task.Delay(2000);
-                ContentTextBlock.Text = "";
                 ContentTextBlock.Width = 0;
             });
         }

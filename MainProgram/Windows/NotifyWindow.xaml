@@ -9,22 +9,22 @@
         mc:Ignorable="d" AllowsTransparency="True"
         Title="NotifyWindow" WindowStyle="None"
         Background="#00FFFFFF" Topmost="True"
-        Height="60" Left="0" Top="0" ShowInTaskbar="False"
+        Height="80" Left="0" Top="0" ShowInTaskbar="False"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <Window.Resources>
     </Window.Resources>
-	<StackPanel
+    <StackPanel
+        Background="#44000000"
         Orientation="Horizontal"
+        VerticalAlignment="Center"
         HorizontalAlignment="Center">
         <TextBlock
             x:Name="ContentTextBlock"
             FontFamily="得意黑"
             FontSize="48"
-            Foreground="White"
-            Text=""
-            Margin="0,0,20,0"/>
+            Foreground="White"/>
         <Viewbox
-            Height="60"
+            Height="80"
             x:Name="FormulaViewBox">
             <math:FormulaControl
                 x:Name="ContentFormulaControl"
