@@ -35,11 +35,15 @@ namespace Toolkit.Windows
         List<string> AutoScrollText = new();
         int count = 0;
 
-        Queue<string> formula = new(), text = new();
+        Queue<string> FormulaQueue = new(), TextQueue = new();
 
         public NotifyWindow()
         {
             InitializeComponent();
+
+            Task.Run(SetFormula);
+            Task.Run(SetText);
+
             EnqueueText("事件：启动");
             timer.Interval = 3000; //1800000;
             timer.Elapsed += Timer_Elapsed;
@@ -54,7 +58,7 @@ namespace Toolkit.Windows
 
                 EasingFunction = new ElasticEase()
                 {
-                    Oscillations = 1.5,
+                    Oscillations = 1,
                     Springiness = 3
                 }
             };
@@ -152,53 +156,86 @@ namespace Toolkit.Windows
             timer.Start();
         }
 
-        private async void EnqueueFormula(string formula)
+        private void EnqueueFormula(string formula)
         {
             if (string.IsNullOrEmpty(formula)) return;
 
-            await ContentFormulaControl.Dispatcher.Invoke(async () =>
-            {
-                var boards = GetAnimation(DisplayMode.Formula, formula);
-                Storyboard BoardOpen = boards[0];
-                ContentFormulaControl.Formula = formula;
-                BoardOpen.Begin(FormulaViewBox);
-
-                int delay = 5000;
-                await Task.Delay(delay);
-
-                Storyboard BoardClose = boards[1];
-                BoardClose.Begin(FormulaViewBox);
-                await Task.Delay(2000);
-
-                FormulaViewBox.Height = 0;
-            });
+            FormulaQueue.Enqueue(formula);
         }
 
-        public async void EnqueueText(string text)
+        private async void SetFormula()
+        {
+            while (true)
+            {
+                if (FormulaQueue.Count > 0)
+                {
+                    string formula = FormulaQueue.Dequeue();
+
+                    await ContentFormulaControl.Dispatcher.Invoke(async () =>
+                    {
+                        var boards = GetAnimation(DisplayMode.Formula, formula);
+                        Storyboard BoardOpen = boards[0];
+                        ContentFormulaControl.Formula = formula;
+                        BoardOpen.Begin(FormulaViewBox);
+
+                        int delay = 5000;
+                        await Task.Delay(delay);
+
+                        Storyboard BoardClose = boards[1];
+                        BoardClose.Begin(FormulaViewBox);
+                        await Task.Delay(2000);
+
+                        FormulaViewBox.Height = 0;
+                    });
+                }
+            }
+        }
+
+        public void EnqueueText(string text)
         {
             if (string.IsNullOrEmpty(text)) return;
 
-            await ContentTextBlock.Dispatcher.Invoke(async () =>
-            {
-                var boards = GetAnimation(DisplayMode.Text, text);
-                Storyboard BoardOpen = boards[0];
-                ContentTextBlock.Text = text;
-                BoardOpen.Begin(ContentTextBlock);
-
-                int delay = 3000;
-                if (text.Length >= 10)
-                {
-                    delay = text.Length * 100 + 5000;
-                }
-                await Task.Delay(delay);
-
-                Storyboard BoardClose = boards[1];
-                BoardClose.Begin(ContentTextBlock);
-                await Task.Delay(2000);
-
-                ContentTextBlock.Width = 0;
-            });
+            TextQueue.Enqueue(text);
         }
 
+        private async void SetText()
+        {
+            while (true)
+            {
+                if (App.TaskbarIconToolTip is not null)
+                {
+                    App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
+                    {
+                        App.TaskbarIconToolTip.Content = "PuranLai's ToolKit\n队列中字条数量：" + TextQueue.Count;
+                    });
+                }
+
+                if (TextQueue.Count > 0)
+                {
+                    string text = TextQueue.Dequeue();
+
+                    await ContentTextBlock.Dispatcher.Invoke(async () =>
+                    {
+                        var boards = GetAnimation(DisplayMode.Text, text);
+                        Storyboard BoardOpen = boards[0];
+                        ContentTextBlock.Text = text;
+                        BoardOpen.Begin(ContentTextBlock);
+
+                        int delay = 500;
+                        if (text.Length >= 10)
+                        {
+                            delay = text.Length * 100 + 5000;
+                        }
+                        await Task.Delay(delay);
+
+                        Storyboard BoardClose = boards[1];
+                        BoardClose.Begin(ContentTextBlock);
+                        await Task.Delay(2000);
+
+                        ContentTextBlock.Width = 0;
+                    });
+                }
+            }
+        }
     }
 }

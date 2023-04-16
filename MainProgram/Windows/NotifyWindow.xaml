@@ -25,7 +25,7 @@
         </TextBlock>
         <Viewbox
             Margin="20,0,0,0"
-            Height="90"
+            Height="70"
             x:Name="FormulaViewBox">
 	            <math:FormulaControl
 		            x:Name="ContentFormulaControl"
