@@ -8,13 +8,10 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d" AllowsTransparency="True"
         Title="NotifyWindow" WindowStyle="None"
-        Background="#00FFFFFF" Topmost="True"
-        Height="80" Left="0" Top="0" ShowInTaskbar="False"
+        Topmost="True" Background="#00FFFFFF"
+        Height="100" Left="0" Top="0" ShowInTaskbar="False"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}">
-    <Window.Resources>
-    </Window.Resources>
     <StackPanel
-        Background="#44000000"
         Orientation="Horizontal"
         VerticalAlignment="Center"
         HorizontalAlignment="Center">
@@ -22,14 +19,20 @@
             x:Name="ContentTextBlock"
             FontFamily="得意黑"
             FontSize="48"
-            Foreground="White"/>
+            Height="60"
+            Background="#44FFFFFF"
+            Foreground="Black">
+        </TextBlock>
         <Viewbox
-            Height="80"
+            Margin="20,0,0,0"
+            Height="90"
             x:Name="FormulaViewBox">
-            <math:FormulaControl
-                x:Name="ContentFormulaControl"
-                FontSize="32"
-                Foreground="White"/>
+	            <math:FormulaControl
+		            x:Name="ContentFormulaControl"
+		            FontSize="32"
+		            Background="#44FFFFFF"
+		            Foreground="Black">
+	            </math:FormulaControl>
         </Viewbox>
     </StackPanel>
 </Window>

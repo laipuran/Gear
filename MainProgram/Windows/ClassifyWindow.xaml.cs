@@ -99,7 +99,7 @@ namespace Toolkit.Windows
         {
             ((Button)sender).Dispatcher.Invoke(() =>
             {
-                App.Notifier.SetText("事件：移动文件到" + ((Button)sender).Content.ToString() + "文件夹");
+                App.Notifier.EnqueueText("事件：移动文件到" + ((Button)sender).Content.ToString() + "文件夹");
             });
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
@@ -107,7 +107,7 @@ namespace Toolkit.Windows
                 GetDroppedFiles(((Button)sender).Content.ToString(), e);
             }
             await Task.Delay(1000);
-            App.Notifier.SetText("事件：移动完成");
+            App.Notifier.EnqueueText("事件：移动完成");
 
         }
 
@@ -139,7 +139,7 @@ namespace Toolkit.Windows
 
             ((Button)sender).Dispatcher.Invoke(() =>
             {
-                App.Notifier.SetText("事件：打开" + ((Button)sender).Content.ToString() + "文件夹");
+                App.Notifier.EnqueueText("事件：打开" + ((Button)sender).Content.ToString() + "文件夹");
             });
         }
 
@@ -147,7 +147,7 @@ namespace Toolkit.Windows
         {
             Task.Run(() =>
             {
-                App.Notifier.SetText("事件：选择文件");
+                App.Notifier.EnqueueText("事件：选择文件");
             });
             DoubleClicked = true;
             WaitProgressRing.IsActive = false;
@@ -158,14 +158,14 @@ namespace Toolkit.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            App.Notifier.SetText("想关掉我？没门");
+            App.Notifier.EnqueueText("想关掉我？没门");
         }
 
         private void Note_Click(object sender, RoutedEventArgs e)
         {
             Task.Run(() =>
             {
-                App.Notifier.SetText("事件：打开笔记文件夹");
+                App.Notifier.EnqueueText("事件：打开笔记文件夹");
             });
             Process.Start("explorer.exe",
                 Environment.GetFolderPath

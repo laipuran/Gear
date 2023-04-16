@@ -25,6 +25,7 @@ namespace Toolkit
             SetupTrayIcon();
             Notifier.Show();
             Classifier.Show();
+
         }
 
         private void SetupTrayIcon()
@@ -95,12 +96,12 @@ namespace Toolkit
             if (((ToggleSwitch)sender).IsOn)
             {
                 Classifier.Visibility = Visibility.Visible;
-                Notifier.SetText("事件：修改课件分类[可见性]为[可见]");
+                Notifier.EnqueueText("事件：修改课件分类[可见性]为[可见]");
             }
             else
             {
                 Classifier.Visibility = Visibility.Collapsed;
-                Notifier.SetText("事件：修改课件分类[可见性]为[不可见]");
+                Notifier.EnqueueText("事件：修改课件分类[可见性]为[不可见]");
 
             }
         }
@@ -109,7 +110,7 @@ namespace Toolkit
         {
             ShowAutoScroll = !ShowAutoScroll;
             string flag = ShowAutoScroll ? "是" : "否";
-            Notifier.SetText($"事件：修改计时器事件[活动性]为[{flag}]");
+            Notifier.EnqueueText($"事件：修改计时器事件[活动性]为[{flag}]");
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

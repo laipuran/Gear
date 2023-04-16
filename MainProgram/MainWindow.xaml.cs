@@ -21,7 +21,7 @@ namespace Toolkit
             e.Cancel = true;
             WindowState = WindowState.Minimized;
             Opacity= 1;
-            App.Notifier.SetText($"事件：修改主窗口[状态]为[{WindowState}]");
+            App.Notifier.EnqueueText($"事件：修改主窗口[状态]为[{WindowState}]");
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
