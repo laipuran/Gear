@@ -9,11 +9,12 @@
         mc:Ignorable="d" AllowsTransparency="True"
         Title="NotifyWindow" WindowStyle="None"
         Topmost="True" Background="#00FFFFFF"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Height="100" Left="0" Top="0" ShowInTaskbar="False"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}">
     <StackPanel
         Orientation="Horizontal"
-        VerticalAlignment="Center"
+        VerticalAlignment="Top"
         HorizontalAlignment="Center">
         <TextBlock
             x:Name="ContentTextBlock"
@@ -25,7 +26,7 @@
         </TextBlock>
         <Viewbox
             Margin="20,0,0,0"
-            Height="70"
+            Height="60"
             x:Name="FormulaViewBox">
 	            <math:FormulaControl
 		            x:Name="ContentFormulaControl"

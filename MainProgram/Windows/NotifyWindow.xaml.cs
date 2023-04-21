@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using WpfMath.Controls;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Toolkit.Windows
 {
@@ -43,10 +39,19 @@ namespace Toolkit.Windows
 
             Task.Run(SetFormula);
             Task.Run(SetText);
+            Task.Run(Mod);
 
             EnqueueText("事件：启动");
             timer.Interval = 3000; //1800000;
             timer.Elapsed += Timer_Elapsed;
+        }
+
+        private void Mod()
+        {
+            while (true)
+            {
+                if (true) { }
+            }
         }
 
         private List<Storyboard> GetAnimation(DisplayMode mode, string text)
@@ -66,11 +71,12 @@ namespace Toolkit.Windows
             DoubleAnimation close = new()
             {
                 To = 0,
-                Duration = new Duration(TimeSpan.FromSeconds(2)),
+                Duration = new Duration(TimeSpan.FromSeconds(1.5)),
 
                 EasingFunction = new BackEase()
                 {
-                    EasingMode = EasingMode.EaseIn
+                    EasingMode = EasingMode.EaseIn,
+                    Amplitude = 0.5
                 }
             };
 
@@ -98,8 +104,8 @@ namespace Toolkit.Windows
                 Storyboard.SetTargetProperty(open, new(HeightProperty));
                 Storyboard.SetTargetProperty(close, new(HeightProperty));
 
-                open.To = 70;
-                close.From = 70;
+                open.To = 60;
+                close.From = 60;
             }
 
             Storyboard Open = new(); Open.Children.Add(open);
@@ -111,9 +117,9 @@ namespace Toolkit.Windows
         private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
         {
             string showText = "";
-            if (App.ShowAutoScroll)
+            if (App.AppSettings.AutoScroll)
             {
-                if (App.Loop == LoopMode.Normal)
+                if (App.AppSettings.RollerText.Mode == LoopMode.Normal)
                 {
                     if (count >= AutoScrollText.Count)
                     {
@@ -122,7 +128,7 @@ namespace Toolkit.Windows
                     showText = AutoScrollText[count];
                     count++;
                 }
-                else if (App.Loop == LoopMode.Shuffle)
+                else if (App.AppSettings.RollerText.Mode == LoopMode.Shuffle)
                 {
                     Random rand = new();
                     showText = AutoScrollText[rand.Next(0, AutoScrollText.Count - 1)];
@@ -148,7 +154,7 @@ namespace Toolkit.Windows
             Mode = mode;
             AutoScrollText = strings;
 
-            if (App.Loop == LoopMode.Normal)
+            if (App.AppSettings.RollerText.Mode == LoopMode.Normal)
             {
                 count = 0;
             }
@@ -221,8 +227,8 @@ namespace Toolkit.Windows
                         ContentTextBlock.Text = text;
                         BoardOpen.Begin(ContentTextBlock);
 
-                        int delay = 500;
-                        if (text.Length >= 10)
+                        int delay = 3000;
+                        if (text.Length > 10)
                         {
                             delay = text.Length * 100 + 5000;
                         }
@@ -236,6 +242,13 @@ namespace Toolkit.Windows
                     });
                 }
             }
+        }
+
+        private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Visibility = Visibility.Collapsed;
+            await Task.Delay(10000);
+            Visibility = Visibility.Visible;
         }
     }
 }

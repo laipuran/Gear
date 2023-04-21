@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using Toolkit.Windows;
 
@@ -20,12 +18,13 @@ namespace Toolkit
         {
             e.Cancel = true;
             WindowState = WindowState.Minimized;
-            Opacity= 1;
+            Opacity = 1;
             App.Notifier.EnqueueText($"事件：修改主窗口[状态]为[{WindowState}]");
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
+            App.App.AppSettings.AutoScroll = true;
             App.Notifier.SetScroller(ContentTextBox.Text.Trim().Split('\n').ToList()
                 , FormulaToggleSwitch.IsOn ? DisplayMode.Formula : DisplayMode.Text);
         }

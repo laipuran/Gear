@@ -4,6 +4,7 @@ using ModernWpf.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using Toolkit.Windows;
+using ToolKit.Classes;
 
 namespace Toolkit
 {
@@ -12,14 +13,16 @@ namespace Toolkit
     /// </summary>
     public partial class App : Application
     {
+        #region Initialize Taskbar Icon Components
         public static ClassifyWindow Classifier = new() { Visibility = Visibility.Visible };
         public static NotifyWindow Notifier = new();
         public static TaskbarIcon TaskbarIcon { get; private set; }
         public static ContextMenu TaskbarIconContextMenu { get; private set; }
         public static ToolTip TaskbarIconToolTip { get; private set; }
         public static MenuItem SettingsItem { get; private set; }
-        public static bool ShowAutoScroll = false;
-        public static LoopMode Loop = LoopMode.Normal;
+        #endregion
+
+        public static Settings AppSettings = new();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             SetupTrayIcon();
@@ -48,7 +51,7 @@ namespace Toolkit
             var timerVisibilityOption = new ToggleSwitch()
             {
                 Header = "是否定时显示",
-                IsOn = ShowAutoScroll,
+                IsOn = AppSettings.AutoScroll,
             };
             timerVisibilityOption.Toggled += TimerVisibilityToggleSwitch_Toggled;
 
@@ -58,9 +61,9 @@ namespace Toolkit
             var showMainWindowItem = new MenuItem()
             {
                 Header = "显示主窗口",
-                ToolTip = "将主窗口透明的改为1",
+                ToolTip = "显示设置窗口",
                 Icon = new FontIcon() { Glyph = "\uE70A" },
-                Command = new RelayCommand(() => { MainWindow.Opacity = 1; })
+                Command = new RelayCommand(() => { MainWindow.WindowState = WindowState.Normal; })
             };
 
             var exitItem = new MenuItem()
@@ -73,7 +76,7 @@ namespace Toolkit
 
             TaskbarIconContextMenu = new()
             {
-                Items = { SettingsItem, /*showMainWindowItem,*/ exitItem }
+                Items = { SettingsItem, showMainWindowItem, exitItem }
             };
 
             TaskbarIconToolTip = new()
@@ -108,8 +111,8 @@ namespace Toolkit
 
         private void TimerVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            ShowAutoScroll = !ShowAutoScroll;
-            string flag = ShowAutoScroll ? "是" : "否";
+            App.AppSettings.AutoScroll = !App.AppSettings.AutoScroll;
+            string flag = App.AppSettings.AutoScroll ? "是" : "否";
             Notifier.EnqueueText($"事件：修改计时器事件[活动性]为[{flag}]");
         }
 
