@@ -4,16 +4,17 @@ using Toolkit.Windows;
 
 namespace ToolKit.Classes
 {
-    public struct RollerText
+    public class RollerText
     {
-        public string? Text;
-        public LoopMode Mode;
+        public List<string> Text = new();
+        public LoopMode LoopMode;
+        public DisplayMode DisplayMode;
     }
 
-    public struct RollerWeather
+    public class RollerWeather
     {
         public bool AutoWeather;
-        public List<DateTime> Times;
+        public List<DateTime> Times = new();
     }
 
     public class Settings
@@ -26,7 +27,7 @@ namespace ToolKit.Classes
         public bool AutoCollapse { get; set; }
         public bool AutoScroll { get; set; }
         public bool Mod_Time { get; set; }
-        public RollerWeather Mod_Weather { get; set; }
-        public RollerText RollerText { get; set; }
+        public RollerWeather Mod_Weather = new();
+        public RollerText RollerText = new();
     }
 }

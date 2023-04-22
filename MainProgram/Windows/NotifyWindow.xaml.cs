@@ -119,7 +119,7 @@ namespace Toolkit.Windows
             string showText = "";
             if (App.AppSettings.AutoScroll)
             {
-                if (App.AppSettings.RollerText.Mode == LoopMode.Normal)
+                if (App.AppSettings.RollerText.LoopMode == LoopMode.Normal)
                 {
                     if (count >= AutoScrollText.Count)
                     {
@@ -128,7 +128,7 @@ namespace Toolkit.Windows
                     showText = AutoScrollText[count];
                     count++;
                 }
-                else if (App.AppSettings.RollerText.Mode == LoopMode.Shuffle)
+                else if (App.AppSettings.RollerText.LoopMode == LoopMode.Shuffle)
                 {
                     Random rand = new();
                     showText = AutoScrollText[rand.Next(0, AutoScrollText.Count - 1)];
@@ -154,7 +154,7 @@ namespace Toolkit.Windows
             Mode = mode;
             AutoScrollText = strings;
 
-            if (App.AppSettings.RollerText.Mode == LoopMode.Normal)
+            if (App.AppSettings.RollerText.LoopMode == LoopMode.Normal)
             {
                 count = 0;
             }
