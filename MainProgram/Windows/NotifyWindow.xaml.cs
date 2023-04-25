@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using ToolKit.Classes;
 
 namespace Toolkit.Windows
 {
@@ -48,9 +50,35 @@ namespace Toolkit.Windows
 
         private void Mod()
         {
+            bool TimeShown = false;
+            //Dictionary<DateTime, bool> Times = new();
             while (true)
             {
-                if (true) { }
+                Settings CurrentSettings = App.AppSettings;
+                if (CurrentSettings.Mod_Time && DateTime.Now.Minute == 0 && !TimeShown)
+                {
+                    EnqueueText($"现在时间：{DateTime.Now.Hour}:{00}");
+                    TimeShown = true;
+                }
+                else TimeShown = false;
+
+                //if (CurrentSettings.Mod_Weather.AutoWeather)
+                //{
+                //    foreach (var time in CurrentSettings.Mod_Weather.Times)
+                //    {
+                //        if (DateTime.Now.Hour == time.Hour 
+                //            && DateTime.Now.Minute == time.Minute
+                //            && !Times.ContainsKey(time))
+                //        {
+                //            var life = PuranLai.APIs.WebApi.GetWeatherInformation(
+                //                PuranLai.APIs.WebApi.GetIpInformation(PuranLai.APIs.WebApi.GetHostIp()).Adcode).Lives[0];
+                //            EnqueueText($"当前天气：{life.Weather}，{life.Temperature}°");
+                //            CurrentSettings.Mod_Weather.Times.Remove(time);
+                //        }
+                //    }
+                //}
+
+
             }
         }
 
