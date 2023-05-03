@@ -1,12 +1,9 @@
-﻿using PuranLai.Algorithms;
+﻿using ProngedGear.Windows;
+using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Documents;
-using ProngedGear.Windows;
-using Wpf.Ui.Controls;
 
 namespace ProngedGear
 {

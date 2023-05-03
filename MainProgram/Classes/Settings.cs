@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ProngedGear.Windows;
+using System;
 using System.Collections.Generic;
-using ProngedGear.Windows;
 
 namespace ToolKit.Classes
 {

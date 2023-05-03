@@ -2,6 +2,7 @@
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
 using ModernWpf.Controls;
+using ProngedGear.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using ProngedGear.Windows;
 using ToolKit.Classes;
 using File = System.IO.File;
 
