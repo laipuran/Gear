@@ -1,12 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Hardcodet.Wpf.TaskbarNotification;
+using IWshRuntimeLibrary;
 using ModernWpf.Controls;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using Toolkit.Windows;
+using ProngedGear.Windows;
 using ToolKit.Classes;
+using File = System.IO.File;
 
-namespace Toolkit
+namespace ProngedGear
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -21,14 +28,48 @@ namespace Toolkit
         public static ToolTip TaskbarIconToolTip { get; private set; }
         public static MenuItem SettingsItem { get; private set; }
         #endregion
-
+        #region Include System Functions
+        [DllImport("user32.dll", EntryPoint = "FindWindow")]
+        private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
+        #endregion
         public static Settings AppSettings = new();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            WhileRunCheck();
             SetupTrayIcon();
+            SetupAutoStart();
             Notifier.Show();
             Classifier.Show();
+        }
 
+        private void WhileRunCheck()
+        {
+            IntPtr hWnd = FindWindow(null, "Over Top");                     //Avoiding opening this app twice
+            if (hWnd != IntPtr.Zero)
+            {
+                MessageBox.Show("Over Top 存在运行中的实例！", "Over Top");
+                Environment.Exit(-1);
+            }
+        }
+
+        private void SetupAutoStart()
+        {
+            const string shortcutName = "ProngedGear.lnk";
+            string StartUp = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+            List<string> files = Directory.GetFiles(StartUp).ToList();
+            if (files.Contains(shortcutName))
+            {
+                File.Delete(shortcutName);
+            }
+
+            WshShell shell = new();
+            IWshShortcut shortcut = shell.CreateShortcut(Path.Combine(StartUp, shortcutName));
+            shortcut.TargetPath = Path.Combine(Environment.CurrentDirectory, "Gear.exe");
+            shortcut.WorkingDirectory = Path.Combine(Environment.CurrentDirectory);
+            shortcut.IconLocation = Path.Combine(Environment.CurrentDirectory, "Icon.ico");
+            shortcut.WindowStyle = 1;
+
+            shortcut.Save();
         }
 
         private void SetupTrayIcon()
@@ -81,7 +122,7 @@ namespace Toolkit
 
             TaskbarIconToolTip = new()
             {
-                Content = "PuranLai's ToolKit"
+                Content = "Pronged Gear"
             };
 
             TaskbarIcon = new()
@@ -111,8 +152,8 @@ namespace Toolkit
 
         private void TimerVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            App.AppSettings.AutoScroll = !App.AppSettings.AutoScroll;
-            string flag = App.AppSettings.AutoScroll ? "是" : "否";
+            AppSettings.AutoScroll = !AppSettings.AutoScroll;
+            string flag = AppSettings.AutoScroll ? "是" : "否";
             Notifier.EnqueueText($"事件：修改计时器事件[活动性]为[{flag}]");
         }
 

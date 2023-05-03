@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using ToolKit.Classes;
 
-namespace Toolkit.Windows
+namespace ProngedGear.Windows
 {
     public enum LoopMode
     {

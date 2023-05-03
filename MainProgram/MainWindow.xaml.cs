@@ -5,10 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
-using Toolkit.Windows;
+using ProngedGear.Windows;
 using Wpf.Ui.Controls;
 
-namespace Toolkit
+namespace ProngedGear
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Toolkit.Windows
+namespace ProngedGear.Windows
 {
     /// <summary>
     /// ClassifyWindow.xaml 的交互逻辑
