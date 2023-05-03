@@ -48,38 +48,31 @@ namespace Toolkit.Windows
             timer.Elapsed += Timer_Elapsed;
         }
 
-        private void Mod()
+        private async void Mod()
         {
-            bool TimeShown = false;
-            //Dictionary<DateTime, bool> Times = new();
             while (true)
             {
-                Settings CurrentSettings = App.AppSettings;
-                if (CurrentSettings.Mod_Time && DateTime.Now.Minute == 0 && !TimeShown)
+                Settings settings = App.AppSettings;
+                TimeOnly time = TimeOnly.FromDateTime(DateTime.Now);
+                if (time.Second != 0)
+                    continue;
+
+                foreach (var timer in settings.Mod_Timer)
                 {
-                    EnqueueText($"现在时间：{DateTime.Now.Hour}:{00}");
-                    TimeShown = true;
+                    if (Equals(time, timer.Key))
+                    {
+                        EnqueueText($"{timer.Key}定时事项：{timer.Value}");
+                    }
                 }
-                else TimeShown = false;
 
-                //if (CurrentSettings.Mod_Weather.AutoWeather)
-                //{
-                //    foreach (var time in CurrentSettings.Mod_Weather.Times)
-                //    {
-                //        if (DateTime.Now.Hour == time.Hour 
-                //            && DateTime.Now.Minute == time.Minute
-                //            && !Times.ContainsKey(time))
-                //        {
-                //            var life = PuranLai.APIs.WebApi.GetWeatherInformation(
-                //                PuranLai.APIs.WebApi.GetIpInformation(PuranLai.APIs.WebApi.GetHostIp()).Adcode).Lives[0];
-                //            EnqueueText($"当前天气：{life.Weather}，{life.Temperature}°");
-                //            CurrentSettings.Mod_Weather.Times.Remove(time);
-                //        }
-                //    }
-                //}
-
-
+                await Task.Delay(1000);
             }
+        }
+
+        private static bool Equals(TimeOnly time1, TimeOnly time2)
+        {
+            return time1.Hour == time2.Hour &&
+                time1.Minute == time2.Minute ? true : false;
         }
 
         private List<Storyboard> GetAnimation(DisplayMode mode, string text)
@@ -240,7 +233,7 @@ namespace Toolkit.Windows
                 {
                     App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
                     {
-                        App.TaskbarIconToolTip.Content = "PuranLai's ToolKit\n队列中字条数量：" + TextQueue.Count;
+                        App.TaskbarIconToolTip.Content = "Pronged Gear\n队列中字条数量：" + TextQueue.Count;
                     });
                 }
 
