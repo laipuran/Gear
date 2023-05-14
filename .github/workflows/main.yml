@@ -45,35 +45,9 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - name: Build the solution (x64)
-      run: |
-        msbuild -t:restore /p:GitFlow="Github Action"
-        msbuild /p:Configuration=Release /p:Platform="x64" /p:GitFlow="Github Action"
-      env:
-        Configuration: ${{ matrix.configuration }}
-
-    - name: Build the solution (ARM64)
-      run: |
-        msbuild -t:restore /p:GitFlow="Github Action"
-        msbuild /p:Configuration=Release /p:Platform="ARM64" /p:GitFlow="Github Action"
-      env:
-        Configuration: ${{ matrix.configuration }}
-        
     # 上传编译成品
     - name: Upload to artifact
       uses: actions/upload-artifact@main
       with:
         name: Pronged-Gear
         path: Pronged Gear/bin/Release
-        
-    - name: Upload to artifact (x64)
-      uses: actions/upload-artifact@main
-      with:
-        name: Pronged-Gear-x64
-        path: Pronged Gear/bin/x64/Release
-        
-    - name: Upload to artifact (ARM64)
-      uses: actions/upload-artifact@main
-      with:
-        name: Pronged-Gear-ARM64
-        path: Pronged Gear/bin/ARM64/Release

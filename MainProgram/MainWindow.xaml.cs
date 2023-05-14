@@ -1,4 +1,6 @@
-﻿using ProngedGear.Windows;
+﻿using ModernWpf.Controls;
+using ProngedGear.Views;
+using ProngedGear.Windows;
 using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
@@ -13,24 +15,10 @@ namespace ProngedGear
 
     public partial class MainWindow : Window
     {
-        Dictionary<TimeOnly, string> _Data = new();
-        Dictionary<TimeOnly, string> Data
-        {
-            get
-            {
-                return _Data;
-            }
-            set
-            {
-                _Data = value;
-                App.AppSettings.Mod_Timer = Data;
-            }
-        }
-
         public MainWindow()
         {
             InitializeComponent();
-            EventDataGrid.ItemsSource = Data;
+            ContentFrame.Navigate(typeof(NotifierPage));
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -38,53 +26,30 @@ namespace ProngedGear
             e.Cancel = true;
             WindowState = WindowState.Minimized;
             Opacity = 1;
-            App.Notifier.EnqueueText($"事件：修改主窗口[状态]为[{WindowState}]");
         }
 
-        private void ApplyButton_Click(object sender, RoutedEventArgs e)
+        private void NavigationView_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            App.AppSettings.AutoScroll = true;
-            App.AppSettings.RollerText = new()
+            NavigationViewItem item = (NavigationViewItem)args.SelectedItem;
+
+            switch (item.Tag)
             {
-                LoopMode = NormalRadioButton.IsChecked == true ? LoopMode.Normal : LoopMode.Shuffle,
-                DisplayMode = FormulaToggleSwitch.IsOn ? DisplayMode.Formula : DisplayMode.Text,
-                Text = ContentTextBox.Text.Trim().Split('\n').ToList()
-            };
-            App.Notifier.SetScroller(ContentTextBox.Text.Trim().Split('\n').ToList()
-                , FormulaToggleSwitch.IsOn ? DisplayMode.Formula : DisplayMode.Text);
-        }
+                case "Classifier":
+                    ContentFrame.Navigate(typeof(ClassifierPage));
+                    break;
 
-        private void NormalRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            App.AppSettings.RollerText.LoopMode = LoopMode.Normal;
-        }
-
-        private void ShuffleRadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-            App.AppSettings.RollerText.LoopMode = LoopMode.Shuffle;
-        }
-
-        private void AddButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Data.Add(new TimeOnly(
-                    Parse.ParseFromString(HourTextBox.Text, 24).number,
-                    Parse.ParseFromString(MinuteTextBox.Text, 60).number),
-                    StringTextBox.Text);
-
-                EventDataGrid.ItemsSource = null;
-                EventDataGrid.ItemsSource = Data;
+                case "Notifier":
+                    ContentFrame.Navigate(typeof(NotifierPage));
+                    break;
             }
-            catch { }
         }
 
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        private void NavigationView_BackRequested(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewBackRequestedEventArgs args)
         {
-            Data = new();
-
-            EventDataGrid.ItemsSource = null;
-            EventDataGrid.ItemsSource = Data;
+            if (ContentFrame.CanGoBack)
+            {
+                ContentFrame.GoBack();
+            }
         }
     }
 }

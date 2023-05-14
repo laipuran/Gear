@@ -10,7 +10,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using ToolKit.Classes;
+using ProngedGear.Models;
 using File = System.IO.File;
 
 namespace ProngedGear
@@ -35,14 +35,14 @@ namespace ProngedGear
         public static Settings AppSettings = new();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            WhileRunCheck();
+            ForeRunCheck();
             SetupTrayIcon();
             SetupAutoStart();
             Notifier.Show();
             Classifier.Show();
         }
 
-        private void WhileRunCheck()
+        private void ForeRunCheck()
         {
             IntPtr hWnd = FindWindow(null, "Over Top");                     //Avoiding opening this app twice
             if (hWnd != IntPtr.Zero)
