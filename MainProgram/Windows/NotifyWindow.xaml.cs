@@ -6,7 +6,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using ToolKit.Classes;
+using ProngedGear.Models;
 
 namespace ProngedGear.Windows
 {
@@ -230,10 +230,14 @@ namespace ProngedGear.Windows
             {
                 if (App.TaskbarIconToolTip is not null)
                 {
-                    App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
+                    try
                     {
-                        App.TaskbarIconToolTip.Content = "Pronged Gear\n队列中字条数量：" + TextQueue.Count;
-                    });
+                        App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
+                        {
+                            App.TaskbarIconToolTip.Content = "Pronged Gear\n队列中字条数量：" + TextQueue.Count;
+                        });
+                    }
+                    catch { }
                 }
 
                 if (TextQueue.Count > 0)

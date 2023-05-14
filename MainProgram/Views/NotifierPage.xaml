@@ -1,0 +1,117 @@
+﻿<Page x:Class="ProngedGear.Views.NotifierPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:modern="http://schemas.modernwpf.com/2019"
+      xmlns:local="clr-namespace:ProngedGear.Views"
+      mc:Ignorable="d" Background="White"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="NotifierPage">
+
+    <StackPanel Margin="20">
+        <TextBlock
+                Text="设置 Notifier"
+                FontSize="28"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+	                Grid.Column="0"
+	                Margin="10">
+                <modern:ToggleSwitch
+                        x:Name="FormulaToggleSwitch"
+			            Header="显示为公式"/>
+                <modern:RadioButtons
+			            Header="切换模式">
+                    <RadioButton
+                            x:Name="NormalRadioButton"
+				            Content="顺序"
+				            IsChecked="True"
+                            Checked="NormalRadioButton_Checked"/>
+                    <RadioButton
+                            x:Name="ShuffleRadioButton"
+				            Content="随机"
+                            Checked="ShuffleRadioButton_Checked"/>
+                </modern:RadioButtons>
+
+                <TextBlock
+	                    Text="轮换的文字（用回车分开）："/>
+                <wpfui:TextBox
+                        Margin="0,10,0,0"
+	                    x:Name="ContentTextBox"
+                        AcceptsReturn="True"/>
+                <wpfui:Button
+	                    Margin="0,10,0,0"
+                        x:Name="ApplyButton"
+                        Click="ApplyButton_Click"
+	                    Content="确认"/>
+            </StackPanel>
+
+            <StackPanel
+                    Grid.Column="1"
+                    Margin="10"
+		            Orientation="Vertical">
+
+                <TextBlock
+                        Text="定时事项"/>
+
+                <Grid
+                        Margin="0,10,0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <wpfui:TextBox
+                            Grid.Column="0"
+                            Margin="0,0,5,0"
+                            x:Name="HourTextBox"
+                            PlaceholderText="小时"/>
+                    <wpfui:TextBox
+                            Margin="5,0,0,0"
+                            Grid.Column="1"
+                            x:Name="MinuteTextBox"
+                            PlaceholderText="分钟"/>
+                    <wpfui:TextBox
+                            Margin="0,10,0,0"
+                            Grid.Row="1" Grid.ColumnSpan="3"
+                            x:Name="StringTextBox"
+                            PlaceholderText="内容"/>
+                </Grid>
+
+                <StackPanel
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                    <wpfui:Button
+                            x:Name="AddButton"
+                            Content="添加"
+                            Click="AddButton_Click"/>
+
+                    <wpfui:Button
+                            Margin="10,0,0,0"
+                            x:Name="ClearButton"
+                            Content="清空"
+                            Click="ClearButton_Click"/>
+                </StackPanel>
+
+                <wpfui:DataGrid
+                        Margin="0,10,0,0"
+                        x:Name="EventDataGrid"
+                        ColumnWidth="*"/>
+
+            </StackPanel>
+
+        </Grid>
+    </StackPanel>
+</Page>

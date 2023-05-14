@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ToolKit.Classes
+namespace ProngedGear.Models
 {
     public class RollerText
     {
