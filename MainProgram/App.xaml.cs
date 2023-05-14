@@ -2,6 +2,7 @@
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
 using ModernWpf.Controls;
+using ProngedGear.Models;
 using ProngedGear.Windows;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using ProngedGear.Models;
 using File = System.IO.File;
 
 namespace ProngedGear
