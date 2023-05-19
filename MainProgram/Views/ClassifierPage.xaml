@@ -3,12 +3,40 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:local="clr-namespace:ProngedGear.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ClassifierPage">
+      Title="ClassifierPage"
+      Background="White">
 
-    <Grid>
-        
-    </Grid>
+    <StackPanel
+        Margin="20">
+        <TextBlock
+            Text="设置 Classifier"
+            FontSize="28"/>
+        <StackPanel
+            Margin="10">
+            <TextBlock
+                Text="添加科目文件夹"/>
+
+            <wpfui:TextBox
+                Margin="0,10,0,0"
+                PlaceholderText="科目名称"
+                TextChanged="SubjectTextBox_TextChanged"
+                x:Name="SubjectTextBox"/>
+            <wpfui:TextBox
+                Margin="0,10,0,0"
+                PlaceholderText="文件夹位置"
+                x:Name="LinkTextBox"/>
+            <wpfui:Button
+                Margin="0,10,0,0"
+                x:Name="AddButton"
+                Content="添加科目"/>
+
+            <wpfui:DataGrid
+                x:Name="SubjectsDataGrid"
+                Margin="0,10,0,0"/>
+        </StackPanel>
+    </StackPanel>
 </Page>
