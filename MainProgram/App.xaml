@@ -10,6 +10,12 @@
              Exit="Application_Exit">
     <Application.Resources>
         <ResourceDictionary>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="微软雅黑"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            
             <ResourceDictionary.MergedDictionaries>
                 <modern:ThemeResources />
                 <modern:XamlControlsResources />

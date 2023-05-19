@@ -58,10 +58,10 @@
 		            Orientation="Vertical">
 
                 <TextBlock
-                        Text="定时事项"/>
+                    Text="定时事项"/>
 
                 <Grid
-                        Margin="0,10,0,0">
+                    Margin="0,10,0,0">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -85,7 +85,7 @@
                             PlaceholderText="分钟"/>
                     <wpfui:TextBox
                             Margin="0,10,0,0"
-                            Grid.Row="1" Grid.ColumnSpan="3"
+                            Grid.Row="1" Grid.ColumnSpan="2"
                             x:Name="StringTextBox"
                             PlaceholderText="内容"/>
                 </Grid>

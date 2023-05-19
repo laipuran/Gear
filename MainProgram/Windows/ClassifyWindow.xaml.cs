@@ -54,7 +54,7 @@ namespace ProngedGear.Windows
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 if (files.Contains("Close"))
                 {
-                    App.Current.Shutdown();
+                    Application.Current.Shutdown();
                     return;
                 }
                 CopyFiles(subject, files);

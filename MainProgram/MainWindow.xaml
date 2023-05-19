@@ -10,15 +10,22 @@
         Title="设置" Height="450" Width="800"
         Closing="Window_Closing" Icon="Icon.png">
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="微软雅黑"/>
-            <Setter Property="FontSize" Value="12"/>
-        </Style>
+        <RoutedUICommand
+            x:Key="WeatherCommand"
+            Text=" "/>
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Gesture="Control+Alt+W" Command="{StaticResource WeatherCommand}"/>
+        <KeyBinding
+            Gesture="Control+Alt+W"
+            Command="{StaticResource WeatherCommand}"/>
     </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding
+            Command="{StaticResource WeatherCommand}"
+            CanExecute="WeatherCommand_Excuted"/>
+    </Window.CommandBindings>
 
     <modern:NavigationView
         d:IsPaneOpen="False"

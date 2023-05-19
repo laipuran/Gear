@@ -1,5 +1,6 @@
 ﻿using ModernWpf.Controls;
 using ProngedGear.Views;
+using PuranLai.APIs;
 using System.Windows;
 
 namespace ProngedGear
@@ -45,6 +46,20 @@ namespace ProngedGear
             {
                 ContentFrame.GoBack();
             }
+        }
+
+        private void WeatherCommand_Excuted(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
+        {
+            var ip = WebApi.GetHostIp();
+            if (ip is null) return;
+            var information = WebApi.GetIpInformation(ip);
+            if (information is null) return;
+            var weather = WebApi.GetWeatherInformation(information.Adcode);
+            if (weather is null) return;
+
+            var life = weather.Lives[0];
+            string display = $"天气：{life.Weather}   温度：{life.Temperature}℃   风力：{life.WindPower}";
+            App.Notifier.EnqueueText(display);
         }
     }
 }
