@@ -50,4 +50,4 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: Pronged-Gear
-        path: Pronged Gear/bin/Release
+        path: MainProgram/bin/Release
