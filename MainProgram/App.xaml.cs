@@ -38,6 +38,7 @@ namespace ProngedGear
             ForeRunCheck();
             SetupTrayIcon();
             SetupAutoStart();
+            AppSettings = Settings.GetSettings();
             Notifier.Show();
             Classifier.Show();
         }
@@ -159,6 +160,7 @@ namespace ProngedGear
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            AppSettings.Save();
             TaskbarIcon.Visibility = Visibility.Collapsed;
         }
     }
