@@ -1,5 +1,4 @@
-﻿using ProngedGear.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace ProngedGear.Views
