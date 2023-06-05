@@ -9,9 +9,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Icon.png" />
-  </ItemGroup>
 
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -41,6 +38,10 @@
       <Isolated>false</Isolated>
       <EmbedInteropTypes>true</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\SmileySans-Oblique.ttf" />
   </ItemGroup>
 
   <ItemGroup>
