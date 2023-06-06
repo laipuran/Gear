@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
+using ProngedGear.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -112,7 +113,7 @@ namespace ProngedGear.Windows
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            // Operations.ToBottom(this);
+            Operations.ToBottom(this);
             // NotifyWindow.SetText("事件：鼠标进入");
         }
 

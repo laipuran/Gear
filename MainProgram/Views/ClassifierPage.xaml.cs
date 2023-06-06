@@ -41,12 +41,12 @@ namespace ProngedGear.Views
                 "地理",
             };
 
-            ComboBox_1.ItemsSource = items;
-            ComboBox_2.ItemsSource = items;
-            ComboBox_3.ItemsSource = items;
-            ComboBox_4.ItemsSource = items;
-            ComboBox_5.ItemsSource = items;
-            ComboBox_6.ItemsSource = items;
+            //ComboBox_1.ItemsSource = items;
+            //ComboBox_2.ItemsSource = items;
+            //ComboBox_3.ItemsSource = items;
+            //ComboBox_4.ItemsSource = items;
+            //ComboBox_5.ItemsSource = items;
+            //ComboBox_6.ItemsSource = items;
         }
 
         private void ComboBox_Selected(object sender, System.Windows.RoutedEventArgs e)
