@@ -21,7 +21,7 @@ namespace ProngedGear.Models
         {
             SetWindowPos(new WindowInteropHelper(window).Handle,
                 (IntPtr)WindowZIndex.Bottom, (int)window.Left,
-                (int)window.Top, (int)window.Width, (int)window.Height, 0);
+                (int)window.Top, (int)window.Width, (int)window.Height, 0x0003);
         }
     }
 }
