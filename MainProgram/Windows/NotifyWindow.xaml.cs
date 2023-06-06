@@ -244,26 +244,30 @@ namespace ProngedGear.Windows
                 {
                     string text = TextQueue.Dequeue();
 
-                    await ContentTextBlock.Dispatcher.Invoke(async () =>
+                    try
                     {
-                        var boards = GetAnimation(DisplayMode.Text, text);
-                        Storyboard BoardOpen = boards[0];
-                        ContentTextBlock.Text = text;
-                        BoardOpen.Begin(ContentTextBlock);
-
-                        int delay = 3000;
-                        if (text.Length > 10)
+                        await ContentTextBlock.Dispatcher.Invoke(async () =>
                         {
-                            delay = text.Length * 100 + 5000;
-                        }
-                        await Task.Delay(delay);
+                            var boards = GetAnimation(DisplayMode.Text, text);
+                            Storyboard BoardOpen = boards[0];
+                            ContentTextBlock.Text = text;
+                            BoardOpen.Begin(ContentTextBlock);
 
-                        Storyboard BoardClose = boards[1];
-                        BoardClose.Begin(ContentTextBlock);
-                        await Task.Delay(2000);
+                            int delay = 3000;
+                            if (text.Length > 10)
+                            {
+                                delay = text.Length * 100 + 5000;
+                            }
+                            await Task.Delay(delay);
 
-                        ContentTextBlock.Width = 0;
-                    });
+                            Storyboard BoardClose = boards[1];
+                            BoardClose.Begin(ContentTextBlock);
+                            await Task.Delay(2000);
+
+                            ContentTextBlock.Width = 0;
+                        });
+                    }
+                    catch { }
                 }
             }
         }
@@ -273,6 +277,11 @@ namespace ProngedGear.Windows
             Visibility = Visibility.Collapsed;
             await Task.Delay(10000);
             Visibility = Visibility.Visible;
+        }
+
+        public void ClearTexts()
+        {
+            TextQueue.Clear();
         }
     }
 }

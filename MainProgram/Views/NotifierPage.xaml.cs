@@ -79,5 +79,9 @@ namespace ProngedGear.Views
             EventDataGrid.ItemsSource = Data;
         }
 
+        private void ClearMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.Notifier.ClearTexts();
+        }
     }
 }

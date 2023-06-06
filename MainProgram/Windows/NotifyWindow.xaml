@@ -18,7 +18,7 @@
         HorizontalAlignment="Center">
         <TextBlock
             x:Name="ContentTextBlock"
-            FontFamily="得意黑"
+            FontFamily="Smiley Sans Oblique"
             FontSize="48"
             Height="60"
             Background="#44FFFFFF"

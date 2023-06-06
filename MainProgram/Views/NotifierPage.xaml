@@ -50,6 +50,15 @@
                         x:Name="ApplyButton"
                         Click="ApplyButton_Click"
 	                    Content="确认"/>
+
+                <TextBlock
+                    Margin="0,10,0,0"
+                    Text="清空消息队列"/>
+                <wpfui:Button
+                    Margin="0,10,0,0"
+                    x:Name="ClearMessageButton"
+                    Click="ClearMessageButton_Click"
+                    Content="清空"/>
             </StackPanel>
 
             <StackPanel
