@@ -18,20 +18,11 @@
             <Setter Property="CornerRadius" Value="5"/>
         </Style>
 
-        <!--<Style x:Key="DefaultButtonStyle" TargetType="Button">
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Style x:Key="DefaultLabelStyle" TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="64"/>
-            --><!--<Setter Property="FontFamily" Value="得意黑"/>--><!--
-            <Setter Property="AllowDrop" Value="True"/>
-            --><!--
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑"
-            AllowDrop="True"
-            --><!--
-        </Style>-->
+            <Setter Property="FontFamily" Value="Smiley Sans Oblique"/>
+        </Style>
     </Window.Resources>
     
     <Grid>
@@ -61,91 +52,97 @@
             Grid.Column="0"
             Grid.Row="0"
             x:Name="Chinese"
-            Content="语文"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑"
-            AllowDrop="True"/>
+            AllowDrop="True">
+            <TextBlock
+                Style="{StaticResource DefaultLabelStyle}"
+                Text="语文"/>
+        </Button>
 
         <Button
             Grid.Column="1"
             Grid.Row="0"
             x:Name="Math"
-            Content="数学"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑"
-            AllowDrop="True"/>
-
+            AllowDrop="True">
+            <TextBlock
+                Style="{StaticResource DefaultLabelStyle}"
+                Text="数学"/>
+        </Button>
+        
         <Button
             Grid.Column="2"
             Grid.Row="0"
             x:Name="English"
-            Content="英语"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑"
-            AllowDrop="True"/>
+            AllowDrop="True">
+            <TextBlock
+                Style="{StaticResource DefaultLabelStyle}"
+                Text="英语"/>
+        </Button>
 
         <Button
             Grid.Column="0"
             Grid.Row="1"
             x:Name="Physics"
-            Content="物理"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑"
-            AllowDrop="True"/>
-        
+            AllowDrop="True">
+            <TextBlock
+                Style="{StaticResource DefaultLabelStyle}"
+                Text="物理"/>
+        </Button>
+
         <Button
             Grid.Column="1"
             Grid.Row="1"
             x:Name="Chemistry"
-            Content="化学"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑"
-            AllowDrop="True"/>
-        
+            AllowDrop="True">
+            <TextBlock
+                Style="{StaticResource DefaultLabelStyle}"
+                Text="化学"/>
+        </Button>
+
         <Button
             Grid.Column="2"
             Grid.Row="1"
             x:Name="Biology"
-            Content="生物"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
             MouseDoubleClick="DropButton_MouseDoubleClick"
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑"
-            AllowDrop="True"/>
+            AllowDrop="True">
+            <TextBlock
+                Style="{StaticResource DefaultLabelStyle}"
+                Text="生物"/>
+        </Button>
 
         <Button
             Grid.Column="3"
@@ -154,11 +151,11 @@
             x:Name="Note"
             Click="Note_Click"
             VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            FontSize="64"
-            FontFamily="得意黑">
+            HorizontalAlignment="Stretch">
             <TextBlock
                 Text="笔记截图"
+                FontSize="64"
+                FontFamily="得意黑"
                 TextWrapping="Wrap"/>
         </Button>
     </Grid>
