@@ -28,22 +28,49 @@ namespace ProngedGear.Windows
     public partial class NotifyWindow : Window
     {
         DisplayMode Mode = DisplayMode.Text;
-        Timer timer = new();
         List<string> AutoScrollText = new();
-        int count = 0;
+        int count = 0; Timer timer = new();
+        Task Task_Mod, Task_Formula, Task_Text;
 
-        Queue<string> FormulaQueue = new(), TextQueue = new();
+        Queue<string> Formulas = new(), Texts = new();
+        Queue<string> FormulaQueue
+        {
+            get
+            {
+                return Formulas;
+            }
+            set
+            {
+                Task_Formula.Wait();
+                Formulas = value;
+            }
+        }
+        Queue<string> TextQueue {
+            get
+            {
+                return Texts;
+            }
+            set
+            {
+                Task_Text.Wait();
+                Texts = value;
+            }
+        }
 
         public NotifyWindow()
         {
             InitializeComponent();
 
-            Task.Run(SetFormula);
-            Task.Run(SetText);
-            Task.Run(Mod);
+            Task_Mod = new(Mod);
+            Task_Formula = new(SetFormula);
+            Task_Text = new(SetText);
+
+            Task_Mod.Start();
+            Task_Formula.Start();
+            Task_Text.Start();
 
             EnqueueText("事件：启动");
-            timer.Interval = 3000; //1800000;
+            timer.Interval = 3000;
             timer.Elapsed += Timer_Elapsed;
         }
 
@@ -214,6 +241,7 @@ namespace ProngedGear.Windows
                         FormulaViewBox.Height = 0;
                     });
                 }
+                await Task.Delay(1500);
             }
         }
 
@@ -269,6 +297,7 @@ namespace ProngedGear.Windows
                     }
                     catch { }
                 }
+                await Task.Delay(1000);
             }
         }
 
