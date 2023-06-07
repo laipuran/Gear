@@ -23,13 +23,30 @@ namespace ProngedGear.Views
             set
             {
                 _Data = value;
-                App.AppSettings.Mod_Timer = Data;
+                App.AppSettings.Mod_Timing = Data;
             }
         }
 
         public NotifierPage()
         {
             InitializeComponent();
+
+            var roller = App.AppSettings.RollerText;
+            switch (roller.LoopMode)
+            {
+                case LoopMode.Shuffle:
+                    ShuffleRadioButton.IsChecked = true;
+                    break;
+                case LoopMode.Normal:
+                    NormalRadioButton.IsChecked = true;
+                    break;
+                default:
+                    break;
+            }
+            FormulaToggleSwitch.IsOn = roller.DisplayMode == DisplayMode.Formula ? true : false;
+            ContentTextBox.Text = string.Join('\n', roller.Text);
+
+            Data = App.AppSettings.Mod_Timing;
             EventDataGrid.ItemsSource = Data;
         }
 

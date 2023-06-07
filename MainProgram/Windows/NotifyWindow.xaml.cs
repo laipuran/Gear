@@ -56,7 +56,7 @@ namespace ProngedGear.Windows
                 if (time.Second != 0)
                     continue;
 
-                foreach (var timer in settings.Mod_Timer)
+                foreach (var timer in settings.Mod_Timing)
                 {
                     if (Equals(time, timer.Key))
                     {

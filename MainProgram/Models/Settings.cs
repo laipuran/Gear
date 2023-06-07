@@ -49,7 +49,7 @@ namespace ProngedGear.Models
         public bool AutoCollapse { get; set; }
         public bool AutoScroll { get; set; }
         public bool Mod_Time { get; set; }
-        public Dictionary<TimeOnly, string> Mod_Timer { get; set; } = new();
+        public Dictionary<TimeOnly, string> Mod_Timing { get; set; } = new();
         public RollerText RollerText { get; set; } = new();
         #endregion
 
