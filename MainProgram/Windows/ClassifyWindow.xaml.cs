@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using ProngedGear.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,11 +22,30 @@ namespace ProngedGear.Windows
         public ClassifyWindow()
         {
             InitializeComponent();
+            Operations.ToBottom(this);
             Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
             Top = SystemParameters.PrimaryScreenHeight * 0.05;
         }
 
-        private static void SelectFiles(string subject)
+        public class SubjectDetail
+        {
+            public SubjectDetail(Button button)
+            {
+                var subject = Models.Subject.GetSubjects(button.Name);
+                if (subject is not null)
+                    Subject = (Subject.SchoolSubject)subject;
+
+                ResourceDictionary dictionary = new ResourceDictionary();
+                dictionary.Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative);
+                SubjectName = (string)dictionary[Subject.ToString()];
+                SubjectDirectory = $"D:/{SubjectName}/";
+            }
+            public Subject.SchoolSubject Subject { get; set; } = Models.Subject.SchoolSubject.Chinese;
+            public string SubjectName { get; set; }
+            public string SubjectDirectory { get; set; }
+        }
+
+        private static void SelectFiles(SubjectDetail detail)
         {
             OpenFileDialog openFileDialog = new()
             {
@@ -45,10 +65,10 @@ namespace ProngedGear.Windows
                 return;
             }
             string[] files = openFileDialog.FileNames;
-            CopyFiles(subject, files);
+            CopyFiles(detail, files);
         }
 
-        private static void GetDroppedFiles(string subject, DragEventArgs e)
+        private static void GetDroppedFiles(SubjectDetail detail, DragEventArgs e)
         {
             try
             {
@@ -58,14 +78,14 @@ namespace ProngedGear.Windows
                     Application.Current.Shutdown();
                     return;
                 }
-                CopyFiles(subject, files);
+                CopyFiles(detail, files);
             }
             catch { }
         }
 
-        private static void CopyFiles(string subject, string[] files)
+        private static void CopyFiles(SubjectDetail detail, string[] files)
         {
-            string folder = $"D:/{subject}/";
+            string folder = detail.SubjectDirectory;
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
@@ -82,8 +102,11 @@ namespace ProngedGear.Windows
                     FileSystem.DeleteFile(destination, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
                 }
                 File.Copy(file, destination);
-                if (Directory.GetParent(file).FullName ==
-                    Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory))
+
+                DirectoryInfo? info = Directory.GetParent(file);
+                if (info is null)
+                    return;
+                if (info.FullName == Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory))
                 {
                     File.Delete(file);
                 }
@@ -92,19 +115,18 @@ namespace ProngedGear.Windows
 
         private void DropButton_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            SelectFiles(((Button)sender).Content.ToString());
+            var detail = new SubjectDetail((Button)sender);
+            SelectFiles(detail);
         }
 
         private async void DropButton_Drop(object sender, DragEventArgs e)
         {
-            ((Button)sender).Dispatcher.Invoke(() =>
-            {
-                App.Notifier.EnqueueText("事件：移动文件到" + ((Button)sender).Content.ToString() + "文件夹");
-            });
+            var detail = new SubjectDetail((Button)sender);
+            App.Notifier.EnqueueText("事件：移动文件到" + detail.SubjectName + "文件夹");
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effects = DragDropEffects.Copy;
-                GetDroppedFiles(((Button)sender).Content.ToString(), e);
+                GetDroppedFiles(detail, e);
             }
             await Task.Delay(1000);
             App.Notifier.EnqueueText("事件：移动完成");
@@ -113,7 +135,7 @@ namespace ProngedGear.Windows
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Operations.ToBottom(this);
+            //Operations.ToBottom(this);
             // NotifyWindow.SetText("事件：鼠标进入");
         }
 
@@ -128,31 +150,26 @@ namespace ProngedGear.Windows
                 return;
             }
 
+            var detail = new SubjectDetail((Button)sender);
             WaitProgressRing.IsActive = false;
             WaitProgressRing.Visibility = Visibility.Collapsed;
             if (DateTime.Now - LastOpen <= TimeSpan.FromMilliseconds(1500))
             {
                 return;
             }
-            Process.Start("explorer.exe", $"D:\\{((Button)sender).Content}");
+            Process.Start("explorer.exe", detail.SubjectDirectory);
             LastOpen = DateTime.Now;
 
-            ((Button)sender).Dispatcher.Invoke(() =>
-            {
-                App.Notifier.EnqueueText("事件：打开" + ((Button)sender).Content.ToString() + "文件夹");
-            });
+            App.Notifier.EnqueueText("事件：打开" + detail.SubjectName + "文件夹");
         }
 
         private void DropButton_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Task.Run(() =>
-            {
-                App.Notifier.EnqueueText("事件：选择文件");
-            });
+            App.Notifier.EnqueueText("事件：选择文件");
             DoubleClicked = true;
             WaitProgressRing.IsActive = false;
             WaitProgressRing.Visibility = Visibility.Collapsed;
-            SelectFiles(((Button)sender).Content.ToString());
+            SelectFiles(new SubjectDetail((Button)sender));
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -163,10 +180,7 @@ namespace ProngedGear.Windows
 
         private void Note_Click(object sender, RoutedEventArgs e)
         {
-            Task.Run(() =>
-            {
-                App.Notifier.EnqueueText("事件：打开笔记文件夹");
-            });
+            App.Notifier.EnqueueText("事件：打开笔记文件夹");
             Process.Start("explorer.exe",
                 Environment.GetFolderPath
                 (Environment.SpecialFolder.MyPictures) + "\\Ink Canvas Screenshots");

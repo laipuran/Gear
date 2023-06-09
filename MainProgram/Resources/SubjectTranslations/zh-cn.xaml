@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=netstandard">
+    <system:String x:Key="Chinese">语文</system:String>
+    <system:String x:Key="Math">数学</system:String>
+    <system:String x:Key="English">英语</system:String>
+    <system:String x:Key="Physics">物理</system:String>
+    <system:String x:Key="Chemistry">化学</system:String>
+    <system:String x:Key="Biology">生物</system:String>
+    <system:String x:Key="Politics">政治</system:String>
+    <system:String x:Key="History">历史</system:String>
+    <system:String x:Key="Geography">地理</system:String>
+</ResourceDictionary>

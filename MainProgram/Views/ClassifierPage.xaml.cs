@@ -8,9 +8,9 @@ namespace ProngedGear.Views
     /// </summary>
     public partial class ClassifierPage : Page
     {
-        Models.Subject[] _Subjects = new Models.Subject[6];
+        Models.Subject.SchoolSubject[] _Subjects = new Models.Subject.SchoolSubject[6];
 
-        Models.Subject[] Subjects
+        Models.Subject.SchoolSubject[] Subjects
         {
             get
             {
@@ -54,7 +54,7 @@ namespace ProngedGear.Views
             ComboBox comboBox = (ComboBox)sender;
             string name = comboBox.Name;
             int boxNum = name[-1];
-            Subjects[boxNum] = (Models.Subject)comboBox.SelectedIndex;
+            Subjects[boxNum] = (Models.Subject.SchoolSubject)comboBox.SelectedIndex;
         }
     }
 }

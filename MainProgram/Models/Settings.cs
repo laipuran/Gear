@@ -6,17 +6,41 @@ using System.IO;
 
 namespace ProngedGear.Models
 {
-    public enum Subject
+
+    public class Subject
     {
-        Chinese,
-        Math,
-        English,
-        Physics,
-        Chemistry,
-        Biology,
-        Politics,
-        History,
-        Geography
+        public enum SchoolSubject
+        {
+            Chinese,
+            Math,
+            English,
+            Physics,
+            Chemistry,
+            Biology,
+            Politics,
+            History,
+            Geography
+        }
+
+        public static SchoolSubject? GetSubjects(string subject)
+        {
+            var dict = new Dictionary<string, SchoolSubject>
+            {
+                { "Chinese", SchoolSubject.Chinese },
+                { "Math", SchoolSubject.Math },
+                { "English", SchoolSubject.English },
+                { "Physics", SchoolSubject.Physics },
+                { "Chemis", SchoolSubject.Chemistry },
+                { "Biolo", SchoolSubject.Biology },
+                { "Politics", SchoolSubject.Politics },
+                { "History", SchoolSubject.History },
+                { "Geography", SchoolSubject.Geography }
+            };
+
+            SchoolSubject subjects;
+            dict.TryGetValue(subject, out subjects);
+            return subjects;
+        }
     }
 
     public class RollerText
@@ -31,18 +55,18 @@ namespace ProngedGear.Models
         static readonly string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Pronged Gear\\Settings.json";
         public Settings()
         {
-            Subjects = new Subject[6] {
-                Subject.Chinese,
-                Subject.Math,
-                Subject.English,
-                Subject.Physics,
-                Subject.Chemistry,
-                Subject.Biology
+            Subjects = new Subject.SchoolSubject[6] {
+                Subject.SchoolSubject.Chinese,
+                Subject.SchoolSubject.Math,
+                Subject.SchoolSubject.English,
+                Subject.SchoolSubject.Physics,
+                Subject.SchoolSubject.Chemistry,
+                Subject.SchoolSubject.Biology
             };
         }
 
         #region Classifier Settings
-        public Subject[] Subjects { get; set; } = new Subject[6];
+        public Subject.SchoolSubject[] Subjects { get; set; } = new Subject.SchoolSubject[6];
         #endregion
 
         #region Notifier Settings
