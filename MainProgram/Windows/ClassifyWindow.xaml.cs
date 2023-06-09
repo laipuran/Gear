@@ -2,7 +2,6 @@
 using Microsoft.Win32;
 using ProngedGear.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -35,8 +34,10 @@ namespace ProngedGear.Windows
                 if (subject is not null)
                     Subject = (Subject.SchoolSubject)subject;
 
-                ResourceDictionary dictionary = new ResourceDictionary();
-                dictionary.Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative);
+                ResourceDictionary dictionary = new()
+                {
+                    Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative)
+                };
                 SubjectName = (string)dictionary[Subject.ToString()];
                 SubjectDirectory = $"D:/{SubjectName}/";
             }

@@ -37,8 +37,7 @@ namespace ProngedGear.Models
                 { "Geography", SchoolSubject.Geography }
             };
 
-            SchoolSubject subjects;
-            dict.TryGetValue(subject, out subjects);
+            dict.TryGetValue(subject, out SchoolSubject subjects);
             return subjects;
         }
     }

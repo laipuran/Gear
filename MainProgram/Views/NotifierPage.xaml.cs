@@ -43,8 +43,9 @@ namespace ProngedGear.Views
                 default:
                     break;
             }
-            FormulaToggleSwitch.IsOn = roller.DisplayMode == DisplayMode.Formula ? true : false;
+            FormulaToggleSwitch.IsOn = roller.DisplayMode == DisplayMode.Formula;
             ContentTextBox.Text = string.Join('\n', roller.Text);
+            ApplyButton_Click(new(), new());
 
             Data = App.AppSettings.Mod_Timing;
             EventDataGrid.ItemsSource = Data;

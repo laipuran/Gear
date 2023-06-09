@@ -45,7 +45,8 @@ namespace ProngedGear.Windows
                 Formulas = value;
             }
         }
-        Queue<string> TextQueue {
+        Queue<string> TextQueue
+        {
             get
             {
                 return Texts;
@@ -98,7 +99,7 @@ namespace ProngedGear.Windows
         private static bool Equals(TimeOnly time1, TimeOnly time2)
         {
             return time1.Hour == time2.Hour &&
-                time1.Minute == time2.Minute ? true : false;
+                time1.Minute == time2.Minute;
         }
 
         private List<Storyboard> GetAnimation(DisplayMode mode, string text)
