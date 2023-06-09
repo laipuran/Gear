@@ -8,7 +8,22 @@ using System.Text;
 
 namespace PuranLai.APIs
 {
-    public class WebApi
+    public class Operations
+    {
+        public static string? GetData(string url)
+        {
+            string? result = null;
+            try
+            {
+                HttpClient client = new();
+                result = client.GetStringAsync(url).Result;
+            }
+            catch { }
+            return result;
+        }
+    }
+
+    public class WeatherApis
     {
         private static readonly string key = "ad768f25db9eb67e3883c2a16f59295b";
         private static readonly string ipSrc = "https://ip.useragentinfo.com/myip";
@@ -52,21 +67,9 @@ namespace PuranLai.APIs
 
 #pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
 
-        public static string? GetData(string url)
-        {
-            string? result = null;
-            try
-            {
-                HttpClient client = new();
-                result = client.GetStringAsync(url).Result;
-            }
-            catch { }
-            return result;
-        }
-
         public static string? GetHostIp()
         {
-            string? ip = GetData(ipSrc);
+            string? ip = Operations.GetData(ipSrc);
             if (ip is not null)
                 return ip[..];
             return null;
@@ -74,7 +77,7 @@ namespace PuranLai.APIs
 
         public static IpInformation? GetIpInformation(string ip)
         {
-            string? json = GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
+            string? json = Operations.GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
             if (json is null) return null;
             IpInformation? i2 = new();
             try
@@ -88,13 +91,630 @@ namespace PuranLai.APIs
 
         public static WeatherInformation? GetWeatherInformation(string adcode)
         {
-            string? json = GetData(amapBase + "weather/weatherInfo?key=" + key + "&city=" + adcode);
+            string? json = Operations.GetData(amapBase + "weather/weatherInfo?key=" + key + "&city=" + adcode);
             if (json is null) return null;
 
             WeatherInformation? weather = JsonConvert.DeserializeObject<WeatherInformation>(json);
 
             return weather is null ? null : weather;
         }
+    }
+
+    public class ActionApis
+    {
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+        public class Actor
+        {
+            [JsonProperty("login")]
+            public string Login { get; set; }
+
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("node_id")]
+            public string NodeId { get; set; }
+
+            [JsonProperty("avatar_url")]
+            public string AvatarUrl { get; set; }
+
+            [JsonProperty("gravatar_id")]
+            public string GravatarId { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("html_url")]
+            public string HtmlUrl { get; set; }
+
+            [JsonProperty("followers_url")]
+            public string FollowersUrl { get; set; }
+
+            [JsonProperty("following_url")]
+            public string FollowingUrl { get; set; }
+
+            [JsonProperty("gists_url")]
+            public string GistsUrl { get; set; }
+
+            [JsonProperty("starred_url")]
+            public string StarredUrl { get; set; }
+
+            [JsonProperty("subscriptions_url")]
+            public string SubscriptionsUrl { get; set; }
+
+            [JsonProperty("organizations_url")]
+            public string OrganizationsUrl { get; set; }
+
+            [JsonProperty("repos_url")]
+            public string ReposUrl { get; set; }
+
+            [JsonProperty("events_url")]
+            public string EventsUrl { get; set; }
+
+            [JsonProperty("received_events_url")]
+            public string ReceivedEventsUrl { get; set; }
+
+            [JsonProperty("type")]
+            public string Type { get; set; }
+
+            [JsonProperty("site_admin")]
+            public bool SiteAdmin { get; set; }
+        }
+
+        public class Author
+        {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("email")]
+            public string Email { get; set; }
+        }
+
+        public class Committer
+        {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("email")]
+            public string Email { get; set; }
+        }
+
+        public class HeadCommit
+        {
+            [JsonProperty("id")]
+            public string Id { get; set; }
+
+            [JsonProperty("tree_id")]
+            public string TreeId { get; set; }
+
+            [JsonProperty("message")]
+            public string Message { get; set; }
+
+            [JsonProperty("timestamp")]
+            public DateTime Timestamp { get; set; }
+
+            [JsonProperty("author")]
+            public Author Author { get; set; }
+
+            [JsonProperty("committer")]
+            public Committer Committer { get; set; }
+        }
+
+        public class HeadRepository
+        {
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("node_id")]
+            public string NodeId { get; set; }
+
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("full_name")]
+            public string FullName { get; set; }
+
+            [JsonProperty("private")]
+            public bool Private { get; set; }
+
+            [JsonProperty("owner")]
+            public Owner Owner { get; set; }
+
+            [JsonProperty("html_url")]
+            public string HtmlUrl { get; set; }
+
+            [JsonProperty("description")]
+            public string Description { get; set; }
+
+            [JsonProperty("fork")]
+            public bool Fork { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("forks_url")]
+            public string ForksUrl { get; set; }
+
+            [JsonProperty("keys_url")]
+            public string KeysUrl { get; set; }
+
+            [JsonProperty("collaborators_url")]
+            public string CollaboratorsUrl { get; set; }
+
+            [JsonProperty("teams_url")]
+            public string TeamsUrl { get; set; }
+
+            [JsonProperty("hooks_url")]
+            public string HooksUrl { get; set; }
+
+            [JsonProperty("issue_events_url")]
+            public string IssueEventsUrl { get; set; }
+
+            [JsonProperty("events_url")]
+            public string EventsUrl { get; set; }
+
+            [JsonProperty("assignees_url")]
+            public string AssigneesUrl { get; set; }
+
+            [JsonProperty("branches_url")]
+            public string BranchesUrl { get; set; }
+
+            [JsonProperty("tags_url")]
+            public string TagsUrl { get; set; }
+
+            [JsonProperty("blobs_url")]
+            public string BlobsUrl { get; set; }
+
+            [JsonProperty("git_tags_url")]
+            public string GitTagsUrl { get; set; }
+
+            [JsonProperty("git_refs_url")]
+            public string GitRefsUrl { get; set; }
+
+            [JsonProperty("trees_url")]
+            public string TreesUrl { get; set; }
+
+            [JsonProperty("statuses_url")]
+            public string StatusesUrl { get; set; }
+
+            [JsonProperty("languages_url")]
+            public string LanguagesUrl { get; set; }
+
+            [JsonProperty("stargazers_url")]
+            public string StargazersUrl { get; set; }
+
+            [JsonProperty("contributors_url")]
+            public string ContributorsUrl { get; set; }
+
+            [JsonProperty("subscribers_url")]
+            public string SubscribersUrl { get; set; }
+
+            [JsonProperty("subscription_url")]
+            public string SubscriptionUrl { get; set; }
+
+            [JsonProperty("commits_url")]
+            public string CommitsUrl { get; set; }
+
+            [JsonProperty("git_commits_url")]
+            public string GitCommitsUrl { get; set; }
+
+            [JsonProperty("comments_url")]
+            public string CommentsUrl { get; set; }
+
+            [JsonProperty("issue_comment_url")]
+            public string IssueCommentUrl { get; set; }
+
+            [JsonProperty("contents_url")]
+            public string ContentsUrl { get; set; }
+
+            [JsonProperty("compare_url")]
+            public string CompareUrl { get; set; }
+
+            [JsonProperty("merges_url")]
+            public string MergesUrl { get; set; }
+
+            [JsonProperty("archive_url")]
+            public string ArchiveUrl { get; set; }
+
+            [JsonProperty("downloads_url")]
+            public string DownloadsUrl { get; set; }
+
+            [JsonProperty("issues_url")]
+            public string IssuesUrl { get; set; }
+
+            [JsonProperty("pulls_url")]
+            public string PullsUrl { get; set; }
+
+            [JsonProperty("milestones_url")]
+            public string MilestonesUrl { get; set; }
+
+            [JsonProperty("notifications_url")]
+            public string NotificationsUrl { get; set; }
+
+            [JsonProperty("labels_url")]
+            public string LabelsUrl { get; set; }
+
+            [JsonProperty("releases_url")]
+            public string ReleasesUrl { get; set; }
+
+            [JsonProperty("deployments_url")]
+            public string DeploymentsUrl { get; set; }
+        }
+
+        public class Owner
+        {
+            [JsonProperty("login")]
+            public string Login { get; set; }
+
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("node_id")]
+            public string NodeId { get; set; }
+
+            [JsonProperty("avatar_url")]
+            public string AvatarUrl { get; set; }
+
+            [JsonProperty("gravatar_id")]
+            public string GravatarId { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("html_url")]
+            public string HtmlUrl { get; set; }
+
+            [JsonProperty("followers_url")]
+            public string FollowersUrl { get; set; }
+
+            [JsonProperty("following_url")]
+            public string FollowingUrl { get; set; }
+
+            [JsonProperty("gists_url")]
+            public string GistsUrl { get; set; }
+
+            [JsonProperty("starred_url")]
+            public string StarredUrl { get; set; }
+
+            [JsonProperty("subscriptions_url")]
+            public string SubscriptionsUrl { get; set; }
+
+            [JsonProperty("organizations_url")]
+            public string OrganizationsUrl { get; set; }
+
+            [JsonProperty("repos_url")]
+            public string ReposUrl { get; set; }
+
+            [JsonProperty("events_url")]
+            public string EventsUrl { get; set; }
+
+            [JsonProperty("received_events_url")]
+            public string ReceivedEventsUrl { get; set; }
+
+            [JsonProperty("type")]
+            public string Type { get; set; }
+
+            [JsonProperty("site_admin")]
+            public bool SiteAdmin { get; set; }
+        }
+
+        public class Repository
+        {
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("node_id")]
+            public string NodeId { get; set; }
+
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("full_name")]
+            public string FullName { get; set; }
+
+            [JsonProperty("private")]
+            public bool Private { get; set; }
+
+            [JsonProperty("owner")]
+            public Owner Owner { get; set; }
+
+            [JsonProperty("html_url")]
+            public string HtmlUrl { get; set; }
+
+            [JsonProperty("description")]
+            public string Description { get; set; }
+
+            [JsonProperty("fork")]
+            public bool Fork { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("forks_url")]
+            public string ForksUrl { get; set; }
+
+            [JsonProperty("keys_url")]
+            public string KeysUrl { get; set; }
+
+            [JsonProperty("collaborators_url")]
+            public string CollaboratorsUrl { get; set; }
+
+            [JsonProperty("teams_url")]
+            public string TeamsUrl { get; set; }
+
+            [JsonProperty("hooks_url")]
+            public string HooksUrl { get; set; }
+
+            [JsonProperty("issue_events_url")]
+            public string IssueEventsUrl { get; set; }
+
+            [JsonProperty("events_url")]
+            public string EventsUrl { get; set; }
+
+            [JsonProperty("assignees_url")]
+            public string AssigneesUrl { get; set; }
+
+            [JsonProperty("branches_url")]
+            public string BranchesUrl { get; set; }
+
+            [JsonProperty("tags_url")]
+            public string TagsUrl { get; set; }
+
+            [JsonProperty("blobs_url")]
+            public string BlobsUrl { get; set; }
+
+            [JsonProperty("git_tags_url")]
+            public string GitTagsUrl { get; set; }
+
+            [JsonProperty("git_refs_url")]
+            public string GitRefsUrl { get; set; }
+
+            [JsonProperty("trees_url")]
+            public string TreesUrl { get; set; }
+
+            [JsonProperty("statuses_url")]
+            public string StatusesUrl { get; set; }
+
+            [JsonProperty("languages_url")]
+            public string LanguagesUrl { get; set; }
+
+            [JsonProperty("stargazers_url")]
+            public string StargazersUrl { get; set; }
+
+            [JsonProperty("contributors_url")]
+            public string ContributorsUrl { get; set; }
+
+            [JsonProperty("subscribers_url")]
+            public string SubscribersUrl { get; set; }
+
+            [JsonProperty("subscription_url")]
+            public string SubscriptionUrl { get; set; }
+
+            [JsonProperty("commits_url")]
+            public string CommitsUrl { get; set; }
+
+            [JsonProperty("git_commits_url")]
+            public string GitCommitsUrl { get; set; }
+
+            [JsonProperty("comments_url")]
+            public string CommentsUrl { get; set; }
+
+            [JsonProperty("issue_comment_url")]
+            public string IssueCommentUrl { get; set; }
+
+            [JsonProperty("contents_url")]
+            public string ContentsUrl { get; set; }
+
+            [JsonProperty("compare_url")]
+            public string CompareUrl { get; set; }
+
+            [JsonProperty("merges_url")]
+            public string MergesUrl { get; set; }
+
+            [JsonProperty("archive_url")]
+            public string ArchiveUrl { get; set; }
+
+            [JsonProperty("downloads_url")]
+            public string DownloadsUrl { get; set; }
+
+            [JsonProperty("issues_url")]
+            public string IssuesUrl { get; set; }
+
+            [JsonProperty("pulls_url")]
+            public string PullsUrl { get; set; }
+
+            [JsonProperty("milestones_url")]
+            public string MilestonesUrl { get; set; }
+
+            [JsonProperty("notifications_url")]
+            public string NotificationsUrl { get; set; }
+
+            [JsonProperty("labels_url")]
+            public string LabelsUrl { get; set; }
+
+            [JsonProperty("releases_url")]
+            public string ReleasesUrl { get; set; }
+
+            [JsonProperty("deployments_url")]
+            public string DeploymentsUrl { get; set; }
+        }
+
+        public class Root
+        {
+            [JsonProperty("total_count")]
+            public int TotalCount { get; set; }
+
+            [JsonProperty("workflow_runs")]
+            public List<WorkflowRun> WorkflowRuns { get; set; }
+        }
+
+        public class TriggeringActor
+        {
+            [JsonProperty("login")]
+            public string Login { get; set; }
+
+            [JsonProperty("id")]
+            public int Id { get; set; }
+
+            [JsonProperty("node_id")]
+            public string NodeId { get; set; }
+
+            [JsonProperty("avatar_url")]
+            public string AvatarUrl { get; set; }
+
+            [JsonProperty("gravatar_id")]
+            public string GravatarId { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("html_url")]
+            public string HtmlUrl { get; set; }
+
+            [JsonProperty("followers_url")]
+            public string FollowersUrl { get; set; }
+
+            [JsonProperty("following_url")]
+            public string FollowingUrl { get; set; }
+
+            [JsonProperty("gists_url")]
+            public string GistsUrl { get; set; }
+
+            [JsonProperty("starred_url")]
+            public string StarredUrl { get; set; }
+
+            [JsonProperty("subscriptions_url")]
+            public string SubscriptionsUrl { get; set; }
+
+            [JsonProperty("organizations_url")]
+            public string OrganizationsUrl { get; set; }
+
+            [JsonProperty("repos_url")]
+            public string ReposUrl { get; set; }
+
+            [JsonProperty("events_url")]
+            public string EventsUrl { get; set; }
+
+            [JsonProperty("received_events_url")]
+            public string ReceivedEventsUrl { get; set; }
+
+            [JsonProperty("type")]
+            public string Type { get; set; }
+
+            [JsonProperty("site_admin")]
+            public bool SiteAdmin { get; set; }
+        }
+
+        public class WorkflowRun
+        {
+            [JsonProperty("id")]
+            public object Id { get; set; }
+
+            [JsonProperty("name")]
+            public string Name { get; set; }
+
+            [JsonProperty("node_id")]
+            public string NodeId { get; set; }
+
+            [JsonProperty("head_branch")]
+            public string HeadBranch { get; set; }
+
+            [JsonProperty("head_sha")]
+            public string HeadSha { get; set; }
+
+            [JsonProperty("path")]
+            public string Path { get; set; }
+
+            [JsonProperty("display_title")]
+            public string DisplayTitle { get; set; }
+
+            [JsonProperty("run_number")]
+            public int RunNumber { get; set; }
+
+            [JsonProperty("event")]
+            public string Event { get; set; }
+
+            [JsonProperty("status")]
+            public string Status { get; set; }
+
+            [JsonProperty("conclusion")]
+            public string Conclusion { get; set; }
+
+            [JsonProperty("workflow_id")]
+            public int WorkflowId { get; set; }
+
+            [JsonProperty("check_suite_id")]
+            public object CheckSuiteId { get; set; }
+
+            [JsonProperty("check_suite_node_id")]
+            public string CheckSuiteNodeId { get; set; }
+
+            [JsonProperty("url")]
+            public string Url { get; set; }
+
+            [JsonProperty("html_url")]
+            public string HtmlUrl { get; set; }
+
+            [JsonProperty("pull_requests")]
+            public List<object> PullRequests { get; set; }
+
+            [JsonProperty("created_at")]
+            public DateTime CreatedAt { get; set; }
+
+            [JsonProperty("updated_at")]
+            public DateTime UpdatedAt { get; set; }
+
+            [JsonProperty("actor")]
+            public Actor Actor { get; set; }
+
+            [JsonProperty("run_attempt")]
+            public int RunAttempt { get; set; }
+
+            [JsonProperty("referenced_workflows")]
+            public List<object> ReferencedWorkflows { get; set; }
+
+            [JsonProperty("run_started_at")]
+            public DateTime RunStartedAt { get; set; }
+
+            [JsonProperty("triggering_actor")]
+            public TriggeringActor TriggeringActor { get; set; }
+
+            [JsonProperty("jobs_url")]
+            public string JobsUrl { get; set; }
+
+            [JsonProperty("logs_url")]
+            public string LogsUrl { get; set; }
+
+            [JsonProperty("check_suite_url")]
+            public string CheckSuiteUrl { get; set; }
+
+            [JsonProperty("artifacts_url")]
+            public string ArtifactsUrl { get; set; }
+
+            [JsonProperty("cancel_url")]
+            public string CancelUrl { get; set; }
+
+            [JsonProperty("rerun_url")]
+            public string RerunUrl { get; set; }
+
+            [JsonProperty("previous_attempt_url")]
+            public object PreviousAttemptUrl { get; set; }
+
+            [JsonProperty("workflow_url")]
+            public string WorkflowUrl { get; set; }
+
+            [JsonProperty("head_commit")]
+            public HeadCommit HeadCommit { get; set; }
+
+            [JsonProperty("repository")]
+            public Repository Repository { get; set; }
+
+            [JsonProperty("head_repository")]
+            public HeadRepository HeadRepository { get; set; }
+        }
+
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+
     }
 
     public partial class WindowEnumerator
