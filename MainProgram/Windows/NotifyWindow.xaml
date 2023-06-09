@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ProngedGear.Windows"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d" AllowsTransparency="True"
-        Title="NotifyWindow" WindowStyle="None"
+        Title="文本提示" WindowStyle="None"
         Topmost="True" Background="#00FFFFFF"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Height="100" Left="0" Top="0" ShowInTaskbar="False"

@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\SmileySans-Oblique.ttf" />
+    <Resource Include="Resources\Fonts\SmileySans-Oblique.ttf" />
   </ItemGroup>
 
   <ItemGroup>

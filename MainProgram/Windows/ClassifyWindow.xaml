@@ -10,9 +10,8 @@
         AllowsTransparency="True" Background="#88FFFFFF"
         WindowStyle="None" Opacity="0.5"
         MouseEnter="Window_MouseEnter"
-        Closing="Window_Closing"
-        ResizeMode="NoResize"
-        Title="课件窗口" ShowInTaskbar="False">
+        Closing="Window_Closing" ResizeMode="NoResize"
+        Title="文件分类" ShowInTaskbar="False">
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="5"/>
