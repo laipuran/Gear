@@ -20,13 +20,13 @@
             <TextBlock
                 Text="添加科目文件夹"/>
             
-            <!--<TextBlock
+            <TextBlock
                 Margin="0,5,0,0"
                 Text="第一顺位："/>
             <ComboBox
                 Margin="0,5,0,0"
                 x:Name="ComboBox_1"
-                Selected="ComboBox_Selected"/>
+                SelectionChanged="ComboBox_SelectionChanged"/>
             
             <TextBlock
                 Margin="0,5,0,0"
@@ -34,7 +34,7 @@
             <ComboBox
                 Margin="0,5,0,0"
                 x:Name="ComboBox_2"
-                Selected="ComboBox_Selected"/>
+                SelectionChanged="ComboBox_SelectionChanged"/>
             
             <TextBlock
                 Margin="0,5,0,0"
@@ -42,7 +42,7 @@
             <ComboBox
                 Margin="0,5,0,0"
                 x:Name="ComboBox_3"
-                Selected="ComboBox_Selected"/>
+                SelectionChanged="ComboBox_SelectionChanged"/>
             
             <TextBlock
                 Margin="0,5,0,0"
@@ -50,7 +50,7 @@
             <ComboBox 
                 Margin="0,5,0,0"
                 x:Name="ComboBox_4"
-                Selected="ComboBox_Selected"/>
+                SelectionChanged="ComboBox_SelectionChanged"/>
             
             <TextBlock
                 Margin="0,5,0,0"
@@ -58,7 +58,7 @@
             <ComboBox
                 Margin="0,5,0,0"
                 x:Name="ComboBox_5"
-                Selected="ComboBox_Selected"/>
+                SelectionChanged="ComboBox_SelectionChanged"/>
             
             <TextBlock
                 Margin="0,5,0,0"
@@ -66,7 +66,7 @@
             <ComboBox
                 Margin="0,5,0,0"
                 x:Name="ComboBox_6"
-                Selected="ComboBox_Selected"/>-->
+                SelectionChanged="ComboBox_SelectionChanged"/>
         </StackPanel>
     </StackPanel>
 </Page>

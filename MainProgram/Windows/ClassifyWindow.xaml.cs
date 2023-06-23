@@ -24,13 +24,18 @@ namespace ProngedGear.Windows
             Operations.ToBottom(this);
             Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
             Top = SystemParameters.PrimaryScreenHeight * 0.05;
+
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    SetButtonSubject(App.AppSettings.Subjects[i], i + 1);
+            //}
         }
 
         public class SubjectDetail
         {
             public SubjectDetail(Button button)
             {
-                var subject = Models.Subject.GetSubjects(button.Name);
+                var subject = Models.Subject.GetSubjects((string)button.Tag);
                 if (subject is not null)
                     Subject = (Subject.SchoolSubject)subject;
 
@@ -39,11 +44,31 @@ namespace ProngedGear.Windows
                     Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative)
                 };
                 SubjectName = (string)dictionary[Subject.ToString()];
-                SubjectDirectory = $"D:/{SubjectName}/";
+                SubjectDirectory = $@"D:\{SubjectName}\";
+            }
+
+            public SubjectDetail(Subject.SchoolSubject subject)
+            {
+                Subject = subject;
+                ResourceDictionary dictionary = new()
+                {
+                    Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative)
+                };
+                SubjectName = (string)dictionary[subject.ToString()];
+                SubjectDirectory = $@"D:\{SubjectName}\";
             }
             public Subject.SchoolSubject Subject { get; set; } = Models.Subject.SchoolSubject.Chinese;
             public string SubjectName { get; set; }
             public string SubjectDirectory { get; set; }
+        }
+
+        public void SetButtonSubject(Subject.SchoolSubject subject, int num)
+        {
+            var subjectDetail = new SubjectDetail(subject);
+            var button = (Button)FindName($"Button_{num}");
+            button.Tag = subject.ToString();
+            var textBlock = (TextBlock)FindName($"TextBlock_{num}");
+            textBlock.Text = subjectDetail.SubjectName;
         }
 
         private static void SelectFiles(SubjectDetail detail)
@@ -136,7 +161,7 @@ namespace ProngedGear.Windows
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            //Operations.ToBottom(this);
+            Operations.ToBottom(this);
             // NotifyWindow.SetText("事件：鼠标进入");
         }
 

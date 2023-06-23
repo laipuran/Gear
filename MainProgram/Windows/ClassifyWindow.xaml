@@ -50,7 +50,8 @@
         <Button
             Grid.Column="0"
             Grid.Row="0"
-            x:Name="Chinese"
+            Tag="Chinese"
+            x:Name="Button_1"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
@@ -59,6 +60,7 @@
             HorizontalAlignment="Stretch"
             AllowDrop="True">
             <TextBlock
+                x:Name="TextBlock_1"
                 Style="{StaticResource DefaultLabelStyle}"
                 Text="语文"/>
         </Button>
@@ -66,7 +68,8 @@
         <Button
             Grid.Column="1"
             Grid.Row="0"
-            x:Name="Math"
+            Tag="Math"
+            x:Name="Button_2"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
@@ -75,6 +78,7 @@
             HorizontalAlignment="Stretch"
             AllowDrop="True">
             <TextBlock
+                x:Name="TextBlock_2"
                 Style="{StaticResource DefaultLabelStyle}"
                 Text="数学"/>
         </Button>
@@ -82,7 +86,8 @@
         <Button
             Grid.Column="2"
             Grid.Row="0"
-            x:Name="English"
+            Tag="English"
+            x:Name="Button_3"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
@@ -91,6 +96,7 @@
             HorizontalAlignment="Stretch"
             AllowDrop="True">
             <TextBlock
+                x:Name="TextBlock_3"
                 Style="{StaticResource DefaultLabelStyle}"
                 Text="英语"/>
         </Button>
@@ -98,7 +104,8 @@
         <Button
             Grid.Column="0"
             Grid.Row="1"
-            x:Name="Physics"
+            Tag="Physics"
+            x:Name="Button_4"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
@@ -107,6 +114,7 @@
             HorizontalAlignment="Stretch"
             AllowDrop="True">
             <TextBlock
+                x:Name="TextBlock_4"
                 Style="{StaticResource DefaultLabelStyle}"
                 Text="物理"/>
         </Button>
@@ -114,6 +122,7 @@
         <Button
             Grid.Column="1"
             Grid.Row="1"
+            Tag="Button_5"
             x:Name="Chemistry"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
@@ -123,6 +132,7 @@
             HorizontalAlignment="Stretch"
             AllowDrop="True">
             <TextBlock
+                x:Name="TextBlock_5"
                 Style="{StaticResource DefaultLabelStyle}"
                 Text="化学"/>
         </Button>
@@ -130,6 +140,7 @@
         <Button
             Grid.Column="2"
             Grid.Row="1"
+            Tag="Button_6"
             x:Name="Biology"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
@@ -139,6 +150,7 @@
             HorizontalAlignment="Stretch"
             AllowDrop="True">
             <TextBlock
+                x:Name="TextBlock_6"
                 Style="{StaticResource DefaultLabelStyle}"
                 Text="生物"/>
         </Button>
