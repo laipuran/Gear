@@ -1,7 +1,9 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using Gear.Windows;
+using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using ProngedGear.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -25,6 +27,7 @@ namespace ProngedGear.Windows
             Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
             Top = SystemParameters.PrimaryScreenHeight * 0.05;
 
+            CheckSubjectFolders();
             //for (int i = 0; i < 6; i++)
             //{
             //    SetButtonSubject(App.AppSettings.Subjects[i], i + 1);
@@ -62,13 +65,47 @@ namespace ProngedGear.Windows
             public string SubjectDirectory { get; set; }
         }
 
+        private static void CheckSubjectFolders()
+        {
+            List<string> directories = new();
+            foreach (var subject in App.AppSettings.Subjects)
+            {
+                var detail = new SubjectDetail(subject);
+                if (!Directory.Exists(detail.SubjectDirectory))
+                {
+                    // TODO: Rename attribute - SubjectDirectory to Directory
+                    directories.Add(detail.SubjectDirectory);
+                }
+            }
+
+            if (directories.Count != 0)
+            {
+                MessageWindow window = new("确定创建所有缺失的文件夹？", Convert.ToChar(0xE1DA).ToString());
+                window.ShowDialog();
+                if (window.Result)
+                {
+                    foreach (var directory in directories)
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+                }
+            }
+        }
+
         public void SetButtonSubject(Subject.SchoolSubject subject, int num)
         {
-            var subjectDetail = new SubjectDetail(subject);
-            var button = (Button)FindName($"Button_{num}");
-            button.Tag = subject.ToString();
-            var textBlock = (TextBlock)FindName($"TextBlock_{num}");
-            textBlock.Text = subjectDetail.SubjectName;
+            try
+            {
+                var subjectDetail = new SubjectDetail(subject);
+                var button = (Button)FindName($"Button_{num}");
+                button.Tag = subject.ToString();
+                var textBlock = (TextBlock)FindName($"TextBlock_{num}");
+                textBlock.Text = subjectDetail.SubjectName;
+            }
+            catch (Exception e)
+            {
+                new MessageWindow($"{e.TargetSite}\n{e.InnerException}\n{e.Message}").Show();
+            }
         }
 
         private static void SelectFiles(SubjectDetail detail)

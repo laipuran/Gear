@@ -20,13 +20,14 @@ namespace ProngedGear
     /// </summary>
     public partial class App : Application
     {
+        public static Settings AppSettings = Settings.GetSettings();
         #region Initialize Taskbar Icon Components
         public static ClassifyWindow Classifier = new() { Visibility = Visibility.Visible };
         public static NotifyWindow Notifier = new();
-        public static TaskbarIcon TaskbarIcon { get; private set; }
-        public static ContextMenu TaskbarIconContextMenu { get; private set; }
-        public static ToolTip TaskbarIconToolTip { get; private set; }
-        public static MenuItem SettingsItem { get; private set; }
+        public static TaskbarIcon TaskbarIcon { get; private set; } = new();
+        public static ContextMenu TaskbarIconContextMenu { get; private set; } = new();
+        public static ToolTip TaskbarIconToolTip { get; private set; } = new();
+        public static MenuItem SettingsItem { get; private set; } = new();
         #endregion
         #region Include System Functions
         [DllImport("user32.dll", EntryPoint = "FindWindow")]

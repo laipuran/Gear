@@ -122,8 +122,8 @@
         <Button
             Grid.Column="1"
             Grid.Row="1"
-            Tag="Button_5"
-            x:Name="Chemistry"
+            Tag="Chemistry"
+            x:Name="Button_5"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"
@@ -140,8 +140,8 @@
         <Button
             Grid.Column="2"
             Grid.Row="1"
-            Tag="Button_6"
-            x:Name="Biology"
+            Tag="Biology"
+            x:Name="Button_6"
             MouseRightButtonDown="DropButton_MouseRightButtonDown"
             Drop="DropButton_Drop"
             Click="DropButton_Click"

@@ -30,25 +30,29 @@ namespace ProngedGear.Views
             InitializeComponent();
             Subjects = App.AppSettings.Subjects;
 
+            InitializeComboBoxes();
+        }
+
+        private void InitializeComboBoxes()
+        {
             var items = new List<string>
             {
-                "语文",
-                "数学",
-                "英语",
-                "物理",
-                "化学",
-                "生物",
-                "政治",
-                "历史",
+                "语文","数学","英语","物理",
+                "化学","生物","政治","历史",
                 "地理",
             };
 
-            ComboBox_1.ItemsSource = items;
-            ComboBox_2.ItemsSource = items;
-            ComboBox_3.ItemsSource = items;
-            ComboBox_4.ItemsSource = items;
-            ComboBox_5.ItemsSource = items;
-            ComboBox_6.ItemsSource = items;
+            var boxes = new List<ComboBox>
+            {
+                ComboBox_1, ComboBox_2, ComboBox_3,
+                ComboBox_4, ComboBox_5, ComboBox_6
+            };
+
+            foreach (var box in boxes)
+            {
+                box.ItemsSource = items;
+                box.SelectedIndex = (int)App.AppSettings.Subjects[boxes.IndexOf(box)];
+            }
         }
 
         private void ComboBox_SelectionChanged(object sender, System.Windows.RoutedEventArgs e)
@@ -57,7 +61,7 @@ namespace ProngedGear.Views
             string name = comboBox.Name;
             int index = PuranLai.Algorithms.Parse.ParseFromString(name[name.Length - 1].ToString(), 6).number;
             var schoolSubject = (Models.Subject.SchoolSubject)comboBox.SelectedIndex;
-            Subjects[index] = schoolSubject;
+            Subjects[index - 1] = schoolSubject;
             App.Classifier.SetButtonSubject(schoolSubject, index);
         }
     }
