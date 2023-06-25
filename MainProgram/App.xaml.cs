@@ -33,23 +33,21 @@ namespace ProngedGear
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
         #endregion
-        public static Settings AppSettings = new();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             ForeRunCheck();
             SetupTrayIcon();
             SetupAutoStart();
-            AppSettings = Settings.GetSettings();
             Notifier.Show();
             Classifier.Show();
         }
 
         private void ForeRunCheck()
         {
-            IntPtr hWnd = FindWindow(null, "Over Top");                     //Avoiding opening this app twice
+            IntPtr hWnd = FindWindow(null, "三叉戟：设置");                     //Avoiding opening this app twice
             if (hWnd != IntPtr.Zero)
             {
-                MessageBox.Show("Over Top 存在运行中的实例！", "Over Top");
+                MessageBox.Show("三叉戟 存在运行中的实例！", "三叉戟");
                 Environment.Exit(-1);
             }
         }
@@ -119,7 +117,7 @@ namespace ProngedGear
 
             TaskbarIconContextMenu = new()
             {
-                Items = { SettingsItem, showMainWindowItem, exitItem }
+                Items = { SettingsItem, exitItem }
             };
 
             TaskbarIconToolTip = new()
