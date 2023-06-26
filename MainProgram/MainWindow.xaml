@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:modern="http://schemas.modernwpf.com/2019"
-        mc:Ignorable="d"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         xmlns:local="clr-namespace:ProngedGear"
-        Title="设置" Height="450" Width="800"
+        Title="三叉戟：设置" Height="450" Width="800"
         Closing="Window_Closing" Icon="Icon.png">
     <Window.Resources>
         <RoutedUICommand
@@ -42,8 +42,11 @@
                 Tag="Classifier"
                 Icon="Home"/>
         </modern:NavigationView.MenuItems>
-        <modern:Frame
-            x:Name="ContentFrame"/>
+        <ScrollViewer
+            HorizontalScrollBarVisibility="Disabled">
+            <modern:Frame
+                x:Name="ContentFrame"/>
+        </ScrollViewer>
     </modern:NavigationView>
 
 </Window>
