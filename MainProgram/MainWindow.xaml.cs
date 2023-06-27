@@ -21,7 +21,7 @@ namespace ProngedGear
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            WindowState = WindowState.Minimized;
+            Visibility = Visibility.Collapsed;
         }
 
         private void NavigationView_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)

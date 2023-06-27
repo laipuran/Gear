@@ -74,6 +74,7 @@ namespace ProngedGear
 
         private void SetupTrayIcon()
         {
+
             SettingsItem = new MenuItem()
             {
                 Header = "设置",
@@ -104,7 +105,7 @@ namespace ProngedGear
                 Header = "显示主窗口",
                 ToolTip = "显示设置窗口",
                 Icon = new FontIcon() { Glyph = "\uE70A" },
-                Command = new RelayCommand(() => { MainWindow.WindowState = WindowState.Normal; })
+                Command = new RelayCommand(() => { MainWindow.Visibility = Visibility.Visible; })
             };
 
             var exitItem = new MenuItem()

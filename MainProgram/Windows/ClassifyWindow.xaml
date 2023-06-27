@@ -4,14 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProngedGear.Windows"
-        xmlns:ui="http://schemas.modernwpf.com/2019"
-        ui:WindowHelper.UseModernWindowStyle="True"
+        xmlns:modern="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d" Width="600" Height="300"
         AllowsTransparency="True" Background="#88FFFFFF"
         WindowStyle="None" Opacity="0.5"
         MouseEnter="Window_MouseEnter"
         Closing="Window_Closing" ResizeMode="NoResize"
-        Title="文件分类" ShowInTaskbar="False">
+        Title="文件分类" ShowInTaskbar="False"
+        modern:ThemeManager.RequestedTheme="Light">
+    
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="5"/>
@@ -22,6 +23,7 @@
             <Setter Property="FontSize" Value="64"/>
             <Setter Property="FontFamily" Value="Smiley Sans Oblique"/>
         </Style>
+
     </Window.Resources>
     
     <Grid>
@@ -36,7 +38,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ui:ProgressRing
+        <modern:ProgressRing
             Grid.ColumnSpan="3"
             Grid.RowSpan="2"
             Grid.Column="0"

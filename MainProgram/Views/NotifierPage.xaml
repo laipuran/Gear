@@ -11,6 +11,14 @@
       modern:ThemeManager.RequestedTheme="Light"
       Title="NotifierPage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <wpfui:ThemesDictionary Theme="Light"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <StackPanel Margin="20">
         <TextBlock
             Text="设置 Notifier"

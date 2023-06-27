@@ -30,8 +30,8 @@ namespace ProngedGear.Models
                 { "Math", SchoolSubject.Math },
                 { "English", SchoolSubject.English },
                 { "Physics", SchoolSubject.Physics },
-                { "Chemis", SchoolSubject.Chemistry },
-                { "Biolo", SchoolSubject.Biology },
+                { "Chemistry", SchoolSubject.Chemistry },
+                { "Biology", SchoolSubject.Biology },
                 { "Politics", SchoolSubject.Politics },
                 { "History", SchoolSubject.History },
                 { "Geography", SchoolSubject.Geography }

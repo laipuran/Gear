@@ -20,7 +20,7 @@
                 <modern:ThemeResources />
                 <modern:XamlControlsResources />
                 
-                <wpfui:ThemesDictionary Theme="Light" />
+                <wpfui:ThemesDictionary Theme="Dark" />
                 <wpfui:ControlsDictionary />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>

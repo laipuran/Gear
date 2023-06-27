@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:math="clr-namespace:WpfMath.Controls;assembly=WpfMath"
-        xmlns:local="clr-namespace:ProngedGear.Windows"
-        xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d" AllowsTransparency="True"
         Title="文本提示" WindowStyle="None"
         Topmost="True" Background="#00FFFFFF"

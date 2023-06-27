@@ -25,7 +25,7 @@ namespace ProngedGear.Windows
             InitializeComponent();
             Operations.ToBottom(this);
             Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
-            Top = SystemParameters.PrimaryScreenHeight * 0.05;
+            Top = SystemParameters.PrimaryScreenHeight * 0.1;
 
             CheckSubjectFolders();
             //for (int i = 0; i < 6; i++)
@@ -198,8 +198,8 @@ namespace ProngedGear.Windows
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            Operations.ToBottom(this);
-            // NotifyWindow.SetText("事件：鼠标进入");
+            //Operations.ToBottom(this);
+            //NotifyWindow.SetText("事件：鼠标进入");
         }
 
         private async void DropButton_Click(object sender, RoutedEventArgs e)
