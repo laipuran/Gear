@@ -28,10 +28,11 @@ namespace ProngedGear.Windows
             Top = SystemParameters.PrimaryScreenHeight * 0.1;
 
             CheckSubjectFolders();
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    SetButtonSubject(App.AppSettings.Subjects[i], i + 1);
-            //}
+
+            for (int i = 0; i < 6; i++)
+            {
+                SetButtonSubject(App.AppSettings.Subjects[i], i + 1);
+            }
         }
 
         public class SubjectDetail

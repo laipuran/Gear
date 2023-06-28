@@ -62,5 +62,28 @@ namespace ProngedGear.Views
             Subjects[index - 1] = schoolSubject;
             App.Classifier.SetButtonSubject(schoolSubject, index);
         }
+
+        #region Quick Settings
+        private void Button_PCB_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ComboBox_4.SelectedIndex = 3;
+            ComboBox_5.SelectedIndex = 4;
+            ComboBox_6.SelectedIndex = 5;
+        }
+
+        private void Button_PCG_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ComboBox_4.SelectedIndex = 3;
+            ComboBox_5.SelectedIndex = 4;
+            ComboBox_6.SelectedIndex = 8;
+        }
+
+        private void HPG_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ComboBox_4.SelectedIndex = 6;
+            ComboBox_5.SelectedIndex = 7;
+            ComboBox_6.SelectedIndex = 8;
+        }
+        #endregion
     }
 }
