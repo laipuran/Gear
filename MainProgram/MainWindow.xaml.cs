@@ -21,12 +21,6 @@ namespace ProngedGear
             NotifyNavItem.Icon = new FontIcon() { Glyph = "\uE138" };
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Visibility = Visibility.Collapsed;
-        }
-
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             NavigationViewItem item = (NavigationViewItem)args.SelectedItem;

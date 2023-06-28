@@ -109,7 +109,16 @@ namespace ProngedGear
                 Header = "显示主窗口",
                 ToolTip = "显示设置窗口",
                 Icon = new FontIcon() { Glyph = "\uE70A" },
-                Command = new RelayCommand(() => { MainWindow.Visibility = Visibility.Visible; })
+                Command = new RelayCommand(() =>
+                {
+                    try
+                    {
+                        MainWindow.Close();
+                    }
+                    catch { }
+                    MainWindow = new MainWindow();
+                    MainWindow.Show();
+                })
             };
 
             var exitItem = new MenuItem()
@@ -122,7 +131,7 @@ namespace ProngedGear
 
             TaskbarIconContextMenu = new()
             {
-                Items = { SettingsItem, exitItem }
+                Items = { SettingsItem, showMainWindowItem, exitItem }
             };
 
             TaskbarIconToolTip = new()
@@ -136,8 +145,9 @@ namespace ProngedGear
                 ContextMenu = TaskbarIconContextMenu,
                 Icon = new System.Drawing.Icon("Icon.ico"),
                 NoLeftClickDelay = true,
-                LeftClickCommand = new RelayCommand(() => { TaskbarIconContextMenu.IsOpen = !TaskbarIconContextMenu.IsOpen; })
+                LeftClickCommand = new RelayCommand(() => { TaskbarIconContextMenu.IsOpen = !TaskbarIconContextMenu.IsOpen; }),
             };
+
         }
 
         private void ClassifierVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)

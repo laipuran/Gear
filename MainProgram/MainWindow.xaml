@@ -8,7 +8,7 @@
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         xmlns:local="clr-namespace:ProngedGear"
         Title="三叉戟：设置" Height="450" Width="800"
-        Closing="Window_Closing" Icon="Icon.png">
+        Icon="Icon.png">
     <Window.Resources>
         <RoutedUICommand
             x:Key="WeatherCommand"
