@@ -10,11 +10,11 @@ namespace Gear.Windows
     {
         public bool Result = false;
 
-        public MessageWindow(string question, string symbol = "")
+        public MessageWindow(string question, string symbol = "\uE11B")
         {
             InitializeComponent();
             ContentTextBlock.Text = question;
-            SymbolTextBlock.Text = string.IsNullOrEmpty(symbol) ? Convert.ToChar(0xE11B).ToString() : symbol;
+            SymbolTextBlock.Text = symbol;
         }
 
         private void NoButton_Click(object sender, RoutedEventArgs e)

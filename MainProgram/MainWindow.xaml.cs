@@ -16,6 +16,9 @@ namespace ProngedGear
         {
             InitializeComponent();
             ContentFrame.Navigate(typeof(NotifierPage));
+
+            ClassifyNavItem.Icon = new FontIcon() { Glyph = "\uE122" };
+            NotifyNavItem.Icon = new FontIcon() { Glyph = "\uE138" };
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -24,7 +27,7 @@ namespace ProngedGear
             Visibility = Visibility.Collapsed;
         }
 
-        private void NavigationView_SelectionChanged(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
             NavigationViewItem item = (NavigationViewItem)args.SelectedItem;
 
@@ -40,7 +43,7 @@ namespace ProngedGear
             }
         }
 
-        private void NavigationView_BackRequested(ModernWpf.Controls.NavigationView sender, ModernWpf.Controls.NavigationViewBackRequestedEventArgs args)
+        private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
             if (ContentFrame.CanGoBack)
             {

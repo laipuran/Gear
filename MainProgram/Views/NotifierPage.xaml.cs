@@ -45,7 +45,11 @@ namespace ProngedGear.Views
             }
             FormulaToggleSwitch.IsOn = roller.DisplayMode == DisplayMode.Formula;
             ContentTextBox.Text = string.Join('\n', roller.Text);
-            ApplyButton_Click(new(), new());
+
+            if (App.AppSettings.AutoScroll)
+            {
+                ApplyButton_Click(new(), new());
+            }
 
             Data = App.AppSettings.Mod_Timing;
             EventDataGrid.ItemsSource = Data;

@@ -7,6 +7,15 @@
         xmlns:local="clr-namespace:Gear.Windows"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="提示" Height="165" Width="350">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <wpfui:ThemesDictionary Theme="Light"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <ScrollViewer
         VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Hidden">

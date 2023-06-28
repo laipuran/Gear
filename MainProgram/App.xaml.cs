@@ -21,18 +21,22 @@ namespace ProngedGear
     public partial class App : Application
     {
         public static Settings AppSettings = Settings.GetSettings();
-        #region Initialize Taskbar Icon Components
-        public static ClassifyWindow Classifier = new() { Visibility = Visibility.Visible };
+
+        public static ClassifyWindow Classifier = new();
         public static NotifyWindow Notifier = new();
+
+        #region Initialize Taskbar Icon Components
         public static TaskbarIcon TaskbarIcon { get; private set; } = new();
         public static ContextMenu TaskbarIconContextMenu { get; private set; } = new();
         public static ToolTip TaskbarIconToolTip { get; private set; } = new();
         public static MenuItem SettingsItem { get; private set; } = new();
         #endregion
+
         #region Include System Functions
         [DllImport("user32.dll", EntryPoint = "FindWindow")]
         private extern static IntPtr FindWindow(string? lpClassName, string? lpWindowName);
         #endregion
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             ForeRunCheck();
@@ -42,7 +46,7 @@ namespace ProngedGear
             Classifier.Show();
         }
 
-        private void ForeRunCheck()
+        private static void ForeRunCheck()
         {
             IntPtr hWnd = FindWindow(null, "三叉戟：设置");                     //Avoiding opening this app twice
             if (hWnd != IntPtr.Zero)
@@ -86,7 +90,7 @@ namespace ProngedGear
             var classifierVisibilityOption = new ToggleSwitch()
             {
                 Header = "是否显示课件分类",
-                IsOn = Classifier.Visibility == Visibility.Visible,
+                IsOn = true,
             };
             classifierVisibilityOption.Toggled += ClassifierVisibilityToggleSwitch_Toggled;
 

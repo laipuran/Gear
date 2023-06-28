@@ -29,18 +29,23 @@
 
     <modern:NavigationView
         d:IsPaneOpen="False"
+        ToolTip="三叉戟：设置"
         IsSettingsVisible="False"
+        PaneTitle="三叉戟：设置"
+        IsBackEnabled="True"
         SelectionChanged="NavigationView_SelectionChanged"
         BackRequested="NavigationView_BackRequested">
         <modern:NavigationView.MenuItems>
             <modern:NavigationViewItem
                 Content="通知设置"
+                x:Name="NotifyNavItem"
                 Tag="Notifier"
                 Icon="Send"/>
             <modern:NavigationViewItem
-                Content="三叉戟"
+                Content="分类设置"
+                x:Name="ClassifyNavItem"
                 Tag="Classifier"
-                Icon="Home"/>
+                Icon="List"/>
         </modern:NavigationView.MenuItems>
         <ScrollViewer
             HorizontalScrollBarVisibility="Disabled">

@@ -139,7 +139,7 @@ namespace ProngedGear.Windows
                     FlowDirection.LeftToRight,
                     new(ContentTextBlock.FontFamily, ContentTextBlock.FontStyle, ContentTextBlock.FontWeight, ContentTextBlock.FontStretch),
                     ContentTextBlock.FontSize,
-                    System.Windows.Media.Brushes.Black,
+                    Brushes.Black,
                     VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
                 double value = formattedText.Width;

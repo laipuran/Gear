@@ -48,7 +48,7 @@ namespace ProngedGear.Windows
                     Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative)
                 };
                 SubjectName = (string)dictionary[Subject.ToString()];
-                SubjectDirectory = $@"D:\{SubjectName}\";
+                Directory = $@"D:\{SubjectName}\";
             }
 
             public SubjectDetail(Subject.SchoolSubject subject)
@@ -59,11 +59,11 @@ namespace ProngedGear.Windows
                     Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative)
                 };
                 SubjectName = (string)dictionary[subject.ToString()];
-                SubjectDirectory = $@"D:\{SubjectName}\";
+                Directory = $@"D:\{SubjectName}\";
             }
             public Subject.SchoolSubject Subject { get; set; } = Models.Subject.SchoolSubject.Chinese;
             public string SubjectName { get; set; }
-            public string SubjectDirectory { get; set; }
+            public string Directory { get; set; }
         }
 
         private static void CheckSubjectFolders()
@@ -72,10 +72,9 @@ namespace ProngedGear.Windows
             foreach (var subject in App.AppSettings.Subjects)
             {
                 var detail = new SubjectDetail(subject);
-                if (!Directory.Exists(detail.SubjectDirectory))
+                if (!Directory.Exists(detail.Directory))
                 {
-                    // TODO: Rename attribute - SubjectDirectory to Directory
-                    directories.Add(detail.SubjectDirectory);
+                    directories.Add(detail.Directory);
                 }
             }
 
@@ -149,7 +148,7 @@ namespace ProngedGear.Windows
 
         private static void CopyFiles(SubjectDetail detail, string[] files)
         {
-            string folder = detail.SubjectDirectory;
+            string folder = detail.Directory;
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
@@ -221,7 +220,7 @@ namespace ProngedGear.Windows
             {
                 return;
             }
-            Process.Start("explorer.exe", detail.SubjectDirectory);
+            Process.Start("explorer.exe", detail.Directory);
             LastOpen = DateTime.Now;
 
             App.Notifier.EnqueueText("事件：打开" + detail.SubjectName + "文件夹");
