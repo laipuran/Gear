@@ -198,7 +198,7 @@ namespace ProngedGear.Windows
 
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            //Operations.ToBottom(this);
+            Operations.ToBottom(this);
             //NotifyWindow.SetText("事件：鼠标进入");
         }
 

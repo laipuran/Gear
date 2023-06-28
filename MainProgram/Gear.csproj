@@ -57,7 +57,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PuranLai.Algorithm" Version="2.0.1" />
     <PackageReference Include="WPF-UI" Version="2.0.3" />
-    <PackageReference Include="WpfMath" Version="1.1.0" />
+    <PackageReference Include="WpfMath" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
