@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +26,7 @@ namespace ProngedGear
         public static NotifyWindow Notifier = new();
 
         #region Initialize Taskbar Icon Components
-        public static TaskbarIcon TaskbarIcon { get; private set; } = new();
+        public static TaskbarIcon TaskbarIcon;
         public static ContextMenu TaskbarIconContextMenu { get; private set; } = new();
         public static ToolTip TaskbarIconToolTip { get; private set; } = new();
         public static MenuItem SettingsItem { get; private set; } = new();
@@ -149,6 +148,7 @@ namespace ProngedGear
                 LeftClickCommand = new RelayCommand(() => { TaskbarIconContextMenu.IsOpen = !TaskbarIconContextMenu.IsOpen; }),
             };
 
+            //TaskbarIcon.Visibility = Visibility.Collapsed;
         }
 
         private void ClassifierVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
