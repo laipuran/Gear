@@ -89,9 +89,9 @@ namespace ProngedGear.Models
             return settings;
         }
 
-        public void Save()
+        public static void Save(Settings settings)
         {
-            var json = JsonConvert.SerializeObject(this);
+            var json = JsonConvert.SerializeObject(settings);
             var directory = Directory.GetParent(path);
 
             if (directory is null) return;
