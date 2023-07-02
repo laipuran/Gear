@@ -48,7 +48,7 @@
                 Icon="List"/>
         </modern:NavigationView.MenuItems>
         <ScrollViewer
-            HorizontalScrollBarVisibility="Disabled">
+            HorizontalScrollBarVisibility="Hidden">
             <modern:Frame
                 x:Name="ContentFrame"/>
         </ScrollViewer>

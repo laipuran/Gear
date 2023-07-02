@@ -6,7 +6,8 @@
       xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:modern="http://schemas.modernwpf.com/2019"
       xmlns:local="clr-namespace:ProngedGear.Views"
-      mc:Ignorable="d" Background="White"
+      mc:Ignorable="d"
+      d:Background="White"
       d:DesignHeight="450" d:DesignWidth="800"
       modern:ThemeManager.RequestedTheme="Light"
       Title="NotifierPage">
