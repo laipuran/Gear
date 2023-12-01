@@ -64,8 +64,11 @@ namespace ProngedGear.Models
             };
         }
 
+        public bool AutoStart { get; set; }
+
         #region Classifier Settings
         public Subject.SchoolSubject[] Subjects { get; set; } = new Subject.SchoolSubject[6];
+        public string RootDirectory { get; set; } = "D:\\Subjects";
         #endregion
 
         #region Notifier Settings

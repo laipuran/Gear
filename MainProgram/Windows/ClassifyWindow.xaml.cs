@@ -48,7 +48,7 @@ namespace ProngedGear.Windows
                     Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative)
                 };
                 SubjectName = (string)dictionary[Subject.ToString()];
-                Directory = $@"D:\{SubjectName}\";
+                Directory = $@"{App.AppSettings.RootDirectory}\{SubjectName}\";
             }
 
             public SubjectDetail(Subject.SchoolSubject subject)
@@ -59,7 +59,7 @@ namespace ProngedGear.Windows
                     Source = new(@"\Resources\SubjectTranslations\zh-cn.xaml", UriKind.Relative)
                 };
                 SubjectName = (string)dictionary[subject.ToString()];
-                Directory = $@"D:\{SubjectName}\";
+                Directory = $@"{App.AppSettings.RootDirectory}\{SubjectName}\";
             }
             public Subject.SchoolSubject Subject { get; set; } = Models.Subject.SchoolSubject.Chinese;
             public string SubjectName { get; set; }
@@ -102,9 +102,9 @@ namespace ProngedGear.Windows
                 var textBlock = (TextBlock)FindName($"TextBlock_{num}");
                 textBlock.Text = subjectDetail.SubjectName;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                new MessageWindow($"{e.TargetSite}\n{e.InnerException}\n{e.Message}").Show();
+                new MessageWindow($"{ex.TargetSite}\n{ex.InnerException}\n{ex.Message}").Show();
             }
         }
 

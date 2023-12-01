@@ -23,12 +23,36 @@
         <TextBlock
             Text="设置 Classifier"
             FontSize="28"/>
+
         <StackPanel
             Margin="10">
             <TextBlock
+                FontSize="18"
+                Text="科目文件夹路径"/>
+
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="0,5,0,0"
+                HorizontalAlignment="Stretch">
+                <wpfui:TextBox
+                    x:Name="DirectoryTextBox"
+                    PlaceholderText="不要输入目录末尾的“\”"/>
+                <wpfui:Button
+                    Margin="10,0,0,0"
+                    x:Name="SaveButton"
+                    Content="保存"
+                    Click="SaveButton_Click"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <StackPanel
+            Margin="10">
+            <TextBlock
+                FontSize="18"
                 Text="添加科目文件夹"/>
 
-            <Grid>
+            <Grid
+                Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -106,7 +130,7 @@
                     Margin="10,0,0,0"
                     Content="物化地"/>
                 <Button
-                    Click="HPG_Click"
+                    Click="Button_HPG_Click"
                     x:Name="HPG"
                     Margin="10,0,0,0"
                     Content="史政地"/>

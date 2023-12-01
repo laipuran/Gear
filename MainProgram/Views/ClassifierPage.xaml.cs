@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Gear.Windows;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows.Controls;
 
 namespace ProngedGear.Views
@@ -26,6 +29,7 @@ namespace ProngedGear.Views
         public ClassifierPage()
         {
             InitializeComponent();
+            DirectoryTextBox.Text = App.AppSettings.RootDirectory;
             Subjects = App.AppSettings.Subjects;
 
             InitializeComboBoxes();
@@ -78,12 +82,26 @@ namespace ProngedGear.Views
             ComboBox_6.SelectedIndex = 8;
         }
 
-        private void HPG_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_HPG_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             ComboBox_4.SelectedIndex = 6;
             ComboBox_5.SelectedIndex = 7;
             ComboBox_6.SelectedIndex = 8;
         }
         #endregion
+
+        private void SaveButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            try
+            {
+                Directory.CreateDirectory(DirectoryTextBox.Text);
+            }
+            catch (Exception ex)
+            {
+                new MessageWindow($"文件夹路径不合法\n{ex.Message}\n{ex.InnerException}").Show();
+                return;
+            }
+            App.AppSettings.RootDirectory = DirectoryTextBox.Text;
+        }
     }
 }

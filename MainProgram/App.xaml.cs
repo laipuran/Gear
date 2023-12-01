@@ -68,13 +68,17 @@ namespace ProngedGear
                 File.Delete(shortcutName);
             }
 
+            if (!AppSettings.AutoStart)
+            {
+                return;
+            }
+
             WshShell shell = new();
             IWshShortcut shortcut = shell.CreateShortcut(Path.Combine(StartUp, shortcutName));
             shortcut.TargetPath = Path.Combine(Environment.CurrentDirectory, "Gear.exe");
             shortcut.WorkingDirectory = Path.Combine(Environment.CurrentDirectory);
             shortcut.IconLocation = Path.Combine(Environment.CurrentDirectory, "Icon.ico");
             shortcut.WindowStyle = 1;
-
             shortcut.Save();
         }
 
@@ -103,8 +107,16 @@ namespace ProngedGear
             };
             timerVisibilityOption.Toggled += TimerVisibilityToggleSwitch_Toggled;
 
+            var autoStartOption = new ToggleSwitch()
+            {
+                Header = "是否开机自启动",
+                IsOn = AppSettings.AutoStart
+            };
+            autoStartOption.Toggled += AutoStartOption_Toggled;
+
             SettingsItem.Items.Add(classifierVisibilityOption);
             SettingsItem.Items.Add(timerVisibilityOption);
+            SettingsItem.Items.Add(autoStartOption);
 
             var showMainWindowItem = new MenuItem()
             {
@@ -153,17 +165,23 @@ namespace ProngedGear
             //TaskbarIcon.Visibility = Visibility.Collapsed;
         }
 
+        private void AutoStartOption_Toggled(object sender, RoutedEventArgs e)
+        {
+            AppSettings.AutoStart = !AppSettings.AutoStart;
+            SetupAutoStart();
+        }
+
         private void ClassifierVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             if (((ToggleSwitch)sender).IsOn)
             {
                 Classifier.Visibility = Visibility.Visible;
-                Notifier.EnqueueText("事件：修改课件分类[可见性]为[可见]");
+                //Notifier.EnqueueText("事件：修改课件分类[可见性]为[可见]");
             }
             else
             {
                 Classifier.Visibility = Visibility.Collapsed;
-                Notifier.EnqueueText("事件：修改课件分类[可见性]为[不可见]");
+                //Notifier.EnqueueText("事件：修改课件分类[可见性]为[不可见]");
 
             }
         }
@@ -171,8 +189,8 @@ namespace ProngedGear
         private void TimerVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             AppSettings.AutoScroll = !AppSettings.AutoScroll;
-            string flag = AppSettings.AutoScroll ? "是" : "否";
-            Notifier.EnqueueText($"事件：修改计时器事件[活动性]为[{flag}]");
+            //string flag = AppSettings.AutoScroll ? "是" : "否";
+            //Notifier.EnqueueText($"事件：修改计时器事件[活动性]为[{flag}]");
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
