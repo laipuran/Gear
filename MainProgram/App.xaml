@@ -4,7 +4,6 @@
              xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:modern="http://schemas.modernwpf.com/2019"
              xmlns:local="clr-namespace:ProngedGear"
-             StartupUri="MainWindow.xaml"
              ShutdownMode="OnExplicitShutdown"
              Startup="Application_Startup"
              Exit="Application_Exit">
