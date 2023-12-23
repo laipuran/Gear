@@ -78,7 +78,6 @@ namespace ProngedGear
             shortcut.TargetPath = Path.Combine(Environment.CurrentDirectory, "Gear.exe");
             shortcut.WorkingDirectory = Path.Combine(Environment.CurrentDirectory);
             shortcut.IconLocation = Path.Combine(Environment.CurrentDirectory, "Icon.ico");
-            shortcut.WindowStyle = 1;
             shortcut.Save();
         }
 
