@@ -768,16 +768,16 @@ namespace PuranLai.APIs
 
         private delegate bool WndEnumProc(IntPtr hWnd, int lParam);
 
-        [LibraryImport("user32")]
+        [DllImport("user32", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static partial bool EnumWindows(WndEnumProc lpEnumFunc, int lParam);
+        private static extern bool EnumWindows(WndEnumProc lpEnumFunc, int lParam);
 
-        [LibraryImport("user32")]
-        private static partial IntPtr GetParent(IntPtr hWnd);
-
-        [LibraryImport("user32")]
+        [DllImport("user32", CharSet = CharSet.Unicode)]
+        private static extern IntPtr GetParent(IntPtr hWnd);
+        
+        [DllImport("user32", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static partial bool IsWindowVisible(IntPtr hWnd);
+        private static extern bool IsWindowVisible(IntPtr hWnd);
 
         [DllImport("user32", CharSet = CharSet.Unicode)]
         private static extern int GetWindowText(IntPtr hWnd, StringBuilder lptrString, int nMaxCount);
@@ -785,9 +785,9 @@ namespace PuranLai.APIs
         [DllImport("user32", CharSet = CharSet.Unicode)]
         private static extern int GetClassName(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
 
-        [LibraryImport("user32")]
+        [DllImport("user32", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static partial bool GetWindowRect(IntPtr hWnd, ref LPRECT rect);
+        private static extern bool GetWindowRect(IntPtr hWnd, ref LPRECT rect);
 
         [StructLayout(LayoutKind.Sequential)]
         private readonly struct LPRECT
