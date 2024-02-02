@@ -7,7 +7,7 @@
         xmlns:modern="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d" Width="600" Height="300"
         AllowsTransparency="True" Background="#88FFFFFF"
-        WindowStyle="None" Opacity="0.5"
+        WindowStyle="None" Opacity="0.6"
         MouseEnter="Window_MouseEnter"
         Closing="Window_Closing" ResizeMode="NoResize"
         Title="文件分类" ShowInTaskbar="False"
@@ -19,6 +19,7 @@
         </Style>
 
         <Style x:Key="DefaultLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#88000000"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="64"/>
             <Setter Property="FontFamily" Value="Smiley Sans Oblique"/>
@@ -167,8 +168,7 @@
             HorizontalAlignment="Stretch">
             <TextBlock
                 Text="笔记截图"
-                FontSize="64"
-                FontFamily="得意黑"
+                Style="{StaticResource DefaultLabelStyle}"
                 TextWrapping="Wrap"/>
         </Button>
     </Grid>

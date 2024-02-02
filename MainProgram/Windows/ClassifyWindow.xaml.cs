@@ -199,7 +199,6 @@ namespace ProngedGear.Windows
         private void Window_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Operations.ToBottom(this);
-            //NotifyWindow.SetText("事件：鼠标进入");
         }
 
         private async void DropButton_Click(object sender, RoutedEventArgs e)
@@ -238,7 +237,7 @@ namespace ProngedGear.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            App.Notifier.EnqueueText("想关掉我？没门");
+            
         }
 
         private void Note_Click(object sender, RoutedEventArgs e)

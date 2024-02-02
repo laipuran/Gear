@@ -3,7 +3,7 @@
                     xmlns:system="clr-namespace:System;assembly=netstandard">
     <system:String x:Key="Chinese">语文</system:String>
     <system:String x:Key="Math">数学</system:String>
-    <system:String x:Key="English">英语</system:String>
+    <system:String x:Key="English">外语</system:String>
     <system:String x:Key="Physics">物理</system:String>
     <system:String x:Key="Chemistry">化学</system:String>
     <system:String x:Key="Biology">生物</system:String>

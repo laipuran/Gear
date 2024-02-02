@@ -70,7 +70,6 @@ namespace ProngedGear.Windows
             Task_Formula.Start();
             Task_Text.Start();
 
-            EnqueueText("事件：启动");
             timer.Interval = 3000;
             timer.Elapsed += Timer_Elapsed;
         }

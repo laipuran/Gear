@@ -18,9 +18,10 @@
             x:Name="ContentTextBlock"
             FontFamily="Smiley Sans Oblique"
             FontSize="48"
-            Height="60"
+            Height="56"
             Background="#44FFFFFF"
-            Foreground="Black">
+            Foreground="#88000000">
+            
         </TextBlock>
         <Viewbox
             Margin="20,0,0,0"
@@ -30,7 +31,7 @@
 		            x:Name="ContentFormulaControl"
 		            FontSize="32"
 		            Background="#44FFFFFF"
-		            Foreground="Black">
+                    Foreground="#88000000">
 	            </math:FormulaControl>
         </Viewbox>
     </StackPanel>

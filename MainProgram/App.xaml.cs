@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Gear.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
 using ModernWpf.Controls;
@@ -41,11 +42,20 @@ namespace ProngedGear
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            if (e.Args.Length != 0)
+            {
+                var args = e.Args.ToList();
+                new MessageWindow(args[0]).ShowDialog();
+                Console.WriteLine(string.Join(' ', args));
+                Environment.Exit(0);
+            }
+
             ForeRunCheck();
+            Notifier.Show();
+            Notifier.EnqueueText("事件：启动");
+            Classifier.Show();
             SetupTrayIcon();
             SetupAutoStart();
-            Notifier.Show();
-            Classifier.Show();
         }
 
         private static void ForeRunCheck()
@@ -61,11 +71,12 @@ namespace ProngedGear
         private void SetupAutoStart()
         {
             const string shortcutName = "ProngedGear.lnk";
-            string StartUp = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-            List<string> files = Directory.GetFiles(StartUp).ToList();
-            if (files.Contains(shortcutName))
+            string startupMenu = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+            List<string> files = Directory.GetFiles(startupMenu).ToList();
+            string fullName = startupMenu + "\\" + shortcutName;
+            if (files.Contains(fullName))
             {
-                File.Delete(shortcutName);
+                File.Delete(fullName);
             }
 
             if (!AppSettings.AutoStart)
@@ -74,7 +85,7 @@ namespace ProngedGear
             }
 
             WshShell shell = new();
-            IWshShortcut shortcut = shell.CreateShortcut(Path.Combine(StartUp, shortcutName));
+            IWshShortcut shortcut = shell.CreateShortcut(Path.Combine(startupMenu, shortcutName));
             shortcut.TargetPath = Path.Combine(Environment.CurrentDirectory, "Gear.exe");
             shortcut.WorkingDirectory = Path.Combine(Environment.CurrentDirectory);
             shortcut.IconLocation = Path.Combine(Environment.CurrentDirectory, "Icon.ico");
@@ -188,8 +199,6 @@ namespace ProngedGear
         private void TimerVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
             AppSettings.AutoScroll = !AppSettings.AutoScroll;
-            //string flag = AppSettings.AutoScroll ? "是" : "否";
-            //Notifier.EnqueueText($"事件：修改计时器事件[活动性]为[{flag}]");
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)
