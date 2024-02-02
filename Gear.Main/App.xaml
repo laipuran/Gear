@@ -1,9 +1,9 @@
-﻿<Application x:Class="ProngedGear.App"
+﻿<Application x:Class="Gear.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:modern="http://schemas.modernwpf.com/2019"
-             xmlns:local="clr-namespace:ProngedGear"
+             xmlns:local="clr-namespace:Gear"
              ShutdownMode="OnExplicitShutdown"
              Startup="Application_Startup"
              Exit="Application_Exit">

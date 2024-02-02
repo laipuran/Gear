@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using ProngedGear.Windows;
+using Gear.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace ProngedGear.Models
+namespace Gear.Models
 {
 
     public class Subject

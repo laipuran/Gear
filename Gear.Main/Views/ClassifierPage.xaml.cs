@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Controls;
 
-namespace ProngedGear.Views
+namespace Gear.Views
 {
     /// <summary>
     /// ClassifierPage.xaml 的交互逻辑

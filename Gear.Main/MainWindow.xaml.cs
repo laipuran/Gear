@@ -1,10 +1,10 @@
 ﻿using ModernWpf.Controls;
-using ProngedGear.Views;
+using Gear.Views;
 using PuranLai.APIs;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ProngedGear
+namespace Gear
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

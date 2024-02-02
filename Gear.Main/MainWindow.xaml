@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProngedGear.MainWindow"
+﻿<Window x:Class="Gear.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,8 @@
         xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:modern="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        xmlns:local="clr-namespace:ProngedGear"
+        WindowStartupLocation="CenterScreen"
+        xmlns:local="clr-namespace:Gear"
         Title="三叉戟：设置" Height="450" Width="800"
         Icon="Icon.png">
     <Window.Resources>

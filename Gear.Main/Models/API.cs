@@ -774,7 +774,7 @@ namespace PuranLai.APIs
 
         [DllImport("user32", CharSet = CharSet.Unicode)]
         private static extern IntPtr GetParent(IntPtr hWnd);
-        
+
         [DllImport("user32", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool IsWindowVisible(IntPtr hWnd);

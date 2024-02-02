@@ -1,4 +1,4 @@
-﻿using ProngedGear.Models;
+﻿using Gear.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 
-namespace ProngedGear.Windows
+namespace Gear.Windows
 {
     public enum LoopMode
     {
@@ -62,6 +62,7 @@ namespace ProngedGear.Windows
         {
             InitializeComponent();
 
+            #region Set Tasks
             Task_Mod = new(Mod);
             Task_Formula = new(SetFormula);
             Task_Text = new(SetText);
@@ -72,6 +73,12 @@ namespace ProngedGear.Windows
 
             timer.Interval = 3000;
             timer.Elapsed += Timer_Elapsed;
+            #endregion
+
+            //Get["/"] = _ =>
+            //{
+            //    return "Hello World";
+            //};
         }
 
         private async void Mod()

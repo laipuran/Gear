@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace ProngedGear.Models
+namespace Gear.Models
 {
     public enum WindowZIndex
     {

@@ -1,7 +1,7 @@
 ﻿using Gear.Windows;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
-using ProngedGear.Models;
+using Gear.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ProngedGear.Windows
+namespace Gear.Windows
 {
     /// <summary>
     /// ClassifyWindow.xaml 的交互逻辑
@@ -237,7 +237,7 @@ namespace ProngedGear.Windows
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             e.Cancel = true;
-            
+
         }
 
         private void Note_Click(object sender, RoutedEventArgs e)

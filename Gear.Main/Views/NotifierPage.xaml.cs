@@ -1,4 +1,4 @@
-﻿using ProngedGear.Windows;
+﻿using Gear.Windows;
 using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ProngedGear.Views
+namespace Gear.Views
 {
     /// <summary>
     /// NotifierPage.xaml 的交互逻辑

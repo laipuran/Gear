@@ -3,8 +3,8 @@ using Gear.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
 using ModernWpf.Controls;
-using ProngedGear.Models;
-using ProngedGear.Windows;
+using Gear.Models;
+using Gear.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using File = System.IO.File;
 
-namespace ProngedGear
+namespace Gear
 {
     /// <summary>
     /// Interaction logic for App.xaml
