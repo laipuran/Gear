@@ -33,7 +33,7 @@ namespace Gear.Windows
         Task Task_Mod, Task_Formula, Task_Text;
 
         Queue<string> Formulas = new(), Texts = new();
-        Queue<string> FormulaQueue
+        public Queue<string> FormulaQueue
         {
             get
             {
@@ -45,7 +45,7 @@ namespace Gear.Windows
                 Formulas = value;
             }
         }
-        Queue<string> TextQueue
+        public Queue<string> TextQueue
         {
             get
             {
@@ -184,8 +184,7 @@ namespace Gear.Windows
                 }
                 else if (App.AppSettings.RollerText.LoopMode == LoopMode.Shuffle)
                 {
-                    Random rand = new();
-                    showText = AutoScrollText[rand.Next(0, AutoScrollText.Count - 1)];
+                    showText = AutoScrollText[Random.Shared.Next(0, AutoScrollText.Count - 1)];
                 }
                 timer.Interval = showText.Length * 100 + 15000;
 

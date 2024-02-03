@@ -43,9 +43,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gear.RestApi\Gear.RestApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\launchSettings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

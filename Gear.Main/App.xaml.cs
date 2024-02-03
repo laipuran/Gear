@@ -1,10 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Gear.Models;
 using Gear.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
 using ModernWpf.Controls;
-using Gear.Models;
-using Gear.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,6 +55,8 @@ namespace Gear
             Classifier.Show();
             SetupTrayIcon();
             SetupAutoStart();
+
+            RestApi.Program.StartWebApp();
         }
 
         private static void ForeRunCheck()
