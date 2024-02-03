@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gear.Desktop", "Gear.Main\Gear.Desktop.csproj", "{404A9BB9-D7AD-476C-A1F7-1A2DE613BB35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gear.RestApi", "Gear.RestApi\Gear.RestApi.csproj", "{86F585BB-90BB-4441-B05F-7344EAE65F8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gear.RestApi", "Gear.RestApi\Gear.RestApi.csproj", "{86F585BB-90BB-4441-B05F-7344EAE65F8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

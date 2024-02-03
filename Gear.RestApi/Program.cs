@@ -26,13 +26,7 @@ namespace Gear.RestApi
 
 
             app.MapControllers();
-
             return app;
-        }
-
-        public static void StartWebApp()
-        {
-            CreateWebApp().Run();
         }
     }
 }

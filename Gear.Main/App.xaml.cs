@@ -3,6 +3,7 @@ using Gear.Models;
 using Gear.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
+using Microsoft.AspNetCore.Builder;
 using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Gear
         public static Settings AppSettings = Settings.GetSettings();
         public static ClassifyWindow Classifier = new();
         public static NotifyWindow Notifier = new();
+        public static WebApplication WebApp = RestApi.Program.CreateWebApp();
 #pragma warning restore CA2211 // 非常量字段应当不可见
 
         #region Initialize Taskbar Icon Components
@@ -56,7 +58,7 @@ namespace Gear
             SetupTrayIcon();
             SetupAutoStart();
 
-            RestApi.Program.StartWebApp();
+            WebApp.RunAsync();
         }
 
         private static void ForeRunCheck()
