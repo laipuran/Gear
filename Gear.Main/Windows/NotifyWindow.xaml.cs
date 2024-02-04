@@ -1,4 +1,5 @@
-﻿using Gear.Models;
+﻿using Gear.Base.Class;
+using Gear.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -32,31 +33,6 @@ namespace Gear.Windows
         int count = 0; Timer timer = new();
         Task Task_Mod, Task_Formula, Task_Text;
 
-        Queue<string> Formulas = new(), Texts = new();
-        public Queue<string> FormulaQueue
-        {
-            get
-            {
-                return Formulas;
-            }
-            set
-            {
-                Task_Formula.Wait();
-                Formulas = value;
-            }
-        }
-        public Queue<string> TextQueue
-        {
-            get
-            {
-                return Texts;
-            }
-            set
-            {
-                Task_Text.Wait();
-                Texts = value;
-            }
-        }
 
         public NotifyWindow()
         {
@@ -74,11 +50,6 @@ namespace Gear.Windows
             timer.Interval = 3000;
             timer.Elapsed += Timer_Elapsed;
             #endregion
-
-            //Get["/"] = _ =>
-            //{
-            //    return "Hello World";
-            //};
         }
 
         private async void Mod()
@@ -219,35 +190,40 @@ namespace Gear.Windows
         {
             if (string.IsNullOrEmpty(formula)) return;
 
-            FormulaQueue.Enqueue(formula);
+            App.NotificationQueueService.EnqueueNotification(new(ContentForm.Formula, formula));
         }
 
         private async void SetFormula()
         {
             while (true)
             {
-                if (FormulaQueue.Count > 0)
-                {
-                    string formula = FormulaQueue.Dequeue();
-
-                    await ContentFormulaControl.Dispatcher.Invoke(async () =>
-                    {
-                        var boards = GetAnimation(DisplayMode.Formula, formula);
-                        Storyboard BoardOpen = boards[0];
-                        ContentFormulaControl.Formula = formula;
-                        BoardOpen.Begin(FormulaViewBox);
-
-                        int delay = 5000;
-                        await Task.Delay(delay);
-
-                        Storyboard BoardClose = boards[1];
-                        BoardClose.Begin(FormulaViewBox);
-                        await Task.Delay(2000);
-
-                        FormulaViewBox.Height = 0;
-                    });
-                }
                 await Task.Delay(1500);
+                if (App.NotificationQueueService.Count(ContentForm.Formula) <= 0)
+                {
+                    continue;
+                }
+
+                var @object = App.NotificationQueueService.DequeueNotification(ContentForm.Formula);
+                if (@object is null)
+                    continue;
+                string formula = @object.Content;
+
+                await ContentFormulaControl.Dispatcher.Invoke(async () =>
+                {
+                    var boards = GetAnimation(DisplayMode.Formula, formula);
+                    Storyboard BoardOpen = boards[0];
+                    ContentFormulaControl.Formula = formula;
+                    BoardOpen.Begin(FormulaViewBox);
+
+                    int delay = 5000;
+                    await Task.Delay(delay);
+
+                    Storyboard BoardClose = boards[1];
+                    BoardClose.Begin(FormulaViewBox);
+                    await Task.Delay(2000);
+
+                    FormulaViewBox.Height = 0;
+                });
             }
         }
 
@@ -255,55 +231,60 @@ namespace Gear.Windows
         {
             if (string.IsNullOrEmpty(text)) return;
 
-            TextQueue.Enqueue(text);
+            App.NotificationQueueService.EnqueueNotification(new(Base.Class.ContentForm.Text, text));
         }
 
         private async void SetText()
         {
             while (true)
             {
+                await Task.Delay(1000);
                 if (App.TaskbarIconToolTip is not null)
                 {
                     try
                     {
                         App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
                         {
-                            App.TaskbarIconToolTip.Content = "Pronged Gear\n队列中字条数量：" + TextQueue.Count;
+                            App.TaskbarIconToolTip.Content = "Pronged Gear\n队列中字条数量：" + App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
                         });
                     }
                     catch { }
                 }
 
-                if (TextQueue.Count > 0)
+                if (App.NotificationQueueService.Count(Base.Class.ContentForm.Text) <= 0)
                 {
-                    string text = TextQueue.Dequeue();
-
-                    try
-                    {
-                        await ContentTextBlock.Dispatcher.Invoke(async () =>
-                        {
-                            var boards = GetAnimation(DisplayMode.Text, text);
-                            Storyboard BoardOpen = boards[0];
-                            ContentTextBlock.Text = text;
-                            BoardOpen.Begin(ContentTextBlock);
-
-                            int delay = 3000;
-                            if (text.Length > 10)
-                            {
-                                delay = text.Length * 100 + 5000;
-                            }
-                            await Task.Delay(delay);
-
-                            Storyboard BoardClose = boards[1];
-                            BoardClose.Begin(ContentTextBlock);
-                            await Task.Delay(2000);
-
-                            ContentTextBlock.Width = 0;
-                        });
-                    }
-                    catch { }
+                    continue;
                 }
-                await Task.Delay(1000);
+
+                var @object = App.NotificationQueueService.DequeueNotification(Base.Class.ContentForm.Text);
+                if (@object is null)
+                    continue;
+                string text = @object.Content;
+
+                try
+                {
+                    await ContentTextBlock.Dispatcher.Invoke(async () =>
+                    {
+                        var boards = GetAnimation(DisplayMode.Text, text);
+                        Storyboard BoardOpen = boards[0];
+                        ContentTextBlock.Text = text;
+                        BoardOpen.Begin(ContentTextBlock);
+
+                        int delay = 3000;
+                        if (text.Length > 10)
+                        {
+                            delay = text.Length * 100 + 5000;
+                        }
+                        await Task.Delay(delay);
+
+                        Storyboard BoardClose = boards[1];
+                        BoardClose.Begin(ContentTextBlock);
+                        await Task.Delay(2000);
+
+                        ContentTextBlock.Width = 0;
+                    });
+                }
+                catch { }
             }
         }
 
@@ -316,7 +297,11 @@ namespace Gear.Windows
 
         public void ClearTexts()
         {
-            TextQueue.Clear();
+            int count = App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
+            for (int i = 1; i <= count; i++)
+            {
+                App.NotificationQueueService.DequeueNotification(Base.Class.ContentForm.Text);
+            }
         }
     }
 }

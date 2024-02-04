@@ -7,6 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gear.Desktop", "Gear.Main\G
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gear.RestApi", "Gear.RestApi\Gear.RestApi.csproj", "{86F585BB-90BB-4441-B05F-7344EAE65F8C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gear.Base", "Gear.Base\Gear.Base.csproj", "{1D79DAEC-8BC6-4FBB-A5D9-AD2F3F8B73BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{D8775326-3E0A-4182-AD1F-935C059664A5}"
+	ProjectSection(SolutionItems) = preProject
+		Gear Solution.md = Gear Solution.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +28,10 @@ Global
 		{86F585BB-90BB-4441-B05F-7344EAE65F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86F585BB-90BB-4441-B05F-7344EAE65F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86F585BB-90BB-4441-B05F-7344EAE65F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D79DAEC-8BC6-4FBB-A5D9-AD2F3F8B73BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D79DAEC-8BC6-4FBB-A5D9-AD2F3F8B73BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D79DAEC-8BC6-4FBB-A5D9-AD2F3F8B73BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D79DAEC-8BC6-4FBB-A5D9-AD2F3F8B73BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

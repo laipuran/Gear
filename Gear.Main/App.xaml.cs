@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Gear.Base.Interface;
 using Gear.Models;
 using Gear.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,7 @@ namespace Gear
         public static ClassifyWindow Classifier = new();
         public static NotifyWindow Notifier = new();
         public static WebApplication WebApp = RestApi.Program.CreateWebApp();
+        public static Base.Interface.INotifyQueueService NotificationQueueService = GetNotificationService();
 #pragma warning restore CA2211 // 非常量字段应当不可见
 
         #region Initialize Taskbar Icon Components
@@ -51,14 +54,17 @@ namespace Gear
                 Environment.Exit(0);
             }
 
+            // Check exist instance of this app
             ForeRunCheck();
+            // Show the windows
             Notifier.Show();
             Notifier.EnqueueText("事件：启动");
             Classifier.Show();
+            // Setup the tray icon
             SetupTrayIcon();
+            // Configure startup
             SetupAutoStart();
 
-            WebApp.RunAsync();
         }
 
         private static void ForeRunCheck()
@@ -176,6 +182,19 @@ namespace Gear
             };
 
             //TaskbarIcon.Visibility = Visibility.Collapsed;
+        }
+
+        private static Base.Interface.INotifyQueueService GetNotificationService()
+        {
+            var services = new ServiceCollection();
+            services.AddSingleton<Base.Interface.INotifyQueueService,
+                Base.Interface.NotificationQueueService>();
+            var serviceProvider = services.BuildServiceProvider();
+#pragma warning disable CS8603 // 可能返回 null 引用。
+#pragma warning disable CS8601 // 引用类型赋值可能为 null。
+            return NotificationQueueService = serviceProvider.GetService<INotifyQueueService>();
+#pragma warning restore CS8601 // 引用类型赋值可能为 null。
+#pragma warning restore CS8603 // 可能返回 null 引用。
         }
 
         private void AutoStartOption_Toggled(object sender, RoutedEventArgs e)

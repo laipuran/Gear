@@ -1,3 +1,4 @@
+using Gear.Base.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gear.RestApi.Controllers
@@ -14,15 +15,14 @@ namespace Gear.RestApi.Controllers
         }
 
         [HttpGet(Name = "GetTextQueue")]
-        public IEnumerable<NotifyObject> Get()
+        public List<Base.Class.NotifyObject> Get()
         {
-            //List<NotifyObject> result = new List<NotifyObject>();
-            //foreach (var item in App.Notifier.TextQueue.ToList())
-            //{
-            //    result.Add(new NotifyObject() { Mode = Windows.DisplayMode.Text, Content = item });
-            //}
-            //return result;
-            return new List<NotifyObject>();
+            var services = new ServiceCollection();
+            services.AddSingleton<INotifyQueueService, NotificationQueueService>();
+            var serviceProvider = services.BuildServiceProvider();
+#pragma warning disable CS8602 // 解引用可能出现空引用。
+            return serviceProvider.GetService<INotifyQueueService>().GetObjects(Base.Class.ContentForm.Text);
+#pragma warning restore CS8602 // 解引用可能出现空引用。
         }
     }
 }

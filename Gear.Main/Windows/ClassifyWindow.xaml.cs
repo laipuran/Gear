@@ -1,7 +1,6 @@
-﻿using Gear.Windows;
+﻿using Gear.Models;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
-using Gear.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
