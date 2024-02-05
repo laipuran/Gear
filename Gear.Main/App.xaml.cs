@@ -27,7 +27,7 @@ namespace Gear
         public static Settings AppSettings = Settings.GetSettings();
         public static ClassifyWindow Classifier = new();
         public static NotifyWindow Notifier = new();
-        public static WebApplication WebApp = RestApi.Program.CreateWebApp();
+        public static WebApplication WebApp = RestApi.Program.CreateWebApp(new string[0]);
         public static Base.Interface.INotifyQueueService NotificationQueueService = GetNotificationService();
 #pragma warning restore CA2211 // 非常量字段应当不可见
 
@@ -64,7 +64,7 @@ namespace Gear
             SetupTrayIcon();
             // Configure startup
             SetupAutoStart();
-
+            WebApp.RunAsync();
         }
 
         private static void ForeRunCheck()
