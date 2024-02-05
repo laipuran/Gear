@@ -16,16 +16,6 @@ namespace Gear.RestApi.Controllers
             _logger = logger;
         }
 
-        private static INotifyQueueService GetQueueService()
-        {
-            var services = new ServiceCollection();
-            services.AddSingleton<INotifyQueueService, NotificationQueueService>();
-            var serviceProvider = services.BuildServiceProvider();
-#pragma warning disable CS8603 // 可能返回 null 引用。
-            return serviceProvider.GetService<INotifyQueueService>();
-#pragma warning restore CS8603 // 可能返回 null 引用。
-        }
-
         [HttpGet(Name = "GetFormulas")]
         public List<NotifyObject> Get()
         {
@@ -33,10 +23,10 @@ namespace Gear.RestApi.Controllers
         }
 
         [HttpPost(Name = "EnqueueFormula")]
-        public void Post(string content)
+        public List<NotifyObject> Post(string content)
         {
             NotifyService.EnqueueNotification(new(ContentForm.Formula, content));
-
+            return Get();
         }
     }
 }

@@ -33,10 +33,10 @@ namespace Gear.RestApi.Controllers
         }
 
         [HttpPost(Name = "EnqueueText")]
-        public void Post(string content)
+        public List<NotifyObject> Post(string content)
         {
             NotifyService.EnqueueNotification(new(ContentForm.Text, content));
-            
+            return Get();
         }
     }
 }

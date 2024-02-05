@@ -60,8 +60,9 @@ namespace Gear
             // Show the windows
 
             WebApp.RunAsync("http://localhost:5177");
+#if DEBUG
             System.Diagnostics.Process.Start("explorer", "http://localhost:5177/swagger");
-
+#endif
             Notifier.Show();
             Notifier.EnqueueText("事件：启动");
             Classifier.Show();
