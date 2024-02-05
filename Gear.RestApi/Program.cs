@@ -12,15 +12,18 @@ namespace Gear.RestApi
         public static WebApplication CreateWebApp(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Environment.ApplicationName = "Gear.RestApi";
+            //builder.Environment.ApplicationName = "Gear.RestApi";
+            builder.Services.AddControllers()
+                .AddApplicationPart(System.Reflection.Assembly.GetExecutingAssembly());
 
-            builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Gear.RestApi", Version = "v1" });
             });
+
+            //builder.Services.AddSingleton<Base.Interface.INotifyQueueService, Base.Interface.INotifyQueueService>();
 
             var app = builder.Build();
 
