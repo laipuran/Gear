@@ -91,7 +91,7 @@ namespace PuranLai.APIs
 
         public static WeatherInformation? GetWeatherInformation(string adcode)
         {
-            string? json = Operations.GetData(amapBase + "weather/weatherInfo?key=" + key + "&city=" + adcode);
+            string? json = Operations.GetData($"{amapBase}weather/weatherInfo?key={key}&city={adcode}");
             if (json is null) return null;
 
             WeatherInformation? weather = JsonConvert.DeserializeObject<WeatherInformation>(json);

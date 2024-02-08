@@ -5,7 +5,6 @@ using Gear.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using IWshRuntimeLibrary;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
