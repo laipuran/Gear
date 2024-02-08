@@ -36,11 +36,10 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.9.26.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PuranLai.Algorithm" Version="2.0.1" />
-    <PackageReference Include="WPF-UI" Version="2.1.0" />
     <PackageReference Include="WpfMath" Version="2.1.0" />
   </ItemGroup>
 

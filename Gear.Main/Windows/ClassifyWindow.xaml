@@ -4,14 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gear.Windows"
-        xmlns:modern="http://schemas.modernwpf.com/2019"
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
         mc:Ignorable="d" Width="600" Height="300"
         AllowsTransparency="True" Background="#88FFFFFF"
         WindowStyle="None" Opacity="0.6"
         MouseEnter="Window_MouseEnter"
         Closing="Window_Closing" ResizeMode="NoResize"
-        Title="文件分类" ShowInTaskbar="False"
-        modern:ThemeManager.RequestedTheme="Light">
+        Title="文件分类" ShowInTaskbar="False">
     
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
@@ -39,7 +38,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <modern:ProgressRing
+        <ui:ProgressRing
             Grid.ColumnSpan="3"
             Grid.RowSpan="2"
             Grid.Column="0"
@@ -169,7 +168,7 @@
             <TextBlock
                 Text="笔记截图"
                 Style="{StaticResource DefaultLabelStyle}"
-                TextWrapping="Wrap"/>
+                TextWrapping="WrapWithOverflow"/>
         </Button>
     </Grid>
 </Window>

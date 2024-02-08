@@ -3,9 +3,9 @@ using Gear.Base.Interface;
 using Gear.Models;
 using Gear.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
+using iNKORE.UI.WPF.Modern.Controls;
 using IWshRuntimeLibrary;
 using Microsoft.AspNetCore.Builder;
-using ModernWpf.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using File = System.IO.File;
+using MessageBox = iNKORE.UI.WPF.Modern.Controls.MessageBox;
 
 namespace Gear
 {

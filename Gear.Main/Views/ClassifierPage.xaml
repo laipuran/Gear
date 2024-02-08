@@ -3,20 +3,21 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
       xmlns:local="clr-namespace:Gear.Views"
       mc:Ignorable="d" 
       d:Background="White"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ClassifierPage">
 
-    <Page.Resources>
+    <!--<Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <wpfui:ThemesDictionary Theme="Light"/>
+                <ui:ThemeResources/>
+                <ui:XamlControlsResources />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Page.Resources>
+    </Page.Resources>-->
 
     <StackPanel
         Margin="20">
@@ -34,10 +35,11 @@
                 Orientation="Horizontal"
                 Margin="0,5,0,0"
                 HorizontalAlignment="Stretch">
-                <wpfui:TextBox
-                    x:Name="DirectoryTextBox"
-                    PlaceholderText="不要输入目录末尾的“\”"/>
-                <wpfui:Button
+                <TextBox
+                    x:Name="DirectoryTextBox"/>
+                <!--PlaceholderText="不要输入目录末尾的“\”"-->
+                
+                <Button
                     Margin="10,0,0,0"
                     x:Name="SaveButton"
                     Content="保存"
@@ -131,7 +133,7 @@
                     Content="物化地"/>
                 <Button
                     Click="Button_HPG_Click"
-                    x:Name="HPG"
+                    x:Name="Button_HPG"
                     Margin="10,0,0,0"
                     Content="史政地"/>
             </StackPanel>

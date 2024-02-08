@@ -3,8 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:modern="http://schemas.modernwpf.com/2019"
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         xmlns:local="clr-namespace:Gear"
@@ -28,7 +27,7 @@
             CanExecute="WeatherCommand_Excuted"/>
     </Window.CommandBindings>
 
-    <modern:NavigationView
+    <ui:NavigationView
         d:IsPaneOpen="False"
         ToolTip="三叉戟：设置"
         IsSettingsVisible="False"
@@ -36,23 +35,23 @@
         IsBackEnabled="True"
         SelectionChanged="NavigationView_SelectionChanged"
         BackRequested="NavigationView_BackRequested">
-        <modern:NavigationView.MenuItems>
-            <modern:NavigationViewItem
+        <ui:NavigationView.MenuItems>
+            <ui:NavigationViewItem
                 Content="通知设置"
                 x:Name="NotifyNavItem"
                 Tag="Notifier"
                 Icon="Send"/>
-            <modern:NavigationViewItem
+            <ui:NavigationViewItem
                 Content="分类设置"
                 x:Name="ClassifyNavItem"
                 Tag="Classifier"
                 Icon="List"/>
-        </modern:NavigationView.MenuItems>
+        </ui:NavigationView.MenuItems>
         <ScrollViewer
             HorizontalScrollBarVisibility="Hidden">
-            <modern:Frame
+            <ui:Frame
                 x:Name="ContentFrame"/>
         </ScrollViewer>
-    </modern:NavigationView>
+    </ui:NavigationView>
 
 </Window>

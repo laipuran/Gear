@@ -3,18 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:wpfui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
         xmlns:local="clr-namespace:Gear.Windows"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="提示" Height="165" Width="350">
     
-    <Window.Resources>
+    <!--<Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <wpfui:ThemesDictionary Theme="Light"/>
+                <ui:ThemeResources/>
+                <ui:XamlControlsResources />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </Window.Resources>-->
     
     <ScrollViewer
         VerticalScrollBarVisibility="Auto"
