@@ -29,7 +29,6 @@
 
     <ui:NavigationView
         d:IsPaneOpen="False"
-        ToolTip="三叉戟：设置"
         IsSettingsVisible="False"
         PaneTitle="三叉戟：设置"
         IsBackEnabled="True"

@@ -14,14 +14,14 @@
     
     <Window.Resources>
         <Style TargetType="{x:Type Border}">
-            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="CornerRadius" Value="15"/>
         </Style>
 
         <Style x:Key="DefaultLabelStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#88000000"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="64"/>
             <Setter Property="FontFamily" Value="Smiley Sans Oblique"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
 
     </Window.Resources>
@@ -167,8 +167,7 @@
             HorizontalAlignment="Stretch">
             <TextBlock
                 Text="笔记截图"
-                Style="{StaticResource DefaultLabelStyle}"
-                TextWrapping="WrapWithOverflow"/>
+                Style="{StaticResource DefaultLabelStyle}"/>
         </Button>
     </Grid>
 </Window>
