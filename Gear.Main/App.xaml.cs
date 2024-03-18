@@ -8,6 +8,7 @@ using IWshRuntimeLibrary;
 using Microsoft.AspNetCore.Builder;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -74,8 +75,10 @@ namespace Gear
 
         private static void ForeRunCheck()
         {
-            IntPtr hWnd = FindWindow(null, "三叉戟：设置");                     //Avoiding opening this app twice
-            if (hWnd != IntPtr.Zero)
+            Process[] process = Process.GetProcessesByName("Gear.Desktop");
+            //IntPtr hWnd = FindWindow(null, "三叉戟：设置");                     //Avoiding opening this app twice
+            //if (hWnd != IntPtr.Zero)
+            if (process.Length>1)
             {
                 MessageBox.Show("三叉戟 存在运行中的实例！", "三叉戟");
                 Environment.Exit(-1);
