@@ -111,8 +111,8 @@ namespace Gear
 
             SettingsItem = new MenuItem()
             {
-                Header = "设置",
-                ToolTip = "对程序进行设置",
+                Header = "快捷设置",
+                ToolTip = "对程序进行快速设置",
                 Icon = new FontIcon() { Glyph = "\uE713" },
                 Command = new RelayCommand(() => { SettingsItem.ContextMenu.IsOpen = !SettingsItem.ContextMenu.IsOpen; })
             };

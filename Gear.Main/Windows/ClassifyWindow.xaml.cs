@@ -25,7 +25,7 @@ namespace Gear.Windows
             Operations.ToBottom(this);
             Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
             Top = SystemParameters.PrimaryScreenHeight * 0.1;
-
+            ScreenshotTextBlock.Text = "笔记\n截图";
             CheckSubjectFolders();
 
             for (int i = 0; i < 6; i++)

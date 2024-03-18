@@ -166,7 +166,7 @@
             VerticalAlignment="Stretch"
             HorizontalAlignment="Stretch">
             <TextBlock
-                Text="笔记截图"
+                x:Name="ScreenshotTextBlock"
                 Style="{StaticResource DefaultLabelStyle}"/>
         </Button>
     </Grid>
