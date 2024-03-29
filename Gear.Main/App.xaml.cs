@@ -58,12 +58,12 @@ namespace Gear
 
             // Check exist instance of this app
             ForeRunCheck();
-            // Show the windows
 
             WebApp.RunAsync("http://localhost:5177");
 #if DEBUG
-            System.Diagnostics.Process.Start("explorer", "http://localhost:5177/swagger");
+            //Process.Start("explorer", "http://localhost:5177/swagger");
 #endif
+            // Show the windows
             Notifier.Show();
             Notifier.EnqueueText("事件：启动");
             Classifier.Show();
@@ -76,9 +76,7 @@ namespace Gear
         private static void ForeRunCheck()
         {
             Process[] process = Process.GetProcessesByName("Gear.Desktop");
-            //IntPtr hWnd = FindWindow(null, "三叉戟：设置");                     //Avoiding opening this app twice
-            //if (hWnd != IntPtr.Zero)
-            if (process.Length>1)
+            if (process.Length > 1)
             {
                 MessageBox.Show("三叉戟 存在运行中的实例！", "三叉戟");
                 Environment.Exit(-1);
@@ -87,7 +85,7 @@ namespace Gear
 
         private void SetupAutoStart()
         {
-            const string shortcutName = "ProngedGear.lnk";
+            const string shortcutName = "Gear.lnk";
             string startupMenu = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
             List<string> files = Directory.GetFiles(startupMenu).ToList();
             string fullName = startupMenu + "\\" + shortcutName;
@@ -103,7 +101,7 @@ namespace Gear
 
             WshShell shell = new();
             IWshShortcut shortcut = shell.CreateShortcut(Path.Combine(startupMenu, shortcutName));
-            shortcut.TargetPath = Path.Combine(Environment.CurrentDirectory, "Gear.exe");
+            shortcut.TargetPath = Path.Combine(Environment.CurrentDirectory, "Gear.Desktop.exe");
             shortcut.WorkingDirectory = Path.Combine(Environment.CurrentDirectory);
             shortcut.IconLocation = Path.Combine(Environment.CurrentDirectory, "Icon.ico");
             shortcut.Save();
@@ -140,6 +138,7 @@ namespace Gear
                 IsOn = AppSettings.AutoStart
             };
             autoStartOption.Toggled += AutoStartOption_Toggled;
+            autoStartOption.MouseRightButtonDown += AutoStartOption_MouseRightButtonDown;
 
             SettingsItem.Items.Add(classifierVisibilityOption);
             SettingsItem.Items.Add(timerVisibilityOption);
@@ -188,6 +187,14 @@ namespace Gear
                 NoLeftClickDelay = true,
                 LeftClickCommand = new RelayCommand(() => { TaskbarIconContextMenu.IsOpen = !TaskbarIconContextMenu.IsOpen; }),
             };
+        }
+
+        /// <summary>
+        /// 打开 开机启动 文件夹
+        /// </summary>
+        private void AutoStartOption_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Process.Start("explorer.exe", Environment.GetFolderPath(Environment.SpecialFolder.Startup));
         }
 
         private void AutoStartOption_Toggled(object sender, RoutedEventArgs e)

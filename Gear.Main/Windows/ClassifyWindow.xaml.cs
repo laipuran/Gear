@@ -1,4 +1,5 @@
 ﻿using Gear.Models;
+using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using System;
@@ -7,8 +8,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using MessageBox = iNKORE.UI.WPF.Modern.Controls.MessageBox;
 
 namespace Gear.Windows
 {
@@ -18,13 +23,23 @@ namespace Gear.Windows
     public partial class ClassifyWindow : Window
     {
         DateTime LastOpen;
-        bool DoubleClicked = false;
+        bool DoubleClicked = false, WhiteFlag = false;
+        Point DefaultPosition = new();
+        Timer ResetPositionTimer = new Timer(1500);
         public ClassifyWindow()
         {
             InitializeComponent();
             Operations.ToBottom(this);
-            Left = (SystemParameters.PrimaryScreenWidth - Width) * 0.5;
-            Top = SystemParameters.PrimaryScreenHeight * 0.1;
+
+            GridPositionTransform.X = DefaultPosition.X = (SystemParameters.PrimaryScreenWidth - MainGrid.Width) * 0.5;
+            GridPositionTransform.Y = DefaultPosition.Y = SystemParameters.PrimaryScreenHeight * 0.1;
+            if (DateTime.Today.Month != 4 || DateTime.Today.Day != 1)
+                我是废物.Visibility = Visibility.Collapsed;
+            WhiteFlagPositonTransform.X = (SystemParameters.PrimaryScreenWidth - 我是废物.Width) * 0.5;
+            WhiteFlagPositonTransform.Y = SystemParameters.PrimaryScreenHeight * 0.3;
+
+            ResetPositionTimer.Elapsed += ResetPositionTimer_Elapsed;
+
             ScreenshotTextBlock.Text = "笔记\n截图";
             CheckSubjectFolders();
 
@@ -32,6 +47,11 @@ namespace Gear.Windows
             {
                 SetButtonSubject(App.AppSettings.Subjects[i], i + 1);
             }
+        }
+
+        private void ResetPositionTimer_Elapsed(object? sender, ElapsedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() => SetMainGridPosition(DefaultPosition));
         }
 
         public class SubjectDetail
@@ -246,5 +266,67 @@ namespace Gear.Windows
                 Environment.GetFolderPath
                 (Environment.SpecialFolder.MyPictures) + "\\Ink Canvas Screenshots");
         }
+
+        private void MainGrid_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (DateTime.Today.Month == 4 && DateTime.Today.Day == 1 && !WhiteFlag)
+            {
+                ResetPositionTimer.Close();
+                Point Enter = e.GetPosition(MainGrid);
+
+                double
+                deltaX = Enter.X <= 300 ? 2.5 * Enter.X : 2.5 * (Enter.X - 600),
+                deltaY = Enter.Y <= 150 ? 4 * Enter.Y : 4 * (Enter.Y - 300);
+                Debug.WriteLine($"dX: {deltaX} dY:{deltaY}");
+
+                Point CurrentPosition = new(GridPositionTransform.X, GridPositionTransform.Y);
+                CurrentPosition.X += deltaX;
+                CurrentPosition.Y += deltaY;
+                Dispatcher.Invoke(() => SetMainGridPosition(CurrentPosition));
+
+                ResetPositionTimer.Start();
+            }
+        }
+
+        private void 我是废物_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("真是废物，连这个都点不到🤣");
+            WhiteFlag = true;
+            我是废物.Visibility = Visibility.Collapsed;
+        }
+
+        private void SetMainGridPosition(Point TargetPosition)
+        {
+            Point CurrentPosition = new(GridPositionTransform.X, GridPositionTransform.Y);
+            DoubleAnimation displacementX = new()
+            {
+                From = CurrentPosition.X,
+                To = TargetPosition.X,
+                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+
+                EasingFunction = new BackEase()
+                {
+                    EasingMode = EasingMode.EaseOut,
+                    Amplitude = 1
+                }
+            };
+
+            DoubleAnimation displacementY = new()
+            {
+                From = CurrentPosition.Y,
+                To = TargetPosition.Y,
+                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+
+                EasingFunction = new BackEase()
+                {
+                    EasingMode = EasingMode.EaseOut,
+                    Amplitude = 1
+                }
+            };
+
+            GridPositionTransform.BeginAnimation(TranslateTransform.XProperty, displacementX);
+            GridPositionTransform.BeginAnimation(TranslateTransform.YProperty, displacementY);
+        }
+
     }
 }

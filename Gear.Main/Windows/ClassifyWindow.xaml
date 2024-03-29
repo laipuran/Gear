@@ -5,17 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gear.Windows"
         xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
-        mc:Ignorable="d" Width="600" Height="300"
-        AllowsTransparency="True" Background="#88FFFFFF"
-        WindowStyle="None" Opacity="0.6"
-        MouseEnter="Window_MouseEnter"
+        mc:Ignorable="d"
+        Top="0" Left="0"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Height="{x:Static SystemParameters.PrimaryScreenHeight}"
+        AllowsTransparency="True" Background="#00FFFFFF"
+        WindowStyle="None" MouseEnter="Window_MouseEnter"
         Closing="Window_Closing" ResizeMode="NoResize"
         Title="文件分类" ShowInTaskbar="False">
     
     <Window.Resources>
-        <Style TargetType="{x:Type Border}">
+        <!--<Style TargetType="{x:Type Border}">
             <Setter Property="CornerRadius" Value="15"/>
-        </Style>
+        </Style>-->
 
         <Style x:Key="DefaultLabelStyle" TargetType="TextBlock">
             <Setter Property="Foreground" Value="#88000000"/>
@@ -25,149 +27,190 @@
         </Style>
 
     </Window.Resources>
-    
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <ui:ProgressRing
-            Grid.ColumnSpan="3"
-            Grid.RowSpan="2"
-            Grid.Column="0"
-            Grid.Row="0"
-            Width="200"
-            Height="200"
-            x:Name="WaitProgressRing"
-            Visibility="Collapsed"
-            IsActive="False"/>
-
         <Button
-            Grid.Column="0"
-            Grid.Row="0"
-            Tag="Chinese"
-            x:Name="Button_1"
-            MouseRightButtonDown="DropButton_MouseRightButtonDown"
-            Drop="DropButton_Drop"
-            Click="DropButton_Click"
-            MouseDoubleClick="DropButton_MouseDoubleClick"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            AllowDrop="True">
-            <TextBlock
-                x:Name="TextBlock_1"
-                Style="{StaticResource DefaultLabelStyle}"
-                Text="语文"/>
+            Opacity="0.75"
+            Click="我是废物_Click"
+            x:Name="我是废物"
+            Height="125"
+            Width="250"
+            Margin="0,0,0,0">
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock
+                    Text="我认输"
+                    Style="{StaticResource DefaultLabelStyle}"/>
+                <TextBlock
+                    Margin="20,0,0,0"
+                    Text="&#xE7C1;"
+                    Foreground="#88000000"
+                    FontSize="54"
+                    FontFamily="Segoe Fluent Icons"/>
+            </StackPanel>
+
+            <Button.RenderTransform>
+                <TranslateTransform
+                    x:Name="WhiteFlagPositonTransform"/>
+            </Button.RenderTransform>
         </Button>
 
-        <Button
-            Grid.Column="1"
-            Grid.Row="0"
-            Tag="Math"
-            x:Name="Button_2"
-            MouseRightButtonDown="DropButton_MouseRightButtonDown"
-            Drop="DropButton_Drop"
-            Click="DropButton_Click"
-            MouseDoubleClick="DropButton_MouseDoubleClick"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            AllowDrop="True">
-            <TextBlock
-                x:Name="TextBlock_2"
-                Style="{StaticResource DefaultLabelStyle}"
-                Text="数学"/>
-        </Button>
-        
-        <Button
-            Grid.Column="2"
-            Grid.Row="0"
-            Tag="English"
-            x:Name="Button_3"
-            MouseRightButtonDown="DropButton_MouseRightButtonDown"
-            Drop="DropButton_Drop"
-            Click="DropButton_Click"
-            MouseDoubleClick="DropButton_MouseDoubleClick"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            AllowDrop="True">
-            <TextBlock
-                x:Name="TextBlock_3"
-                Style="{StaticResource DefaultLabelStyle}"
-                Text="英语"/>
-        </Button>
+        <Grid
+            Opacity="0.6"
+            x:Name="MainGrid"
+            MouseEnter="MainGrid_MouseEnter"
+            Width="600"
+            Height="300"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
 
-        <Button
-            Grid.Column="0"
-            Grid.Row="1"
-            Tag="Physics"
-            x:Name="Button_4"
-            MouseRightButtonDown="DropButton_MouseRightButtonDown"
-            Drop="DropButton_Drop"
-            Click="DropButton_Click"
-            MouseDoubleClick="DropButton_MouseDoubleClick"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            AllowDrop="True">
-            <TextBlock
-                x:Name="TextBlock_4"
-                Style="{StaticResource DefaultLabelStyle}"
-                Text="物理"/>
-        </Button>
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="GridPositionTransform" X="0" Y="0"/>
+            </Grid.RenderTransform>
 
-        <Button
-            Grid.Column="1"
-            Grid.Row="1"
-            Tag="Chemistry"
-            x:Name="Button_5"
-            MouseRightButtonDown="DropButton_MouseRightButtonDown"
-            Drop="DropButton_Drop"
-            Click="DropButton_Click"
-            MouseDoubleClick="DropButton_MouseDoubleClick"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            AllowDrop="True">
-            <TextBlock
-                x:Name="TextBlock_5"
-                Style="{StaticResource DefaultLabelStyle}"
-                Text="化学"/>
-        </Button>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Button
-            Grid.Column="2"
-            Grid.Row="1"
-            Tag="Biology"
-            x:Name="Button_6"
-            MouseRightButtonDown="DropButton_MouseRightButtonDown"
-            Drop="DropButton_Drop"
-            Click="DropButton_Click"
-            MouseDoubleClick="DropButton_MouseDoubleClick"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch"
-            AllowDrop="True">
-            <TextBlock
-                x:Name="TextBlock_6"
-                Style="{StaticResource DefaultLabelStyle}"
-                Text="生物"/>
-        </Button>
+            <ui:ProgressRing
+                Grid.ColumnSpan="3"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.Row="0"
+                Width="200"
+                Height="200"
+                x:Name="WaitProgressRing"
+                Visibility="Collapsed"
+                IsActive="False"/>
 
-        <Button
-            Grid.Column="3"
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            x:Name="Note"
-            Click="Note_Click"
-            VerticalAlignment="Stretch"
-            HorizontalAlignment="Stretch">
-            <TextBlock
-                x:Name="ScreenshotTextBlock"
-                Style="{StaticResource DefaultLabelStyle}"/>
-        </Button>
+            <Button
+                Grid.Column="0"
+                Grid.Row="0"
+                Tag="Chinese"
+                x:Name="Button_1"
+                MouseRightButtonDown="DropButton_MouseRightButtonDown"
+                Drop="DropButton_Drop"
+                Click="DropButton_Click"
+                MouseDoubleClick="DropButton_MouseDoubleClick"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                AllowDrop="True">
+                <TextBlock
+                    x:Name="TextBlock_1"
+                    Style="{StaticResource DefaultLabelStyle}"
+                    Text="语文"/>
+            </Button>
+
+            <Button
+                Grid.Column="1"
+                Grid.Row="0"
+                Tag="Math"
+                x:Name="Button_2"
+                MouseRightButtonDown="DropButton_MouseRightButtonDown"
+                Drop="DropButton_Drop"
+                Click="DropButton_Click"
+                MouseDoubleClick="DropButton_MouseDoubleClick"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                AllowDrop="True">
+                <TextBlock
+                    x:Name="TextBlock_2"
+                    Style="{StaticResource DefaultLabelStyle}"
+                    Text="数学"/>
+            </Button>
+
+            <Button
+                Grid.Column="2"
+                Grid.Row="0"
+                Tag="English"
+                x:Name="Button_3"
+                MouseRightButtonDown="DropButton_MouseRightButtonDown"
+                Drop="DropButton_Drop"
+                Click="DropButton_Click"
+                MouseDoubleClick="DropButton_MouseDoubleClick"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                AllowDrop="True">
+                <TextBlock
+                    x:Name="TextBlock_3"
+                    Style="{StaticResource DefaultLabelStyle}"
+                    Text="英语"/>
+            </Button>
+
+            <Button
+                Grid.Column="0"
+                Grid.Row="1"
+                Tag="Physics"
+                x:Name="Button_4"
+                MouseRightButtonDown="DropButton_MouseRightButtonDown"
+                Drop="DropButton_Drop"
+                Click="DropButton_Click"
+                MouseDoubleClick="DropButton_MouseDoubleClick"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                AllowDrop="True">
+                <TextBlock
+                    x:Name="TextBlock_4"
+                    Style="{StaticResource DefaultLabelStyle}"
+                    Text="物理"/>
+            </Button>
+
+            <Button
+                Grid.Column="1"
+                Grid.Row="1"
+                Tag="Chemistry"
+                x:Name="Button_5"
+                MouseRightButtonDown="DropButton_MouseRightButtonDown"
+                Drop="DropButton_Drop"
+                Click="DropButton_Click"
+                MouseDoubleClick="DropButton_MouseDoubleClick"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                AllowDrop="True">
+                <TextBlock
+                    x:Name="TextBlock_5"
+                    Style="{StaticResource DefaultLabelStyle}"
+                    Text="化学"/>
+                    </Button>
+
+            <Button
+                Grid.Column="2"
+                Grid.Row="1"
+                Tag="Biology"
+                x:Name="Button_6"
+                MouseRightButtonDown="DropButton_MouseRightButtonDown"
+                Drop="DropButton_Drop"
+                Click="DropButton_Click"
+                MouseDoubleClick="DropButton_MouseDoubleClick"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                AllowDrop="True">
+                <TextBlock
+                    x:Name="TextBlock_6"
+                    Style="{StaticResource DefaultLabelStyle}"
+                    Text="生物"/>
+            </Button>
+
+            <Button
+                Grid.Column="3"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                x:Name="Note"
+                Click="Note_Click"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+                <TextBlock
+                    x:Name="ScreenshotTextBlock"
+                    Style="{StaticResource DefaultLabelStyle}"/>
+            </Button>
+        </Grid>
     </Grid>
 </Window>
