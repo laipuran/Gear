@@ -33,8 +33,8 @@ namespace Gear.Windows
 
             GridPositionTransform.X = DefaultPosition.X = (SystemParameters.PrimaryScreenWidth - MainGrid.Width) * 0.5;
             GridPositionTransform.Y = DefaultPosition.Y = SystemParameters.PrimaryScreenHeight * 0.1;
-            if (DateTime.Today.Month != 4 || DateTime.Today.Day != 1)
-                我是废物.Visibility = Visibility.Collapsed;
+
+            我是废物.Visibility = Visibility.Collapsed;
             WhiteFlagPositonTransform.X = (SystemParameters.PrimaryScreenWidth - 我是废物.Width) * 0.5;
             WhiteFlagPositonTransform.Y = SystemParameters.PrimaryScreenHeight * 0.3;
 
@@ -271,12 +271,13 @@ namespace Gear.Windows
         {
             if (DateTime.Today.Month == 4 && DateTime.Today.Day == 1 && !WhiteFlag)
             {
+                我是废物.Visibility = Visibility.Visible;
                 ResetPositionTimer.Close();
                 Point Enter = e.GetPosition(MainGrid);
 
                 double
-                deltaX = Enter.X <= 300 ? 2.5 * Enter.X : 2.5 * (Enter.X - 600),
-                deltaY = Enter.Y <= 150 ? 4 * Enter.Y : 4 * (Enter.Y - 300);
+                deltaX = Enter.X <= 300 ? 3.5 * Enter.X : 3.5 * (Enter.X - 600),
+                deltaY = Enter.Y <= 150 ? 4.5 * Enter.Y : 4.5 * (Enter.Y - 300);
                 Debug.WriteLine($"dX: {deltaX} dY:{deltaY}");
 
                 Point CurrentPosition = new(GridPositionTransform.X, GridPositionTransform.Y);
@@ -302,12 +303,12 @@ namespace Gear.Windows
             {
                 From = CurrentPosition.X,
                 To = TargetPosition.X,
-                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(350)),
 
                 EasingFunction = new BackEase()
                 {
                     EasingMode = EasingMode.EaseOut,
-                    Amplitude = 1
+                    Amplitude = 0.25
                 }
             };
 
@@ -315,12 +316,12 @@ namespace Gear.Windows
             {
                 From = CurrentPosition.Y,
                 To = TargetPosition.Y,
-                Duration = new Duration(TimeSpan.FromMilliseconds(300)),
+                Duration = new Duration(TimeSpan.FromMilliseconds(350)),
 
                 EasingFunction = new BackEase()
                 {
                     EasingMode = EasingMode.EaseOut,
-                    Amplitude = 1
+                    Amplitude = 0.25
                 }
             };
 
