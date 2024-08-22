@@ -1,5 +1,6 @@
 ﻿using Gear.Base.Class;
 using Gear.Models;
+using iNKORE.UI.WPF.Modern.Media.Animation;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -22,7 +23,6 @@ namespace Gear.Windows
         Text,
         Formula
     }
-
     /// <summary>
     /// NotifyWindow.xaml 的交互逻辑
     /// </summary>
@@ -32,12 +32,16 @@ namespace Gear.Windows
         List<string> AutoScrollText = new();
         int count = 0; Timer timer = new();
         Task Task_Mod, Task_Formula, Task_Text;
-
+        string Message = "";
 
         public NotifyWindow()
         {
             InitializeComponent();
 
+            MainBorder.Opacity = 0;
+#if DEBUG
+            DebugButton.Visibility = Visibility.Visible;
+#endif
             #region Set Tasks
             Task_Mod = new(Mod);
             Task_Formula = new(SetFormula);
@@ -245,7 +249,7 @@ namespace Gear.Windows
                     {
                         App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
                         {
-                            App.TaskbarIconToolTip.Content = "Pronged Gear\n队列中字条数量：" + App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
+                            App.TaskbarIconToolTip.Content = "Gear\n队列中字条数量：" + App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
                         });
                     }
                     catch { }
@@ -260,9 +264,12 @@ namespace Gear.Windows
                 if (@object is null)
                     continue;
                 string text = @object.Content;
+                
+                await Dispatcher.BeginInvoke(() => { BeginAnimation(); ContentTextBlock.Text = text; });
 
                 try
                 {
+                    /*
                     await ContentTextBlock.Dispatcher.Invoke(async () =>
                     {
                         var boards = GetAnimation(DisplayMode.Text, text);
@@ -281,8 +288,9 @@ namespace Gear.Windows
                         BoardClose.Begin(ContentTextBlock);
                         await Task.Delay(2000);
 
-                        ContentTextBlock.Width = 0;
+                        ContentTextBlock.Width = 0;    
                     });
+                    */
                 }
                 catch { }
             }
@@ -302,6 +310,104 @@ namespace Gear.Windows
             {
                 App.NotificationQueueService.DequeueNotification(Base.Class.ContentForm.Text);
             }
+        }
+
+        private void DebugButton_Click(object sender, RoutedEventArgs e)
+        {
+            BeginAnimation();
+        }
+
+        private async void BeginAnimation()
+        {
+            #region Initialize Animations
+            Storyboard Open_Border = new(), Open_Lorem = new(),
+                Close_Border = new(), Close_Lorem = new();
+
+            DoubleAnimation Open_Height = new()
+            {
+                From = SystemParameters.PrimaryScreenHeight,
+                To = 300,
+                Duration = TimeSpan.FromMilliseconds(600),
+
+                EasingFunction = new BackEase() { Amplitude = 0 },
+            };
+
+            DoubleAnimation Open_Opacity = new()
+            {
+                From = 0,
+                To = 1,
+                Duration = TimeSpan.FromMilliseconds(600),
+
+                EasingFunction = new CubicEase(),
+            };
+
+            DoubleAnimation Open_Width = new()
+            {
+                From = 2700,
+                To = 0,
+
+                Duration = TimeSpan.FromMilliseconds(500),
+
+                EasingFunction = new CircleEase(),
+            };
+            Storyboard.SetTargetProperty(Open_Height, new(HeightProperty));
+            Storyboard.SetTargetProperty(Open_Opacity, new(OpacityProperty));
+            Storyboard.SetTargetProperty(Open_Width, new(WidthProperty));
+            Open_Border.Children.Add(Open_Height); Open_Border.Children.Add(Open_Opacity);
+            Open_Lorem.Children.Add(Open_Width);
+
+            DoubleAnimation Close_Height = new()
+            {
+                From = 300,
+                To = SystemParameters.PrimaryScreenHeight,
+
+                Duration = TimeSpan.FromMilliseconds(600),
+
+                EasingFunction = new BackEase()
+                {
+                    Amplitude = 0.5,
+                    EasingMode = EasingMode.EaseIn
+                }
+            };
+
+            DoubleAnimation Close_Opacity = new()
+            {
+                From = 1,
+                To = 0,
+                Duration = TimeSpan.FromMilliseconds(600),
+
+                EasingFunction = new CubicBezierEase()
+                {
+                    EasingMode = EasingMode.EaseIn
+                }
+            };
+
+            DoubleAnimation Close_Width = new()
+            {
+                From = 0,
+                To = 2700,
+
+                Duration = TimeSpan.FromMilliseconds(700),
+
+                EasingFunction = new BackEase()
+                {
+                    Amplitude = 0
+                },
+            };
+            Storyboard.SetTargetProperty(Close_Height, new(HeightProperty));
+            Storyboard.SetTargetProperty(Close_Opacity, new(OpacityProperty));
+            Storyboard.SetTargetProperty(Close_Width, new(WidthProperty));
+            Close_Border.Children.Add(Close_Height); Close_Border.Children.Add(Close_Opacity);
+            Close_Lorem.Children.Add(Close_Width);
+            #endregion
+
+            Open_Border.Begin(MainBorder);
+            Open_Lorem.Begin(MarginTextBlock);
+            await Task.Delay(1000);
+            Close_Border.Begin(MainBorder);
+            Close_Lorem.Begin(MarginTextBlock);
+
+            //Close();
         }
     }
 }

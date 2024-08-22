@@ -8,31 +8,75 @@
         Title="文本提示" WindowStyle="None"
         Topmost="True" Background="#00FFFFFF"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Height="100" Left="0" Top="0" ShowInTaskbar="False"
-        Width="{x:Static SystemParameters.PrimaryScreenWidth}">
-    <StackPanel
-        Orientation="Horizontal"
-        VerticalAlignment="Top"
-        HorizontalAlignment="Center">
-        <TextBlock
-            x:Name="ContentTextBlock"
-            FontFamily="Smiley Sans Oblique"
-            FontSize="48"
-            Height="56"
-            Background="#44FFFFFF"
-            Foreground="#88000000">
-            
-        </TextBlock>
-        <Viewbox
-            Margin="20,0,0,0"
-            Height="60"
-            x:Name="FormulaViewBox">
-	            <math:FormulaControl
-		            x:Name="ContentFormulaControl"
-		            FontSize="32"
-		            Background="#44FFFFFF"
+        Left="0" Top="0" ShowInTaskbar="False"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Height="{x:Static SystemParameters.PrimaryScreenHeight}">
+    <Grid
+        VerticalAlignment="Stretch">
+        <Button
+            VerticalAlignment="Bottom"
+            Visibility="Collapsed"
+            HorizontalAlignment="Center"
+            x:Name="DebugButton"
+            Content="Open"
+            FontSize="100"
+            Height="50"
+            Panel.ZIndex="2"
+            Click="DebugButton_Click"/>
+        <Border
+            x:Name="MainBorder"
+            Background="#2f52c8"
+            Height="300"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Panel.ZIndex="1">
+            <Border.RenderTransform>
+                <MatrixTransform>
+                    <MatrixTransform.Matrix>
+                        1, 0.08748, 0, 1, -1, 1
+                    </MatrixTransform.Matrix>
+                </MatrixTransform>
+            </Border.RenderTransform>
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <TextBlock
+                    x:Name="MarginTextBlock"
+                    Width="2700"/>
+                <TextBlock
+                    x:Name="ContentTextBlock"
+                    Text="Content 内容"
+                    FontSize="150"
+                    Foreground="White"
+                    FontFamily="Minecraft AE Pixel"
+                    HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <StackPanel
+            Orientation="Horizontal"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Center">
+            <!--<TextBlock
+                x:Name="ContentTextBlock"
+                FontFamily="Smiley Sans Oblique"
+                FontSize="48"
+                Height="56"
+                Background="#44FFFFFF"
+                Foreground="#88000000"/>-->
+
+            <Viewbox
+                Margin="20,0,0,0"
+                Height="60"
+                x:Name="FormulaViewBox">
+                <math:FormulaControl
+	                x:Name="ContentFormulaControl"
+	                FontSize="32"
+	                Background="#44FFFFFF"
                     Foreground="#88000000">
-	            </math:FormulaControl>
-        </Viewbox>
-    </StackPanel>
+                </math:FormulaControl>
+            </Viewbox>
+        </StackPanel>
+    </Grid>
 </Window>

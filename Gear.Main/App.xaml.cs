@@ -59,6 +59,9 @@ namespace Gear
             // Check exist instance of this app
             ForeRunCheck();
 
+            //new NotifyWindowExtended("Test 测试").Show();
+            //return;
+
             WebApp.RunAsync("http://localhost:5177");
 #if DEBUG
             //Process.Start("explorer", "http://localhost:5177/swagger");
