@@ -1,0 +1,56 @@
+﻿<Window x:Class="Gear.Windows.NotifyWindowExtended"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gear.Windows"
+        mc:Ignorable="d" AllowsTransparency="True"
+        WindowStyle="None" Topmost="True"
+        Background="#00FFFFFF"
+        Top="0" Left="0" ShowInTaskbar="False"
+        Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        Height="{x:Static SystemParameters.PrimaryScreenHeight}">
+    <Grid
+        VerticalAlignment="Stretch">
+        <Button
+            VerticalAlignment="Bottom"
+            Visibility="Collapsed"
+            HorizontalAlignment="Center"
+            x:Name="DebugButton"
+            Content="Open"
+            FontSize="100"
+            Height="50"
+            Panel.ZIndex="2"
+            Click="DebugButton_Click"/>
+        <Border
+            x:Name="MainBorder"
+            Background="#2f52c8"
+            Height="300"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Panel.ZIndex="1">
+            <Border.RenderTransform>
+                <MatrixTransform>
+                    <MatrixTransform.Matrix>
+                        1, 0.08748, 0, 1, -1, 1
+                    </MatrixTransform.Matrix>
+                </MatrixTransform>
+            </Border.RenderTransform>
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <TextBlock
+                    x:Name="MarginTextBlock"
+                    Width="2700"/>
+                <TextBlock
+                    x:Name="ContentTextBlock"
+                    Text="Content 内容"
+                    FontSize="150"
+                    Foreground="White"
+                    FontFamily="Minecraft AE Pixel"
+                    HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
