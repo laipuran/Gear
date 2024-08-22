@@ -21,7 +21,7 @@ jobs:
     - name: Install .NET Core
       uses: actions/setup-dotnet@v3.0.3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '9.0.x'
         
     # 安装 NuGet
     - name: Setup NuGet
@@ -49,5 +49,5 @@ jobs:
     - name: Upload to artifact
       uses: actions/upload-artifact@main
       with:
-        name: Pronged-Gear
-        path: MainProgram/bin/Release
+        name: Gear
+        path: Gear.Main/bin/Release
