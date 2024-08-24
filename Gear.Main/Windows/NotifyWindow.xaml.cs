@@ -83,6 +83,12 @@ namespace Gear.Windows
                 time1.Minute == time2.Minute;
         }
 
+        /// <summary>
+        /// 获取关键的 Storyboard
+        /// </summary>
+        /// <param name="mode">展示的模式</param>
+        /// <param name="text">显示的内容</param>
+        /// <returns></returns>
         private List<Storyboard> GetAnimation(DisplayMode mode, string text)
         {
             DoubleAnimation open = new()
@@ -329,7 +335,7 @@ namespace Gear.Windows
                 To = 300,
                 Duration = TimeSpan.FromMilliseconds(600),
 
-                EasingFunction = new BackEase() { Amplitude = 0 },
+                EasingFunction = new BackEase() { Amplitude = 0.3},
             };
 
             DoubleAnimation Open_Opacity = new()
@@ -341,20 +347,25 @@ namespace Gear.Windows
                 EasingFunction = new CubicEase(),
             };
 
-            DoubleAnimation Open_Width = new()
+            ThicknessAnimation Open_Margin = new()
             {
-                From = 2700,
-                To = 0,
+                From = new(2000, 0, 0, 0),
+                To = new(0, 0, 0, 0),
+                Duration = TimeSpan.FromMilliseconds(600),
 
-                Duration = TimeSpan.FromMilliseconds(500),
-
-                EasingFunction = new CircleEase(),
+                EasingFunction = new BackEase()
+                {
+                    Amplitude = 0.7,
+                    EasingMode = EasingMode.EaseOut
+                }
             };
             Storyboard.SetTargetProperty(Open_Height, new(HeightProperty));
             Storyboard.SetTargetProperty(Open_Opacity, new(OpacityProperty));
-            Storyboard.SetTargetProperty(Open_Width, new(WidthProperty));
-            Open_Border.Children.Add(Open_Height); Open_Border.Children.Add(Open_Opacity);
-            Open_Lorem.Children.Add(Open_Width);
+            Storyboard.SetTargetProperty(Open_Margin, new(MarginProperty));
+
+            Open_Border.Children.Add(Open_Height);
+            Open_Lorem.Children.Add(Open_Margin);
+            Open_Border.Children.Add(Open_Opacity);
 
             DoubleAnimation Close_Height = new()
             {
@@ -382,30 +393,32 @@ namespace Gear.Windows
                 }
             };
 
-            DoubleAnimation Close_Width = new()
+            ThicknessAnimation Close_Margin = new()
             {
-                From = 0,
-                To = 2700,
-
-                Duration = TimeSpan.FromMilliseconds(700),
+                From = new(0, 0, 0, 0),
+                To = new(2000, 0, 0, 0),
+                Duration = TimeSpan.FromMilliseconds(600),
 
                 EasingFunction = new BackEase()
                 {
-                    Amplitude = 0
-                },
+                    Amplitude = 0.6,
+                    EasingMode = EasingMode.EaseIn
+                }
             };
             Storyboard.SetTargetProperty(Close_Height, new(HeightProperty));
             Storyboard.SetTargetProperty(Close_Opacity, new(OpacityProperty));
-            Storyboard.SetTargetProperty(Close_Width, new(WidthProperty));
-            Close_Border.Children.Add(Close_Height); Close_Border.Children.Add(Close_Opacity);
-            Close_Lorem.Children.Add(Close_Width);
+            Storyboard.SetTargetProperty(Close_Margin, new(MarginProperty));
+
+            Close_Border.Children.Add(Close_Height);
+            Close_Border.Children.Add(Close_Opacity);
+            Close_Lorem.Children.Add(Close_Margin);
             #endregion
 
             Open_Border.Begin(MainBorder);
-            Open_Lorem.Begin(MarginTextBlock);
-            await Task.Delay(1000);
+            Open_Lorem.Begin(ContentTextBlock);
+            await Task.Delay(1200);
             Close_Border.Begin(MainBorder);
-            Close_Lorem.Begin(MarginTextBlock);
+            Close_Lorem.Begin(ContentTextBlock);
 
             //Close();
         }

@@ -43,7 +43,7 @@
                 VerticalAlignment="Center">
                 <TextBlock
                     x:Name="MarginTextBlock"
-                    Width="2700"/>
+                    Width="0"/>
                 <TextBlock
                     x:Name="ContentTextBlock"
                     Text="Content 内容"
