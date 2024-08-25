@@ -6,9 +6,9 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace PuranLai.APIs
+namespace Gear.Models
 {
-    public class Operations
+    public class WebOperations
     {
         public static string? GetData(string url)
         {
@@ -69,7 +69,7 @@ namespace PuranLai.APIs
 
         public static string? GetHostIp()
         {
-            string? ip = Operations.GetData(ipSrc);
+            string? ip = WebOperations.GetData(ipSrc);
             if (ip is not null)
                 return ip[..];
             return null;
@@ -77,7 +77,7 @@ namespace PuranLai.APIs
 
         public static IpInformation? GetIpInformation(string ip)
         {
-            string? json = Operations.GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
+            string? json = WebOperations.GetData(amapBase + "ip?key=" + key + "&ip=" + ip);
             if (json is null) return null;
             IpInformation? i2 = new();
             try
@@ -91,7 +91,7 @@ namespace PuranLai.APIs
 
         public static WeatherInformation? GetWeatherInformation(string adcode)
         {
-            string? json = Operations.GetData($"{amapBase}weather/weatherInfo?key={key}&city={adcode}");
+            string? json = WebOperations.GetData($"{amapBase}weather/weatherInfo?key={key}&city={adcode}");
             if (json is null) return null;
 
             WeatherInformation? weather = JsonConvert.DeserializeObject<WeatherInformation>(json);
@@ -724,47 +724,47 @@ namespace PuranLai.APIs
         /// </summary>
         /// <param name="match">过滤窗口的条件。如果设置为 null，将仅查找可见窗口。</param>
         /// <returns>找到的所有窗口信息。</returns>
-        public static IReadOnlyList<WindowInfo> FindAll(Predicate<WindowInfo>? match = null)
-        {
-            var windowList = new List<WindowInfo>();
-            EnumWindows(OnWindowEnum, 0);
-            return windowList.FindAll(match ?? DefaultPredicate);
+        //public static IReadOnlyList<WindowInfo> FindAll(Predicate<WindowInfo>? match = null)
+        //{
+        //    var windowList = new List<WindowInfo>();
+        //    EnumWindows(OnWindowEnum, 0);
+        //    return windowList.FindAll(match ?? DefaultPredicate);
 
-            bool OnWindowEnum(IntPtr hWnd, int lparam)
-            {
-                // 仅查找顶层窗口。
-                if (GetParent(hWnd) == IntPtr.Zero)
-                {
-                    // 获取窗口类名。
-                    var lpString = new StringBuilder(512);
-                    GetClassName(hWnd, lpString, lpString.Capacity);
-                    var className = lpString.ToString();
+        //    bool OnWindowEnum(IntPtr hWnd, int lparam)
+        //    {
+        //        // 仅查找顶层窗口。
+        //        if (GetParent(hWnd) == IntPtr.Zero)
+        //        {
+        //            // 获取窗口类名。
+        //            var lpString = new StringBuilder(512);
+        //            GetClassName(hWnd, lpString, lpString.Capacity);
+        //            var className = lpString.ToString();
 
-                    // 获取窗口标题。
-                    var lptrString = new StringBuilder(512);
-                    GetWindowText(hWnd, lptrString, lptrString.Capacity);
-                    var title = lptrString.ToString().Trim();
+        //            // 获取窗口标题。
+        //            var lptrString = new StringBuilder(512);
+        //            GetWindowText(hWnd, lptrString, lptrString.Capacity);
+        //            var title = lptrString.ToString().Trim();
 
-                    // 获取窗口可见性。
-                    var isVisible = IsWindowVisible(hWnd);
+        //            // 获取窗口可见性。
+        //            var isVisible = IsWindowVisible(hWnd);
 
-                    // 获取窗口位置和尺寸。
-                    LPRECT rect = default;
-                    GetWindowRect(hWnd, ref rect);
-                    var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
+        //            // 获取窗口位置和尺寸。
+        //            LPRECT rect = default;
+        //            GetWindowRect(hWnd, ref rect);
+        //            var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
 
-                    // 添加到已找到的窗口列表。
-                    windowList.Add(new WindowInfo(hWnd, className, title, isVisible, bounds));
-                }
+        //            // 添加到已找到的窗口列表。
+        //            windowList.Add(new WindowInfo(hWnd, className, title, isVisible, bounds));
+        //        }
 
-                return true;
-            }
-        }
+        //        return true;
+        //    }
+        //}
 
         /// <summary>
         /// 默认的查找窗口的过滤条件。可见 + 非最小化 + 包含窗口标题。
         /// </summary>
-        private static readonly Predicate<WindowInfo> DefaultPredicate = x => x.IsVisible && !x.IsMinimized && x.Title.Length > 0;
+        //private static readonly Predicate<WindowInfo> DefaultPredicate = x => x.IsVisible && !x.IsMinimized && x.Title.Length > 0;
 
         private delegate bool WndEnumProc(IntPtr hWnd, int lParam);
 

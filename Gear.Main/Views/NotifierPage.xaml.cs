@@ -103,7 +103,7 @@ namespace Gear.Views
 
         private void ClearMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            App.Notifier.ClearTexts();
+            NotifyWindow.ClearTexts();
         }
     }
 }

@@ -29,10 +29,9 @@ namespace Gear.Windows
     public partial class NotifyWindow : Window
     {
         DisplayMode Mode = DisplayMode.Text;
-        List<string> AutoScrollText = new();
+        List<string> AutoScrollText = [];
         int count = 0; Timer timer = new();
         Task Task_Mod, Task_Formula, Task_Text;
-        string Message = "";
 
         public NotifyWindow()
         {
@@ -196,7 +195,7 @@ namespace Gear.Windows
             Storyboard Open = new(); Open.Children.Add(open);
             Storyboard Close = new(); Close.Children.Add(close);
 
-            return new() { Open, Close };
+            return [Open, Close];
         }
 
         //private void EnqueueFormula(string formula)
@@ -413,7 +412,7 @@ namespace Gear.Windows
             });
         }
 
-        public void ClearTexts()
+        public static void ClearTexts()
         {
             int count = App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
             for (int i = 1; i <= count; i++)

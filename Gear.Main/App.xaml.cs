@@ -56,7 +56,6 @@ namespace Gear
                 Environment.Exit(0);
             }
 
-            // Check exist instance of this app
             ForeRunCheck();
 
             //new NotifyWindowExtended("Test 测试").Show();
@@ -66,13 +65,12 @@ namespace Gear
 #if DEBUG
             //Process.Start("explorer", "http://localhost:5177/swagger");
 #endif
-            // Show the windows
+
             Notifier.Show();
             Notifier.ShowToast("事件：启动");
+
             Classifier.Show();
-            // Setup the tray icon
             SetupTrayIcon();
-            // Configure startup
             SetupAutoStart();
         }
 

@@ -9,8 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gear.RestApi", "Gear.RestAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gear.Base", "Gear.Base\Gear.Base.csproj", "{1D79DAEC-8BC6-4FBB-A5D9-AD2F3F8B73BB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{D8775326-3E0A-4182-AD1F-935C059664A5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1692CDDE-78A7-40B6-A843-D2DE469199E3}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		Gear Solution.md = Gear Solution.md
 	EndProjectSection
 EndProject

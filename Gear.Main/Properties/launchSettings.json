@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Gear.Desktop": {
+    "Gear": {
       "commandName": "Project",
       "nativeDebugging": false
     }
