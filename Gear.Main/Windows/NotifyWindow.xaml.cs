@@ -108,7 +108,7 @@ namespace Gear.Windows
 
                 if (Mode == DisplayMode.Text)
                 {
-                    App.NotificationQueueService.EnqueueNotification(new(ContentForm.Text , content));
+                    App.NotificationQueueService.EnqueueNotification(new(ContentForm.Text, content));
                 }
                 else if (Mode == DisplayMode.Formula)
                 {
@@ -174,7 +174,7 @@ namespace Gear.Windows
 
                         new(ToastTextBlock.FontFamily, ToastTextBlock.FontStyle,
                             ToastTextBlock.FontWeight, ToastTextBlock.FontStretch),
-                        
+
                         ContentTextBlock.FontSize,
                         Brushes.Black,
                         VisualTreeHelper.GetDpi(this).PixelsPerDip);
@@ -403,7 +403,7 @@ namespace Gear.Windows
             Close_Lorem.Children.Add(Close_Margin);
             #endregion
 
-            Dispatcher.Invoke(async() =>
+            Dispatcher.Invoke(async () =>
             {
                 Open_Border.Begin(MainBorder);
                 Open_Lorem.Begin(ToastTextBlock);

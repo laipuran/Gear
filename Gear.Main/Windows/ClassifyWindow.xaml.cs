@@ -1,5 +1,4 @@
 ﻿using Gear.Models;
-using iNKORE.UI.WPF.Modern.Controls;
 using Microsoft.VisualBasic.FileIO;
 using Microsoft.Win32;
 using System;
