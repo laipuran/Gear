@@ -68,7 +68,7 @@ namespace Gear
 #endif
             // Show the windows
             Notifier.Show();
-            Notifier.EnqueueText("事件：启动");
+            Notifier.ShowToast("事件：启动");
             Classifier.Show();
             // Setup the tray icon
             SetupTrayIcon();

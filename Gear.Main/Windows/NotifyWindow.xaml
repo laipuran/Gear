@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:math="clr-namespace:WpfMath.Controls;assembly=WpfMath"
         mc:Ignorable="d" AllowsTransparency="True"
-        Title="文本提示" WindowStyle="None"
+        Title="通知" WindowStyle="None"
         Topmost="True" Background="#00FFFFFF"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Left="0" Top="0" ShowInTaskbar="False"
@@ -45,7 +45,7 @@
                     x:Name="MarginTextBlock"
                     Width="0"/>
                 <TextBlock
-                    x:Name="ContentTextBlock"
+                    x:Name="ToastTextBlock"
                     Text="Content 内容"
                     FontSize="150"
                     Foreground="White"
@@ -58,13 +58,14 @@
             Orientation="Horizontal"
             VerticalAlignment="Top"
             HorizontalAlignment="Center">
-            <!--<TextBlock
+            <TextBlock
                 x:Name="ContentTextBlock"
-                FontFamily="Smiley Sans Oblique"
+                FontFamily="Minecraft AE Pixel"
                 FontSize="48"
+                FontStyle="Italic"
                 Height="56"
                 Background="#44FFFFFF"
-                Foreground="#88000000"/>-->
+                Foreground="#88000000"/>
 
             <Viewbox
                 Margin="20,0,0,0"

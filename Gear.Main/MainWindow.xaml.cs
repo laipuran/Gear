@@ -57,7 +57,7 @@ namespace Gear
                 if (weather is null) return;
                 var life = weather.Lives[0];
                 string display = $"天气：{life.Weather}   温度：{life.Temperature}℃   风力：{life.WindPower}";
-                App.Notifier.EnqueueText(display);
+                App.Notifier.ShowToast(display);
             });
         }
     }

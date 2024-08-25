@@ -204,14 +204,14 @@ namespace Gear.Windows
         private async void DropButton_Drop(object sender, DragEventArgs e)
         {
             var detail = new SubjectDetail((Button)sender);
-            App.Notifier.EnqueueText("事件：移动文件到" + detail.SubjectName + "文件夹");
+            App.Notifier.ShowToast("事件：移动文件到" + detail.SubjectName + "文件夹");
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effects = DragDropEffects.Copy;
                 GetDroppedFiles(detail, e);
             }
             await Task.Delay(1000);
-            App.Notifier.EnqueueText("事件：移动完成");
+            App.Notifier.ShowToast("事件：移动完成");
 
         }
 
@@ -241,12 +241,12 @@ namespace Gear.Windows
             Process.Start("explorer.exe", detail.Directory);
             LastOpen = DateTime.Now;
 
-            App.Notifier.EnqueueText("事件：打开" + detail.SubjectName + "文件夹");
+            App.Notifier.ShowToast("事件：打开" + detail.SubjectName + "文件夹");
         }
 
         private void DropButton_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            App.Notifier.EnqueueText("事件：选择文件");
+            App.Notifier.ShowToast("事件：选择文件");
             DoubleClicked = true;
             WaitProgressRing.IsActive = false;
             WaitProgressRing.Visibility = Visibility.Collapsed;
@@ -261,7 +261,7 @@ namespace Gear.Windows
 
         private void Note_Click(object sender, RoutedEventArgs e)
         {
-            App.Notifier.EnqueueText("事件：打开笔记文件夹");
+            App.Notifier.ShowToast("事件：打开笔记文件夹");
             Process.Start("explorer.exe",
                 Environment.GetFolderPath
                 (Environment.SpecialFolder.MyPictures) + "\\Ink Canvas Screenshots");

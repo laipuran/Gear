@@ -56,6 +56,7 @@ namespace Gear.Windows
             #endregion
         }
 
+        #region Modifiers
         private async void Mod()
         {
             while (true)
@@ -69,7 +70,7 @@ namespace Gear.Windows
                 {
                     if (Equals(time, timer.Key))
                     {
-                        EnqueueText($"{timer.Key}定时事项：{timer.Value}");
+                        ShowToast($"{timer.Key}定时事项：{timer.Value}");
                     }
                 }
 
@@ -82,13 +83,57 @@ namespace Gear.Windows
             return time1.Hour == time2.Hour &&
                 time1.Minute == time2.Minute;
         }
+        #endregion
 
-        /// <summary>
-        /// 获取关键的 Storyboard
-        /// </summary>
-        /// <param name="mode">展示的模式</param>
-        /// <param name="text">显示的内容</param>
-        /// <returns></returns>
+        #region Timer & Scroller
+        private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
+        {
+            string content = "";
+            if (App.AppSettings.AutoScroll)
+            {
+                if (App.AppSettings.RollerText.LoopMode == LoopMode.Normal)
+                {
+                    if (count >= AutoScrollText.Count)
+                    {
+                        count = 0;
+                    }
+                    content = AutoScrollText[count];
+                    count++;
+                }
+                else if (App.AppSettings.RollerText.LoopMode == LoopMode.Shuffle)
+                {
+                    content = AutoScrollText[Random.Shared.Next(0, AutoScrollText.Count - 1)];
+                }
+                timer.Interval = content.Length * 100 + 15000;
+
+                if (Mode == DisplayMode.Text)
+                {
+                    App.NotificationQueueService.EnqueueNotification(new(ContentForm.Text , content));
+                }
+                else if (Mode == DisplayMode.Formula)
+                {
+                    App.NotificationQueueService.EnqueueNotification(new(ContentForm.Formula, content));
+                }
+            }
+            timer.Start();
+        }
+
+        public void SetScroller(List<string> strings, DisplayMode mode)
+        {
+            timer.Stop();
+
+            Mode = mode;
+            AutoScrollText = strings;
+
+            if (App.AppSettings.RollerText.LoopMode == LoopMode.Normal)
+            {
+                count = 0;
+            }
+            timer.Interval = 100;
+            timer.Start();
+        }
+        #endregion
+
         private List<Storyboard> GetAnimation(DisplayMode mode, string text)
         {
             DoubleAnimation open = new()
@@ -120,14 +165,19 @@ namespace Gear.Windows
                 Storyboard.SetTargetProperty(open, new(WidthProperty));
                 Storyboard.SetTargetProperty(close, new(WidthProperty));
 
-                FormattedText formattedText = new(
-                    text,
-                    CultureInfo.CurrentUICulture,
-                    FlowDirection.LeftToRight,
-                    new(ContentTextBlock.FontFamily, ContentTextBlock.FontStyle, ContentTextBlock.FontWeight, ContentTextBlock.FontStretch),
-                    ContentTextBlock.FontSize,
-                    Brushes.Black,
-                    VisualTreeHelper.GetDpi(this).PixelsPerDip);
+                FormattedText formattedText =
+                    new(
+
+                        text,
+                        CultureInfo.CurrentUICulture,
+                        FlowDirection.LeftToRight,
+
+                        new(ToastTextBlock.FontFamily, ToastTextBlock.FontStyle,
+                            ToastTextBlock.FontWeight, ToastTextBlock.FontStretch),
+                        
+                        ContentTextBlock.FontSize,
+                        Brushes.Black,
+                        VisualTreeHelper.GetDpi(this).PixelsPerDip);
 
                 double value = formattedText.Width;
 
@@ -149,58 +199,68 @@ namespace Gear.Windows
             return new() { Open, Close };
         }
 
-        private void Timer_Elapsed(object? sender, ElapsedEventArgs e)
+        //private void EnqueueFormula(string formula)
+        //{
+        //    if (string.IsNullOrEmpty(formula)) return;
+
+        //    App.NotificationQueueService.EnqueueNotification(new(ContentForm.Formula, formula));
+        //}
+
+        private async void SetText()
         {
-            string showText = "";
-            if (App.AppSettings.AutoScroll)
+            while (true)
             {
-                if (App.AppSettings.RollerText.LoopMode == LoopMode.Normal)
+                await Task.Delay(1000);
+
+                if (App.TaskbarIconToolTip is not null)
                 {
-                    if (count >= AutoScrollText.Count)
+                    try
                     {
-                        count = 0;
+                        App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
+                        {
+                            App.TaskbarIconToolTip.Content = "Gear\n队列中字条数量："
+                            + App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
+                        });
                     }
-                    showText = AutoScrollText[count];
-                    count++;
+                    catch { }
                 }
-                else if (App.AppSettings.RollerText.LoopMode == LoopMode.Shuffle)
-                {
-                    showText = AutoScrollText[Random.Shared.Next(0, AutoScrollText.Count - 1)];
-                }
-                timer.Interval = showText.Length * 100 + 15000;
 
-                if (Mode == DisplayMode.Text)
+                if (App.NotificationQueueService.Count(Base.Class.ContentForm.Text) <= 0)
                 {
-                    EnqueueText(showText);
+                    continue;
                 }
-                else if (Mode == DisplayMode.Formula)
+
+                var @object = App.NotificationQueueService.DequeueNotification(Base.Class.ContentForm.Text);
+                if (@object is null)
+                    continue;
+                string text = @object.Content;
+
+                try
                 {
-                    EnqueueFormula(showText);
+                    await ContentTextBlock.Dispatcher.Invoke(async () =>
+                    {
+                        var boards = GetAnimation(DisplayMode.Text, text);
+                        Storyboard BoardOpen = boards[0];
+                        ContentTextBlock.Text = text;
+                        BoardOpen.Begin(ContentTextBlock);
+
+                        int delay = 3000;
+                        if (text.Length > 10)
+                        {
+                            delay = text.Length * 100 + 5000;
+                        }
+                        await Task.Delay(delay);
+
+                        Storyboard BoardClose = boards[1];
+                        BoardClose.Begin(ContentTextBlock);
+                        await Task.Delay(2000);
+
+                        ContentTextBlock.Width = 0;
+                    });
+
                 }
+                catch { }
             }
-            timer.Start();
-        }
-
-        public void SetScroller(List<string> strings, DisplayMode mode)
-        {
-            timer.Stop();
-
-            Mode = mode;
-            AutoScrollText = strings;
-
-            if (App.AppSettings.RollerText.LoopMode == LoopMode.Normal)
-            {
-                count = 0;
-            }
-            timer.Interval = 100;
-            timer.Start();
-        }
-
-        private void EnqueueFormula(string formula)
-        {
-            if (string.IsNullOrEmpty(formula)) return;
-
-            App.NotificationQueueService.EnqueueNotification(new(ContentForm.Formula, formula));
         }
 
         private async void SetFormula()
@@ -237,94 +297,23 @@ namespace Gear.Windows
             }
         }
 
-        public void EnqueueText(string text)
+        public void ShowToast(string text)
         {
             if (string.IsNullOrEmpty(text)) return;
 
-            App.NotificationQueueService.EnqueueNotification(new(Base.Class.ContentForm.Text, text));
-        }
-
-        private async void SetText()
-        {
-            while (true)
-            {
-                await Task.Delay(1000);
-                if (App.TaskbarIconToolTip is not null)
-                {
-                    try
-                    {
-                        App.TaskbarIconToolTip.Dispatcher.Invoke(() =>
-                        {
-                            App.TaskbarIconToolTip.Content = "Gear\n队列中字条数量：" + App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
-                        });
-                    }
-                    catch { }
-                }
-
-                if (App.NotificationQueueService.Count(Base.Class.ContentForm.Text) <= 0)
-                {
-                    continue;
-                }
-
-                var @object = App.NotificationQueueService.DequeueNotification(Base.Class.ContentForm.Text);
-                if (@object is null)
-                    continue;
-                string text = @object.Content;
-                
-                await Dispatcher.BeginInvoke(() => { BeginAnimation(); ContentTextBlock.Text = text; });
-
-                try
-                {
-                    /*
-                    await ContentTextBlock.Dispatcher.Invoke(async () =>
-                    {
-                        var boards = GetAnimation(DisplayMode.Text, text);
-                        Storyboard BoardOpen = boards[0];
-                        ContentTextBlock.Text = text;
-                        BoardOpen.Begin(ContentTextBlock);
-
-                        int delay = 3000;
-                        if (text.Length > 10)
-                        {
-                            delay = text.Length * 100 + 5000;
-                        }
-                        await Task.Delay(delay);
-
-                        Storyboard BoardClose = boards[1];
-                        BoardClose.Begin(ContentTextBlock);
-                        await Task.Delay(2000);
-
-                        ContentTextBlock.Width = 0;    
-                    });
-                    */
-                }
-                catch { }
-            }
-        }
-
-        private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Visibility = Visibility.Collapsed;
-            await Task.Delay(10000);
-            Visibility = Visibility.Visible;
-        }
-
-        public void ClearTexts()
-        {
-            int count = App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
-            for (int i = 1; i <= count; i++)
-            {
-                App.NotificationQueueService.DequeueNotification(Base.Class.ContentForm.Text);
-            }
+            BeginTextAnimation(text);
         }
 
         private void DebugButton_Click(object sender, RoutedEventArgs e)
         {
-            BeginAnimation();
+            BeginTextAnimation();
         }
 
-        private async void BeginAnimation()
+        private void BeginTextAnimation(string Message = "")
         {
+            if (!string.IsNullOrEmpty(Message))
+                ToastTextBlock.Text = Message;
+
             #region Initialize Animations
             Storyboard Open_Border = new(), Open_Lorem = new(),
                 Close_Border = new(), Close_Lorem = new();
@@ -335,7 +324,7 @@ namespace Gear.Windows
                 To = 300,
                 Duration = TimeSpan.FromMilliseconds(600),
 
-                EasingFunction = new BackEase() { Amplitude = 0.3},
+                EasingFunction = new BackEase() { Amplitude = 0.3 },
             };
 
             DoubleAnimation Open_Opacity = new()
@@ -414,13 +403,30 @@ namespace Gear.Windows
             Close_Lorem.Children.Add(Close_Margin);
             #endregion
 
-            Open_Border.Begin(MainBorder);
-            Open_Lorem.Begin(ContentTextBlock);
-            await Task.Delay(1200);
-            Close_Border.Begin(MainBorder);
-            Close_Lorem.Begin(ContentTextBlock);
+            Dispatcher.Invoke(async() =>
+            {
+                Open_Border.Begin(MainBorder);
+                Open_Lorem.Begin(ToastTextBlock);
+                await Task.Delay(1200);
+                Close_Border.Begin(MainBorder);
+                Close_Lorem.Begin(ToastTextBlock);
+            });
+        }
 
-            //Close();
+        public void ClearTexts()
+        {
+            int count = App.NotificationQueueService.Count(Base.Class.ContentForm.Text);
+            for (int i = 1; i <= count; i++)
+            {
+                App.NotificationQueueService.DequeueNotification(Base.Class.ContentForm.Text);
+            }
+        }
+
+        private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Visibility = Visibility.Collapsed;
+            await Task.Delay(10000);
+            Visibility = Visibility.Visible;
         }
     }
 }
