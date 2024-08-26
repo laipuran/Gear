@@ -47,7 +47,7 @@
                 <TextBlock
                     x:Name="ToastTextBlock"
                     Text="Content 内容"
-                    FontSize="150"
+                    FontSize="140"
                     Foreground="White"
                     FontFamily="Minecraft AE Pixel"
                     HorizontalAlignment="Center"/>

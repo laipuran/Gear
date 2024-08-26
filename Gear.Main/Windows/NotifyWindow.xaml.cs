@@ -343,7 +343,7 @@ namespace Gear.Windows
 
                 EasingFunction = new BackEase()
                 {
-                    Amplitude = 0.7,
+                    Amplitude = 0.6,
                     EasingMode = EasingMode.EaseOut
                 }
             };
@@ -389,7 +389,7 @@ namespace Gear.Windows
 
                 EasingFunction = new BackEase()
                 {
-                    Amplitude = 0.6,
+                    Amplitude = 0.5,
                     EasingMode = EasingMode.EaseIn
                 }
             };
