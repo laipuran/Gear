@@ -31,17 +31,17 @@ namespace Gear.Windows
         DisplayMode Mode = DisplayMode.Text;
         List<string> AutoScrollText = [];
         int count = 0; Timer timer = new();
-        Task Task_Mod, Task_Formula, Task_Text;
 
         public NotifyWindow()
         {
             InitializeComponent();
-
             MainBorder.Opacity = 0;
 #if DEBUG
             DebugButton.Visibility = Visibility.Visible;
 #endif
             #region Set Tasks
+            Task Task_Mod, Task_Formula, Task_Text;
+
             Task_Mod = new(Mod);
             Task_Formula = new(SetFormula);
             Task_Text = new(SetText);
@@ -53,6 +53,13 @@ namespace Gear.Windows
             timer.Interval = 3000;
             timer.Elapsed += Timer_Elapsed;
             #endregion
+        }
+
+        public NotifyWindow(string Message)
+        {
+            InitializeComponent();
+            MainBorder.Opacity = 0;
+            BeginTextAnimation(Message);
         }
 
         #region Modifiers

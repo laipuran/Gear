@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using File = System.IO.File;
@@ -28,7 +29,7 @@ namespace Gear
         public static Settings AppSettings = Settings.GetSettings();
         public static ClassifyWindow Classifier = new();
         public static NotifyWindow Notifier = new();
-        public static WebApplication WebApp = RestApi.Program.CreateWebApp(new string[0]);
+        public static WebApplication WebApp = RestApi.Program.CreateWebApp([]);
         public static INotifyQueueService NotificationQueueService =
             RestApi.Controllers.TextNotification.NotifyService;
 #pragma warning restore CA2211 // 非常量字段应当不可见
@@ -46,13 +47,21 @@ namespace Gear
                                                 string? lpWindowName);
         #endregion
 
-        private void Application_Startup(object sender, StartupEventArgs e)
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             if (e.Args.Length != 0)
             {
                 var args = e.Args.ToList();
-                new MessageWindow(args[0]).ShowDialog();
-                Console.WriteLine(string.Join(' ', args));
+                foreach (var arg in args)
+                {
+                    if (arg == "/notify" || arg=="-notify")
+                    {
+                        new NotifyWindow(args[args.IndexOf(arg) + 1]).Show();
+                        await Task.Delay(1800);
+                        break;
+                    }
+                }
+                Console.WriteLine(string.Join('|', args));
                 Environment.Exit(0);
             }
 
@@ -88,7 +97,7 @@ namespace Gear
         {
             const string shortcutName = "Gear.lnk";
             string startupMenu = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-            List<string> files = Directory.GetFiles(startupMenu).ToList();
+            List<string> files = [.. Directory.GetFiles(startupMenu)];
             string fullName = startupMenu + "\\" + shortcutName;
             if (files.Contains(fullName))
             {
