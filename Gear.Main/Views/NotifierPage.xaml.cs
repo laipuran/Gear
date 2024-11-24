@@ -3,6 +3,7 @@ using PuranLai.Algorithms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,7 +14,7 @@ namespace Gear.Views
     /// </summary>
     public partial class NotifierPage : Page
     {
-        Dictionary<TimeOnly, string> _Data = new();
+        Dictionary<TimeOnly, string> _Data = [];
         Dictionary<TimeOnly, string> Data
         {
             get
@@ -53,6 +54,10 @@ namespace Gear.Views
 
             Data = App.AppSettings.Mod_Timing;
             EventDataGrid.ItemsSource = Data;
+
+            CountdownToggleSwitch.IsOn = App.AppSettings.EnableCountdown;
+            CountdownDatePicker.SelectedDate = App.AppSettings.CountdownDate;
+            EventNameTextBox.Text = App.AppSettings.CountDownEventName;
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
@@ -62,9 +67,9 @@ namespace Gear.Views
             {
                 LoopMode = NormalRadioButton.IsChecked == true ? LoopMode.Normal : LoopMode.Shuffle,
                 DisplayMode = FormulaToggleSwitch.IsOn ? DisplayMode.Formula : DisplayMode.Text,
-                Text = ContentTextBox.Text.Trim().Split('\n').ToList()
+                Text = [.. ContentTextBox.Text.Trim().Split('\n')]
             };
-            App.Notifier.SetScroller(ContentTextBox.Text.Trim().Split('\n').ToList()
+            App.Notifier.SetScroller([.. ContentTextBox.Text.Trim().Split('\n')]
                 , FormulaToggleSwitch.IsOn ? DisplayMode.Formula : DisplayMode.Text);
         }
 
@@ -95,7 +100,7 @@ namespace Gear.Views
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-            Data = new();
+            Data = [];
 
             EventDataGrid.ItemsSource = null;
             EventDataGrid.ItemsSource = Data;
@@ -110,7 +115,7 @@ namespace Gear.Views
         {
             App.AppSettings.CountdownDate = CountdownDatePicker.SelectedDate;
 
-            if (App.AppSettings.EnableCountdown && App.AppSettings.CountdownDate is not null)
+            if (App.AppSettings.EnableCountdown && CountdownDatePicker.SelectedDate != App.AppSettings.CountdownDate)
             {
                 App.Notifier.ShowToast($"离 {App.AppSettings.CountDownEventName} 还有 {(App.AppSettings.CountdownDate - DateTime.Now).Value.Days} 天！");
             }
