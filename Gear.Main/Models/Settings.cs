@@ -77,6 +77,9 @@ namespace Gear.Models
         public bool Mod_Time { get; set; }
         public Dictionary<TimeOnly, string> Mod_Timing { get; set; } = new();
         public RollerText RollerText { get; set; } = new();
+        public bool EnableCountdown { get; set; } = new();
+        public string? CountDownEventName { get; set; }
+        public DateTime? CountdownDate { get; set; } = new();
         #endregion
 
         public static Settings GetSettings()

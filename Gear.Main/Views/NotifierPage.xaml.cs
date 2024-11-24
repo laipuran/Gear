@@ -105,5 +105,25 @@ namespace Gear.Views
         {
             NotifyWindow.ClearTexts();
         }
+
+        private void CountdownDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            App.AppSettings.CountdownDate = CountdownDatePicker.SelectedDate;
+
+            if (App.AppSettings.EnableCountdown && App.AppSettings.CountdownDate is not null)
+            {
+                App.Notifier.ShowToast($"离 {App.AppSettings.CountDownEventName} 还有 {(App.AppSettings.CountdownDate - DateTime.Now).Value.Days} 天！");
+            }
+        }
+
+        private void CountdownToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            App.AppSettings.EnableCountdown = CountdownToggleSwitch.IsOn;
+        }
+
+        private void EventNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            App.AppSettings.CountDownEventName = EventNameTextBox.Text;
+        }
     }
 }

@@ -77,7 +77,34 @@
 		            Orientation="Vertical">
 
                 <TextBlock
-                    Text="定时事项"/>
+                    Text="倒计时"/>
+
+                <StackPanel
+                    Margin="0,5,0,0">
+                    
+                    <ui:ToggleSwitch
+                        x:Name="CountdownToggleSwitch"
+                        Toggled="CountdownToggleSwitch_Toggled"/>
+
+                    <StackPanel
+                        Margin="0,10,0,0"
+                        Orientation="Horizontal">
+                        
+                        <TextBox
+                            x:Name="EventNameTextBox"
+                            TextChanged="EventNameTextBox_TextChanged"/>
+
+                        <DatePicker
+                            Margin="20,0,0,0"
+                            x:Name="CountdownDatePicker"
+                            SelectedDateChanged="CountdownDatePicker_SelectedDateChanged"/>
+
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock
+                    Text="定时事项"
+                    Margin="0,10,0,0"/>
 
                 <Grid
                     Margin="0,10,0,0">

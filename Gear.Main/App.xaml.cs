@@ -76,7 +76,13 @@ namespace Gear
 #endif
 
             Notifier.Show();
-            Notifier.ShowToast("事件：启动");
+
+            if (App.AppSettings.EnableCountdown && App.AppSettings.CountdownDate is not null)
+            {
+                App.Notifier.ShowToast($"离 {App.AppSettings.CountDownEventName} 还有 {(App.AppSettings.CountdownDate - DateTime.Now).Value.Days} 天！");
+            }
+            else
+                Notifier.ShowToast("事件：启动");
 
             Classifier.Show();
             SetupTrayIcon();
