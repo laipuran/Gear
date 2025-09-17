@@ -41,11 +41,6 @@ namespace Gear
         public static MenuItem SettingsItem { get; private set; } = new();
         #endregion
 
-        #region Include System Functions
-        [DllImport("user32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Unicode)]
-        private static extern IntPtr FindWindow(string? lpClassName,
-                                                string? lpWindowName);
-        #endregion
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -65,7 +60,7 @@ namespace Gear
                 Environment.Exit(0);
             }
 
-            ForeRunCheck();
+            ForerunCheck();
 
             //new NotifyWindowExtended("Test 测试").Show();
             //return;
@@ -89,7 +84,7 @@ namespace Gear
             SetupAutoStart();
         }
 
-        private static void ForeRunCheck()
+        private static void ForerunCheck()
         {
             Process[] process = Process.GetProcessesByName("Gear.Desktop");
             if (process.Length > 1)
@@ -192,7 +187,7 @@ namespace Gear
 
             TaskbarIconToolTip = new()
             {
-                Content = "Pronged Gear"
+                Content = "Gear"
             };
 
             TaskbarIcon = new()
@@ -221,17 +216,18 @@ namespace Gear
 
         private void ClassifierVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            if (((ToggleSwitch)sender).IsOn)
-            {
-                Classifier.Visibility = Visibility.Visible;
-                //Notifier.EnqueueText("事件：修改课件分类[可见性]为[可见]");
-            }
-            else
-            {
-                Classifier.Visibility = Visibility.Collapsed;
-                //Notifier.EnqueueText("事件：修改课件分类[可见性]为[不可见]");
+            AppSettings.ShowClassifier = ((ToggleSwitch)sender).IsOn;
+            //if (((ToggleSwitch)sender).IsOn)
+            //{
+            //    //Classifier.Visibility = Visibility.Visible;
+            //    //Notifier.EnqueueText("事件：修改课件分类[可见性]为[可见]");
+            //}
+            //else
+            //{
+            //    //Classifier.Visibility = Visibility.Collapsed;
+            //    //Notifier.EnqueueText("事件：修改课件分类[可见性]为[不可见]");
 
-            }
+            //}
         }
 
         private void TimerVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
