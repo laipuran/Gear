@@ -45,6 +45,10 @@
                 x:Name="ClassifyNavItem"
                 Tag="Classifier"
                 Icon="List"/>
+            <ui:NavigationViewItem
+                Content="通用设置"
+                x:Name="GeneralNavItem"
+                Tag="Settings"/>
         </ui:NavigationView.MenuItems>
         <ScrollViewer
             HorizontalScrollBarVisibility="Hidden">

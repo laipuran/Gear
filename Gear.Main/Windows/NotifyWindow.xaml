@@ -7,22 +7,48 @@
         mc:Ignorable="d" AllowsTransparency="True"
         Title="通知" WindowStyle="None"
         Topmost="True" Background="#00FFFFFF"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Left="0" Top="0" ShowInTaskbar="False"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}"
         Height="{x:Static SystemParameters.PrimaryScreenHeight}">
     <Grid
         VerticalAlignment="Stretch">
-        <Button
-            VerticalAlignment="Bottom"
-            Visibility="Collapsed"
-            HorizontalAlignment="Center"
-            x:Name="DebugButton"
-            Content="Open"
-            FontSize="100"
-            Height="50"
-            Panel.ZIndex="2"
-            Click="DebugButton_Click"/>
+        <StackPanel
+            Background="#88FFFFFF"
+            Panel.ZIndex="3"
+            x:Name="DebugStackPanel"
+            Orientation="Vertical"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center">
+            <TextBlock
+                Text="Debug Settings"
+                FontSize="30"/>
+            <TextBlock
+                Text="Information"
+                FontSize="22"
+                Margin="0,10,0,0"/>
+            <TextBlock
+                Margin="0,5,0,0"
+                x:Name="TextQueueTextBlock"
+                Text="Empty"
+                FontSize="15"
+                MouseLeftButtonDown="TextQueueTextBlock_MouseLeftButtonDown"/>
+            <TextBlock
+                Text="Operations"
+                FontSize="22"
+                Margin="0,10,0,0"/>
+            <Button
+                Margin="0,5,0,0"
+                VerticalAlignment="Bottom"
+                Visibility="Visible"
+                x:Name="OpenBannerButton"
+                Content="Open Banner"
+                Click="OpenBannerButton_Click"/>
+            <Button
+                Margin="0,5,0,0"
+                x:Name="OpenMainWindowButton"
+                Content="Open MainWindow"
+                Click="OpenMainWindowButton_Click"/>
+        </StackPanel>
         <Border
             x:Name="MainBorder"
             Background="#2f52c8"
@@ -55,9 +81,11 @@
         </Border>
 
         <StackPanel
+            x:Name="TopStackPanel"
             Orientation="Horizontal"
             VerticalAlignment="Top"
-            HorizontalAlignment="Center">
+            HorizontalAlignment="Center"
+            MouseLeftButtonDown="TopStackPanel_MouseLeftButtonDown">
             <TextBlock
                 x:Name="ContentTextBlock"
                 FontFamily="Minecraft AE Pixel"

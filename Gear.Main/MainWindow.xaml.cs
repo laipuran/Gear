@@ -1,4 +1,5 @@
-﻿using Gear.Models;
+﻿using Gear.Desktop.Views;
+using Gear.Models;
 using Gear.Views;
 using iNKORE.UI.WPF.Modern.Controls;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Gear
 
             ClassifyNavItem.Icon = new FontIcon() { Glyph = "\uE122" };
             NotifyNavItem.Icon = new FontIcon() { Glyph = "\uE138" };
+            GeneralNavItem.Icon = new FontIcon() { Glyph = "\uE713" };
         }
 
         private void NavigationView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -33,6 +35,10 @@ namespace Gear
 
                 case "Notifier":
                     ContentFrame.Navigate(typeof(NotifierPage));
+                    break;
+
+                case "Settings":
+                    ContentFrame.Navigate(typeof(SettingsPage));
                     break;
             }
         }

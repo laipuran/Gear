@@ -37,7 +37,9 @@ namespace Gear.Windows
             InitializeComponent();
             MainBorder.Opacity = 0;
 #if DEBUG
-            DebugButton.Visibility = Visibility.Visible;
+#else
+
+            DebugStackPanel.Visibility = Visibility.Collapsed;
 #endif
             #region Set Tasks
             Task Task_Mod, Task_Formula, Task_Text;
@@ -310,7 +312,7 @@ namespace Gear.Windows
             BeginTextAnimation(text);
         }
 
-        private void DebugButton_Click(object sender, RoutedEventArgs e)
+        private void OpenBannerButton_Click(object sender, RoutedEventArgs e)
         {
             BeginTextAnimation();
         }
@@ -428,11 +430,37 @@ namespace Gear.Windows
             }
         }
 
-        private async void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void TopStackPanel_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Visibility = Visibility.Collapsed;
-            await Task.Delay(10000);
-            Visibility = Visibility.Visible;
+            TopStackPanel.Visibility = Visibility.Collapsed;
+            await Task.Delay(10 * 1000);
+            TopStackPanel.Visibility = Visibility.Visible;
+        }
+
+        private void TextQueueTextBlock_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var TextObjects = App.NotificationQueueService.GetObjects(ContentForm.Text);
+            string TextList = "";
+            foreach (var item in TextObjects)
+            {
+                TextList += item.Content + "\n";
+            }
+            if (string.IsNullOrEmpty(TextList))
+                TextQueueTextBlock.Text = "Empty";
+            else
+                TextQueueTextBlock.Text = TextList;
+        }
+
+        private void OpenMainWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Application.Current.MainWindow.Close();
+            }
+            catch { }
+            Application.Current.MainWindow = new MainWindow();
+            Application.Current.MainWindow.Show();
+
         }
     }
 }

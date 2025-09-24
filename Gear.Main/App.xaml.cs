@@ -216,18 +216,18 @@ namespace Gear
 
         private void ClassifierVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-            AppSettings.ShowClassifier = ((ToggleSwitch)sender).IsOn;
-            //if (((ToggleSwitch)sender).IsOn)
-            //{
-            //    //Classifier.Visibility = Visibility.Visible;
-            //    //Notifier.EnqueueText("事件：修改课件分类[可见性]为[可见]");
-            //}
-            //else
-            //{
-            //    //Classifier.Visibility = Visibility.Collapsed;
-            //    //Notifier.EnqueueText("事件：修改课件分类[可见性]为[不可见]");
+            //AppSettings.ShowClassifier = ((ToggleSwitch)sender).IsOn;
+            if (((ToggleSwitch)sender).IsOn)
+            {
+                Classifier.Visibility = Visibility.Visible;
+                //Notifier.EnqueueText("事件：修改课件分类[可见性]为[可见]");
+            }
+            else
+            {
+                Classifier.Visibility = Visibility.Collapsed;
+                //Notifier.EnqueueText("事件：修改课件分类[可见性]为[不可见]");
 
-            //}
+            }
         }
 
         private void TimerVisibilityToggleSwitch_Toggled(object sender, RoutedEventArgs e)
